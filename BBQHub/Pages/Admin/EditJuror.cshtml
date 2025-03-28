@@ -1,0 +1,41 @@
+﻿@page "{id:int}"
+@model BBQHub.Pages.Admin.EditJurorModel
+@{
+    ViewData["Title"] = "Juror bearbeiten";
+}
+
+<h1 class="text-2xl font-bold mb-4">Juror bearbeiten</h1>
+
+<form method="post" class="space-y-4 text-black">
+    <input type="hidden" asp-for="Juror.Id" />
+
+    <div>
+        <label asp-for="Juror.FirstName"></label>
+        <input asp-for="Juror.FirstName" class="p-2 rounded w-full" />
+    </div>
+    <div>
+        <label asp-for="Juror.LastName"></label>
+        <input asp-for="Juror.LastName" class="p-2 rounded w-full" />
+    </div>
+    <div>
+        <label asp-for="Juror.JuryId"></label>
+        <input asp-for="Juror.JuryId" class="p-2 rounded w-full" />
+    </div>
+    <div>
+        <label asp-for="Juror.Email"></label>
+        <input asp-for="Juror.Email" class="p-2 rounded w-full" />
+    </div>
+    <div>
+        <label asp-for="Juror.Vereinslocation"></label>
+        <select asp-for="Juror.Vereinslocation" class="w-full p-2 rounded border bg-white">
+            <option value="">Bitte auswählen</option>
+            @foreach (var country in Model.AvailableCountries)
+            {
+                <option value="@country">@country</option>
+            }
+        </select>
+        <span asp-validation-for="Juror.Vereinslocation" class="text-red-500"></span>
+    </div>
+
+    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">Speichern</button>
+</form>

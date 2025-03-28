@@ -188,8 +188,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/05_Programmingstuff/03_DotNet/BBQHub/Pages/Admin/EditJuror.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cRWRpdEp1cm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/05_Programmingstuff/03_DotNet/BBQHub/Pages/Admin/ExportJuroren.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cRXhwb3J0SnVyb3Jlbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/05_Programmingstuff/03_DotNet/BBQHub/Pages/Admin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/05_Programmingstuff/03_DotNet/BBQHub/Pages/Admin/Juroren.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cSnVyb3Jlbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/05_Programmingstuff/03_DotNet/BBQHub/Pages/Error.cshtml]
@@ -198,6 +210,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/05_Programmingstuff/03_DotNet/BBQHub/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/05_Programmingstuff/03_DotNet/BBQHub/Pages/Juror/Registrieren.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSnVyb3JcUmVnaXN0cmllcmVuLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/05_Programmingstuff/03_DotNet/BBQHub/Pages/Privacy.cshtml]
@@ -210,6 +226,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/05_Programmingstuff/03_DotNet/BBQHub/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/05_Programmingstuff/03_DotNet/BBQHub/Pages/Wettbewerb/Start.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcV2V0dGJld2VyYlxTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/05_Programmingstuff/03_DotNet/BBQHub/Pages/_ViewImports.cshtml]

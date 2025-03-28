@@ -1,10 +1,41 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "BBQHub – Start";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<section class="text-center mt-10 space-y-6">
+    <h1 class="text-4xl md:text-5xl font-bold text-orange-500">
+        Willkommen beim BBQHub!
+    </h1>
+
+    <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
+        Deine Plattform für Wettbewerbe, Bewertungen und Juryverwaltung rund ums BBQ.
+        Nimm am aktuellen Event teil oder informiere dich über kommende Veranstaltungen!
+    </p>
+
+    <a asp-page="/Wettbewerb/Start"
+       class="inline-block mt-6 px-6 py-3 bg-orange-600 text-white font-semibold rounded hover:bg-orange-700 transition">
+        🔥 Am Wettbewerb teilnehmen
+    </a>
+
+    <a asp-page="/Juror/Registrieren"
+       class="inline-block mt-6 px-6 py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition">
+        📝 Juror registrieren
+    </a>
+
+    <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto text-left text-gray-300">
+        <div class="bg-zinc-800 p-6 rounded-lg shadow">
+            <h2 class="text-xl font-semibold text-white mb-2">Wettbewerbe</h2>
+            <p>Alle kommenden BBQ-Wettbewerbe auf einen Blick – inklusive Infos & Teilnahmebedingungen.</p>
+        </div>
+        <div class="bg-zinc-800 p-6 rounded-lg shadow">
+            <h2 class="text-xl font-semibold text-white mb-2">Jury-Bereich</h2>
+            <p>Einfacher Zugang für Juroren mit individuellen Bewertungsformularen und Profilübersicht.</p>
+        </div>
+        <div class="bg-zinc-800 p-6 rounded-lg shadow">
+            <h2 class="text-xl font-semibold text-white mb-2">Verwaltung</h2>
+            <p>Für Organisatoren: Teilnehmer verwalten, Bewertungen exportieren, Events konfigurieren.</p>
+        </div>
+    </div>
+</section>

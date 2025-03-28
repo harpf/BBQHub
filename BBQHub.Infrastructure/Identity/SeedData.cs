@@ -10,36 +10,43 @@ namespace BBQHub.Infrastructure.Identity
 {
     public static class SeedData
     {
-        public static async Task EnsureAdminUserAsync(IServiceProvider services)
+        public static async Task EnsureAdminUserAsync(IServiceProvider serviceProvider)
         {
-            var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
-            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
             const string adminEmail = "admin@bbqhub.local";
             const string adminPassword = "BBQadmin123!";
             const string adminRole = "Admin";
 
-            // Rolle anlegen, falls nicht vorhanden
+            // Rolle erstellen, falls nicht vorhanden
             if (!await roleManager.RoleExistsAsync(adminRole))
             {
                 await roleManager.CreateAsync(new IdentityRole(adminRole));
             }
 
-            // Benutzer anlegen, falls nicht vorhanden
-            var admin = await userManager.FindByEmailAsync(adminEmail);
-            if (admin == null)
+            // Benutzer erstellen, falls nicht vorhanden
+            var adminUser = await userManager.FindByEmailAsync(adminEmail);
+            if (adminUser == null)
             {
-                admin = new IdentityUser { UserName = adminEmail, Email = adminEmail, EmailConfirmed = true };
-                await userManager.CreateAsync(admin, adminPassword);
-                await userManager.AddToRoleAsync(admin, adminRole);
-            }
-            else
-            {
-                // sicherstellen, dass er die Rolle hat
-                if (!await userManager.IsInRoleAsync(admin, adminRole))
+                adminUser = new IdentityUser
                 {
-                    await userManager.AddToRoleAsync(admin, adminRole);
+                    UserName = adminEmail,
+                    Email = adminEmail,
+                    EmailConfirmed = true
+                };
+
+                var result = await userManager.CreateAsync(adminUser, adminPassword);
+                if (!result.Succeeded)
+                {
+                    throw new Exception("Failed to create default admin user:\n" + string.Join("\n", result.Errors.Select(e => e.Description)));
                 }
+            }
+
+            // Rolle zuweisen
+            if (!await userManager.IsInRoleAsync(adminUser, adminRole))
+            {
+                await userManager.AddToRoleAsync(adminUser, adminRole);
             }
         }
     }

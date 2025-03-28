@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -22,6 +27,12 @@
                     <li>
                         <a class="hover:underline" asp-area="" asp-page="/Index">Home</a>
                     </li>
+                    @if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    {
+                        <li>
+                            <a class="text-white hover:underline" asp-area="" asp-page="/Admin/Juroren">Juroren</a>
+                        </li>
+                    }
                     <li>
                         <a class="hover:underline" asp-area="" asp-page="/Privacy">Privacy</a>
                     </li>

@@ -13,3 +13,6 @@ D:\05_Programmingstuff\03_DotNet\BBQHub.Infrastructure\obj\Debug\net8.0\BBQHub.I
 D:\05_Programmingstuff\03_DotNet\BBQHub.Infrastructure\obj\Debug\net8.0\refint\BBQHub.Infrastructure.dll
 D:\05_Programmingstuff\03_DotNet\BBQHub.Infrastructure\obj\Debug\net8.0\BBQHub.Infrastructure.pdb
 D:\05_Programmingstuff\03_DotNet\BBQHub.Infrastructure\obj\Debug\net8.0\ref\BBQHub.Infrastructure.dll
+D:\05_Programmingstuff\03_DotNet\BBQHub.Infrastructure\obj\Debug\net8.0\BBQHub.Infrastructure.sourcelink.json
+D:\05_Programmingstuff\03_DotNet\BBQHub.Infrastructure\bin\Debug\net8.0\BBQHub.Application.dll
+D:\05_Programmingstuff\03_DotNet\BBQHub.Infrastructure\bin\Debug\net8.0\BBQHub.Application.pdb

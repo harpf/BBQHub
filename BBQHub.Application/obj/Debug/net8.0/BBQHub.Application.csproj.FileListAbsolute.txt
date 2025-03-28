@@ -13,3 +13,4 @@ D:\05_Programmingstuff\03_DotNet\BBQHub.Application\obj\Debug\net8.0\BBQHub.Appl
 D:\05_Programmingstuff\03_DotNet\BBQHub.Application\obj\Debug\net8.0\refint\BBQHub.Application.dll
 D:\05_Programmingstuff\03_DotNet\BBQHub.Application\obj\Debug\net8.0\BBQHub.Application.pdb
 D:\05_Programmingstuff\03_DotNet\BBQHub.Application\obj\Debug\net8.0\ref\BBQHub.Application.dll
+D:\05_Programmingstuff\03_DotNet\BBQHub.Application\obj\Debug\net8.0\BBQHub.Application.sourcelink.json

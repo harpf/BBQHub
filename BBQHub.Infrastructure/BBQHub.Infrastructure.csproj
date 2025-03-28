@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BBQHub.Domain\BBQHub.Domain.csproj" />
+    <ProjectReference Include="..\BBQHub.Application\BBQHub.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>

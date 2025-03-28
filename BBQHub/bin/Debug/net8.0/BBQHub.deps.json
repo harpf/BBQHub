@@ -2014,7 +2014,9 @@
       },
       "BBQHub.Application/1.0.0": {
         "dependencies": {
-          "BBQHub.Domain": "1.0.0"
+          "BBQHub.Domain": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "8.0.3",
+          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.3"
         },
         "runtime": {
           "BBQHub.Application.dll": {
@@ -2033,6 +2035,7 @@
       },
       "BBQHub.Infrastructure/1.0.0": {
         "dependencies": {
+          "BBQHub.Application": "1.0.0",
           "BBQHub.Domain": "1.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.3",
           "Microsoft.EntityFrameworkCore": "8.0.3",

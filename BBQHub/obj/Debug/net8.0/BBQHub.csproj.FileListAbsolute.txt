@@ -279,3 +279,4 @@ D:\05_Programmingstuff\03_DotNet\BBQHub\obj\Debug\net8.0\staticwebassets.upToDat
 D:\05_Programmingstuff\03_DotNet\BBQHub\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Design.dll
 D:\05_Programmingstuff\03_DotNet\BBQHub\bin\Debug\net8.0\global.json
 D:\05_Programmingstuff\03_DotNet\BBQHub\obj\Debug\net8.0\BBQHub.MvcApplicationPartsAssemblyInfo.cs
+D:\05_Programmingstuff\03_DotNet\BBQHub\obj\Debug\net8.0\BBQHub.sourcelink.json

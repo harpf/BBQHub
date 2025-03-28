@@ -2946,7 +2946,9 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "BBQHub.Domain": "1.0.0"
+          "BBQHub.Domain": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "8.0.3",
+          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.3"
         },
         "compile": {
           "bin/placeholder/BBQHub.Application.dll": {}
@@ -2969,6 +2971,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "BBQHub.Application": "1.0.0",
           "BBQHub.Domain": "1.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.0",
           "Microsoft.EntityFrameworkCore": "8.0.3",

@@ -53,6 +53,16 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.3, )"
+            },
+            "Microsoft.EntityFrameworkCore.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.3, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -166,6 +176,9 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
+              "D:\\05_Programmingstuff\\03_DotNet\\BBQHub.Application\\BBQHub.Application.csproj": {
+                "projectPath": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub.Application\\BBQHub.Application.csproj"
+              },
               "D:\\05_Programmingstuff\\03_DotNet\\BBQHub.Domain\\BBQHub.Domain.csproj": {
                 "projectPath": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub.Domain\\BBQHub.Domain.csproj"
               }
