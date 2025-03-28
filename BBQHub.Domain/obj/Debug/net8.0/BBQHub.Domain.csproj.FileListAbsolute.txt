@@ -1,0 +1,11 @@
+D:\05_Programmingstuff\03_DotNet\BBQHub.Domain\bin\Debug\net8.0\BBQHub.Domain.deps.json
+D:\05_Programmingstuff\03_DotNet\BBQHub.Domain\bin\Debug\net8.0\BBQHub.Domain.dll
+D:\05_Programmingstuff\03_DotNet\BBQHub.Domain\bin\Debug\net8.0\BBQHub.Domain.pdb
+D:\05_Programmingstuff\03_DotNet\BBQHub.Domain\obj\Debug\net8.0\BBQHub.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\05_Programmingstuff\03_DotNet\BBQHub.Domain\obj\Debug\net8.0\BBQHub.Domain.AssemblyInfoInputs.cache
+D:\05_Programmingstuff\03_DotNet\BBQHub.Domain\obj\Debug\net8.0\BBQHub.Domain.AssemblyInfo.cs
+D:\05_Programmingstuff\03_DotNet\BBQHub.Domain\obj\Debug\net8.0\BBQHub.Domain.csproj.CoreCompileInputs.cache
+D:\05_Programmingstuff\03_DotNet\BBQHub.Domain\obj\Debug\net8.0\BBQHub.Domain.dll
+D:\05_Programmingstuff\03_DotNet\BBQHub.Domain\obj\Debug\net8.0\refint\BBQHub.Domain.dll
+D:\05_Programmingstuff\03_DotNet\BBQHub.Domain\obj\Debug\net8.0\BBQHub.Domain.pdb
+D:\05_Programmingstuff\03_DotNet\BBQHub.Domain\obj\Debug\net8.0\ref\BBQHub.Domain.dll

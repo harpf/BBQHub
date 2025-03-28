@@ -1,0 +1,15 @@
+D:\05_Programmingstuff\03_DotNet\BBQHub.Infrastructure\bin\Debug\net8.0\BBQHub.Infrastructure.deps.json
+D:\05_Programmingstuff\03_DotNet\BBQHub.Infrastructure\bin\Debug\net8.0\BBQHub.Infrastructure.dll
+D:\05_Programmingstuff\03_DotNet\BBQHub.Infrastructure\bin\Debug\net8.0\BBQHub.Infrastructure.pdb
+D:\05_Programmingstuff\03_DotNet\BBQHub.Infrastructure\bin\Debug\net8.0\BBQHub.Domain.dll
+D:\05_Programmingstuff\03_DotNet\BBQHub.Infrastructure\bin\Debug\net8.0\BBQHub.Domain.pdb
+D:\05_Programmingstuff\03_DotNet\BBQHub.Infrastructure\obj\Debug\net8.0\BBQHub.Infrastructure.csproj.AssemblyReference.cache
+D:\05_Programmingstuff\03_DotNet\BBQHub.Infrastructure\obj\Debug\net8.0\BBQHub.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\05_Programmingstuff\03_DotNet\BBQHub.Infrastructure\obj\Debug\net8.0\BBQHub.Infrastructure.AssemblyInfoInputs.cache
+D:\05_Programmingstuff\03_DotNet\BBQHub.Infrastructure\obj\Debug\net8.0\BBQHub.Infrastructure.AssemblyInfo.cs
+D:\05_Programmingstuff\03_DotNet\BBQHub.Infrastructure\obj\Debug\net8.0\BBQHub.Infrastructure.csproj.CoreCompileInputs.cache
+D:\05_Programmingstuff\03_DotNet\BBQHub.Infrastructure\obj\Debug\net8.0\BBQHub.I.F1D63EB4.Up2Date
+D:\05_Programmingstuff\03_DotNet\BBQHub.Infrastructure\obj\Debug\net8.0\BBQHub.Infrastructure.dll
+D:\05_Programmingstuff\03_DotNet\BBQHub.Infrastructure\obj\Debug\net8.0\refint\BBQHub.Infrastructure.dll
+D:\05_Programmingstuff\03_DotNet\BBQHub.Infrastructure\obj\Debug\net8.0\BBQHub.Infrastructure.pdb
+D:\05_Programmingstuff\03_DotNet\BBQHub.Infrastructure\obj\Debug\net8.0\ref\BBQHub.Infrastructure.dll
