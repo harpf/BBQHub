@@ -36,10 +36,16 @@ builder.Services.AddScoped<IApplicationDbContext>(provider =>
 
 var app = builder.Build();
 
-// Seed AdminUser
+// Ensure database is created and migrations are applied
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
+    var dbContext = services.GetRequiredService<ApplicationDbContext>();
+
+    // Diese Zeile führt alle Migrationen aus, falls noch nicht angewendet
+    await dbContext.Database.MigrateAsync();
+
+    // Seed AdminUser (z.?B. Standardrolle + Admin-Konto)
     await SeedData.EnsureAdminUserAsync(services);
 }
 
