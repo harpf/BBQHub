@@ -6,10 +6,13 @@ using BBQHub.Application.Common.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Logging.AddEventLog(options =>
+if (OperatingSystem.IsWindows())
 {
-    options.SourceName = "BBQHubApp";
-});
+    builder.Logging.AddEventLog(options =>
+    {
+        options.SourceName = "BBQHubApp";
+    });
+}
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
