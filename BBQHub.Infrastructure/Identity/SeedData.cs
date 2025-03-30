@@ -15,17 +15,20 @@ namespace BBQHub.Infrastructure.Identity
             var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
             var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-            const string adminEmail = "admin@bbqhub.local";
-            const string adminPassword = "BBQadmin123!";
-            const string adminRole = "Admin";
+            // Rollen definieren
+            string[] roles = new[] { "Admin", "EventOrganizer" };
 
-            // Rolle erstellen, falls nicht vorhanden
-            if (!await roleManager.RoleExistsAsync(adminRole))
+            foreach (var role in roles)
             {
-                await roleManager.CreateAsync(new IdentityRole(adminRole));
+                if (!await roleManager.RoleExistsAsync(role))
+                {
+                    await roleManager.CreateAsync(new IdentityRole(role));
+                }
             }
 
-            // Benutzer erstellen, falls nicht vorhanden
+            const string adminEmail = "admin@bbqhub.local";
+            const string adminPassword = "BBQadmin123!";
+
             var adminUser = await userManager.FindByEmailAsync(adminEmail);
             if (adminUser == null)
             {
@@ -39,14 +42,15 @@ namespace BBQHub.Infrastructure.Identity
                 var result = await userManager.CreateAsync(adminUser, adminPassword);
                 if (!result.Succeeded)
                 {
-                    throw new Exception("Failed to create default admin user:\n" + string.Join("\n", result.Errors.Select(e => e.Description)));
+                    throw new Exception("Failed to create default admin user:\n" +
+                        string.Join("\n", result.Errors.Select(e => e.Description)));
                 }
             }
 
-            // Rolle zuweisen
-            if (!await userManager.IsInRoleAsync(adminUser, adminRole))
+            // Admin-Rolle zuweisen
+            if (!await userManager.IsInRoleAsync(adminUser, "Admin"))
             {
-                await userManager.AddToRoleAsync(adminUser, adminRole);
+                await userManager.AddToRoleAsync(adminUser, "Admin");
             }
         }
     }

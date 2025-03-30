@@ -1,0 +1,47 @@
+﻿@page
+@model BBQHub.Pages.Admin.Teams.IndexModel
+@{
+    ViewData["Title"] = "Teams verwalten";
+}
+
+<h1 class="text-2xl font-bold mb-6 text-orange-500">Teamverwaltung</h1>
+
+<a asp-page="/Admin/Teams/Create"
+   class="mb-4 inline-block bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
+    ➕ Neues Team erstellen
+</a>
+
+<table class="w-full border-collapse text-left">
+    <thead class="bg-zinc-800 text-white">
+        <tr>
+            <th class="p-2">Teamname</th>
+            <th class="p-2">Ansprechpartner</th>
+            <th class="p-2">Kontakt</th>
+            <th class="p-2">Event</th>
+            <th class="p-2">Aktionen</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var team in Model.Teams)
+        {
+            <tr class="border-b border-zinc-700">
+                <td class="p-2">@team.Name</td>
+                <td class="p-2">@team.Ansprechpartner</td>
+                <td class="p-2">@team.KontaktEmail</td>
+                <td class="p-2">@team.Event?.Name</td>
+                <td class="p-2 space-x-2">
+                    <a asp-page="/Admin/Teams/Edit" asp-route-id="@team.Id"
+                       class="text-blue-400 hover:underline">Bearbeiten</a>
+                    <a asp-page="/Admin/Teams/Details" asp-route-id="@team.Id"
+                       class="text-green-400 hover:underline">Details</a>
+                    <form method="post" asp-page-handler="Delete" asp-route-id="@team.Id" class="inline"
+                          onsubmit="return confirm('Möchtest du dieses Team wirklich löschen?');">
+                        <button type="submit" class="text-red-400 hover:underline bg-transparent border-none p-0">
+                            Löschen
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

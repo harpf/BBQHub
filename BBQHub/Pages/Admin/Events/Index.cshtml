@@ -1,0 +1,57 @@
+﻿@page
+@model BBQHub.Pages.Admin.Events.IndexModel
+@using BBQHub.Domain.Entities
+@{
+    ViewData["Title"] = "Events";
+}
+
+<h1 class="text-2xl font-bold mb-4 text-orange-500">Event Übersicht</h1>
+
+<a asp-page="/Admin/Events/CreateEvent" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
+    ➕ Neues Event erstellen
+</a>
+
+<table class="mt-6 w-full text-left border-collapse">
+    <thead>
+        <tr class="bg-zinc-800 text-white">
+            <th class="p-2">ID</th>
+            <th class="p-2">Name</th>
+            <th class="p-2">Adresse</th>
+            <th class="p-2">Manager</th>
+            <th class="p-2">Beschreibung</th>
+            <th class="p-2">Aktionen</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ev in Model.Events)
+        {
+            <tr class="border-b border-zinc-700">
+                <td class="p-2">@ev.Id</td>
+                <td class="p-2">@ev.Name</td>
+                <td class="p-2">@ev.Address</td>
+                <td class="p-2">@ev.ManagerId</td>
+                <td class="p-2">@ev.Description</td>
+                <td class="p-2 space-y-1">
+                    <a asp-page="/Admin/Events/EditEvent" asp-route-id="@ev.Id" class="text-orange-400 hover:underline block">✏️ Bearbeiten</a>
+
+                    <form method="post" asp-page-handler="ToggleStatus" class="inline-block">
+                        <input type="hidden" name="id" value="@ev.Id" />
+                        <input type="hidden" name="newStatus" value="@(ev.Status == EventStatus.Aktiv ? EventStatus.Inaktiv : EventStatus.Aktiv)" />
+                        <button type="submit" class="text-sm text-white bg-blue-600 px-2 py-1 rounded hover:bg-blue-700 mt-1">
+                            @(ev.Status == EventStatus.Aktiv ? "🔒 Deaktivieren" : "✅ Aktivieren")
+                        </button>
+                    </form>
+
+                    <form method="post" asp-page-handler="ToggleStatus" class="inline-block">
+                        <input type="hidden" name="id" value="@ev.Id" />
+                        <input type="hidden" name="newStatus" value="Abgeschlossen" />
+                        <button type="submit" class="text-sm text-white bg-red-600 px-2 py-1 rounded hover:bg-red-700 mt-1">
+                            🚩 Abschließen
+                        </button>
+                    </form>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

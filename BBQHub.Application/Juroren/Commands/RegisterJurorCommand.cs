@@ -1,6 +1,7 @@
 ﻿using BBQHub.Application.Common.Interfaces;
 using BBQHub.Application.Juroren.Dtos;
 using BBQHub.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,39 +12,34 @@ namespace BBQHub.Application.Juroren.Commands
 {
     public class RegisterJurorCommand
     {
+        private readonly IApplicationDbContext _context;
         private readonly IAppLogger _logger;
-        private readonly IApplicationDbContext _db;
 
-        public RegisterJurorCommand(IAppLogger logger, IApplicationDbContext db)
+        public RegisterJurorCommand(IApplicationDbContext context, IAppLogger logger)
         {
+            _context = context;
             _logger = logger;
-            _db = db;
         }
 
-        public async Task Handle(JurorDto input)
+        public async Task HandleAsync(JurorDto dto)
         {
-            try
+            if (await _context.Juroren.AnyAsync(j => j.JuryId == dto.JuryId))
             {
-                var entity = new Juror
-                {
-                    JuryId = input.JuryId,
-                    FirstName = input.FirstName,
-                    LastName = input.LastName,
-                    Email = input.Email,
-                    Vereinslocation = input.Vereinslocation
-                };
-
-                _db.Juroren.Add(entity);
-                await _db.SaveChangesAsync();
-
-                _logger.Info($"Neuer Juror registriert: {input.JuryId}");
+                throw new Exception("Jury-ID bereits vergeben.");
             }
-            catch (Exception ex)
+
+            var entity = new Juror
             {
-                _logger.Error("Fehler beim Registrieren des Jurors", ex);
-                throw;
-            }
+                JuryId = dto.JuryId,
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
+                Email = dto.Email,
+                Vereinslocation = dto.Vereinslocation
+            };
+
+            _context.Juroren.Add(entity);
+            await _context.SaveChangesAsync();
+            _logger.Info($"Juror {dto.JuryId} erfolgreich erstellt.");
         }
     }
-
 }

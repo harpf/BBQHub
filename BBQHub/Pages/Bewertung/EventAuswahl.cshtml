@@ -1,0 +1,34 @@
+﻿@page
+@model BBQHub.Pages.Bewertung.EventAuswahlModel
+@{
+    ViewData["Title"] = "Event auswählen";
+}
+
+<h1 class="text-2xl font-bold text-orange-500 mb-6">Wähle ein Event</h1>
+
+<p class="text-gray-300 mb-4">Juror-ID: <strong>@Model.JuryId</strong></p>
+
+@if (!Model.Events.Any())
+{
+    <div class="text-red-400">Aktuell sind keine aktiven Events verfügbar.</div>
+}
+else
+{
+    <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        @foreach (var ev in Model.Events)
+        {
+            <li class="bg-zinc-800 p-4 rounded shadow text-white flex justify-between items-center">
+                <div>
+                    <h2 class="text-lg font-semibold">@ev.Name</h2>
+                    <p class="text-sm text-zinc-400">@ev.Description</p>
+                </div>
+                <a asp-page="/Bewertung/DurchgangAuswahl"
+                   asp-route-juryId="@Model.JuryId"
+                   asp-route-eventId="@ev.Id"
+                   class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
+                    Auswählen
+                </a>
+            </li>
+        }
+    </ul>
+}

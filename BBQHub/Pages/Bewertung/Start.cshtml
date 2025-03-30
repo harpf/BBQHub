@@ -1,0 +1,21 @@
+﻿@page
+@model BBQHub.Pages.Bewertung.StartModel
+@{
+    ViewData["Title"] = "Juror Teilnahme";
+}
+
+<h1 class="text-2xl font-bold text-orange-500 mb-4">Am Wettbewerb teilnehmen</h1>
+
+<form method="post" class="max-w-md space-y-4 text-black">
+    <div>
+        <label class="block text-sm font-medium">Bitte Juror-ID eingeben:</label>
+        <input asp-for="JuryId" type="number" class="w-full p-2 rounded border" />
+    </div>
+    @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+    {
+        <div class="text-red-500">@Model.ErrorMessage</div>
+    }
+    <button type="submit" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
+        Weiter
+    </button>
+</form>

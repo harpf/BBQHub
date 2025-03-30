@@ -1,0 +1,26 @@
+﻿@page
+@model BBQHub.Pages.Admin.Teams.CreateModel
+@{
+    ViewData["Title"] = "Team erstellen";
+}
+
+<h1 class="text-2xl font-bold mb-4 text-orange-500">Neues Team erstellen</h1>
+
+<form method="post" class="grid gap-4 max-w-xl text-black">
+    <div>
+        <label class="block text-sm font-medium">Teamname</label>
+        <input asp-for="Input.Name" class="w-full p-2 rounded border" />
+    </div>
+    <div>
+        <label class="block text-sm font-medium">Ansprechpartner</label>
+        <input asp-for="Input.Ansprechpartner" class="w-full p-2 rounded border" />
+    </div>
+    <div>
+        <label class="block text-sm font-medium">Kontakt</label>
+        <input asp-for="Input.KontaktEmail" class="w-full p-2 rounded border" />
+    </div>
+    <div>
+        <button type="submit" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">Speichern</button>
+    </div>
+</form>
+
