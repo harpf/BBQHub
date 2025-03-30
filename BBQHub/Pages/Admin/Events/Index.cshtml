@@ -1,5 +1,6 @@
 ﻿@page
 @model BBQHub.Pages.Admin.Events.IndexModel
+@using BBQHub.Domain.Entities
 @{
     ViewData["Title"] = "Events";
 }
@@ -30,9 +31,26 @@
                 <td class="p-2">@ev.Address</td>
                 <td class="p-2">@ev.ManagerId</td>
                 <td class="p-2">@ev.Description</td>
-                <td class="p-2">
-                    <a asp-page="/Admin/Events/EditEvent" asp-route-id="@ev.Id" class="text-orange-400 hover:underline">Bearbeiten</a>
+                <td class="p-2 space-y-1">
+                    <a asp-page="/Admin/Events/EditEvent" asp-route-id="@ev.Id" class="text-orange-400 hover:underline block">✏️ Bearbeiten</a>
+
+                    <form method="post" asp-page-handler="ToggleStatus" class="inline-block">
+                        <input type="hidden" name="id" value="@ev.Id" />
+                        <input type="hidden" name="newStatus" value="@(ev.Status == EventStatus.Aktiv ? EventStatus.Inaktiv : EventStatus.Aktiv)" />
+                        <button type="submit" class="text-sm text-white bg-blue-600 px-2 py-1 rounded hover:bg-blue-700 mt-1">
+                            @(ev.Status == EventStatus.Aktiv ? "🔒 Deaktivieren" : "✅ Aktivieren")
+                        </button>
+                    </form>
+
+                    <form method="post" asp-page-handler="ToggleStatus" class="inline-block">
+                        <input type="hidden" name="id" value="@ev.Id" />
+                        <input type="hidden" name="newStatus" value="Abgeschlossen" />
+                        <button type="submit" class="text-sm text-white bg-red-600 px-2 py-1 rounded hover:bg-red-700 mt-1">
+                            🚩 Abschließen
+                        </button>
+                    </form>
                 </td>
+
             </tr>
         }
     </tbody>

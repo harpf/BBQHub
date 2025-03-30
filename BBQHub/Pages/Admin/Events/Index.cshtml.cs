@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Authorization;
 using BBQHub.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using BBQHub.Domain.Entities;
 
 namespace BBQHub.Pages.Admin.Events
 {
@@ -22,6 +23,16 @@ namespace BBQHub.Pages.Admin.Events
         {
             Events = await _context.Events.ToListAsync();
         }
+        public async Task<IActionResult> OnPostToggleStatusAsync(int id, EventStatus newStatus)
+        {
+            var ev = await _context.Events.FindAsync(id);
+            if (ev == null) return NotFound();
+
+            ev.Status = newStatus;
+            await _context.SaveChangesAsync();
+            return RedirectToPage();
+        }
+
     }
 
 }
