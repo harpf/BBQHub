@@ -9,3 +9,4 @@ D:\05_Programmingstuff\03_DotNet\BBQHub.Domain\obj\Debug\net8.0\BBQHub.Domain.dl
 D:\05_Programmingstuff\03_DotNet\BBQHub.Domain\obj\Debug\net8.0\refint\BBQHub.Domain.dll
 D:\05_Programmingstuff\03_DotNet\BBQHub.Domain\obj\Debug\net8.0\BBQHub.Domain.pdb
 D:\05_Programmingstuff\03_DotNet\BBQHub.Domain\obj\Debug\net8.0\ref\BBQHub.Domain.dll
+D:\05_Programmingstuff\03_DotNet\BBQHub.Domain\obj\Debug\net8.0\BBQHub.Domain.sourcelink.json

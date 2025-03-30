@@ -1,0 +1,40 @@
+﻿@page "{id:int}"
+@model BBQHub.Pages.Admin.Events.Kriterien.EditModel
+@{
+    ViewData["Title"] = "Kriterium bearbeiten";
+}
+
+<h1 class="text-2xl font-bold mb-4 text-orange-500">Kriterium bearbeiten</h1>
+
+<form method="post" class="grid gap-4 w-full max-w-xl text-black">
+    <input type="hidden" asp-for="Input.Id" />
+    <input type="hidden" asp-for="Input.DurchgangId" />
+
+    <div>
+        <label class="block text-sm font-medium">Name</label>
+        <input asp-for="Input.Name" class="w-full p-2 rounded border" />
+    </div>
+
+    <div>
+        <label class="block text-sm font-medium">Max. Punkte</label>
+        <input asp-for="Input.MaxWert" type="number" class="w-full p-2 rounded border" />
+    </div>
+
+    <div>
+        <label class="block text-sm font-medium">Gewichtung</label>
+        <input asp-for="Input.Gewichtung" type="number" step="0.01" class="w-full p-2 rounded border" />
+    </div>
+
+    <div class="flex justify-between">
+        <button type="submit" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
+            Speichern
+        </button>
+
+        <button type="submit"
+                formaction="?handler=Delete"
+                class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+                onclick="return confirm('Wirklich löschen?');">
+            Löschen
+        </button>
+    </div>
+</form>

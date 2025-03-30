@@ -1,23 +1,24 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using BBQHub.Infrastructure.Data;
-using BBQHub.Domain.Entities;
+using BBQHub.Application.Common.Interfaces;
+using BBQHub.Application.Juroren.Dtos;
+using BBQHub.Application.Juroren.Services;
 
 namespace BBQHub.Pages.Juror
 {
     public class RegistrierenModel : PageModel
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IJurorService _jurorService;
 
-        public RegistrierenModel(ApplicationDbContext context)
+        public RegistrierenModel(IJurorService jurorService)
         {
-            _context = context;
+            _jurorService = jurorService;
         }
+
         public string? SuccessMessage { get; set; }
 
         [BindProperty]
-        public BBQHub.Domain.Entities.Juror Input { get; set; } = new();
+        public JurorDto Input { get; set; } = new();
 
         [BindProperty]
         public string Signature { get; set; } = "";
@@ -31,33 +32,27 @@ namespace BBQHub.Pages.Juror
 
         public async Task<IActionResult> OnPostAsync()
         {
-            if (await _context.Juroren.AnyAsync(j => j.JuryId == Input.JuryId))
+            try
             {
-                ErrorMessage = "Diese Jury ID ist bereits vergeben.";
+                var result = await _jurorService.RegisterAsync(Input);
+
+                if (!result.Success)
+                {
+                    ErrorMessage = result.ErrorMessage;
+                    return Page();
+                }
+
+                SuccessMessage = $"Danke für deine Anmeldung, {Input.FirstName}!";
+                ModelState.Clear();
+                Input = new();
                 return Page();
             }
-
-            if (!string.IsNullOrEmpty(Input.Email) &&
-                await _context.Juroren.AnyAsync(j => j.Email == Input.Email))
+            catch (Exception ex)
             {
-                ErrorMessage = "Diese E-Mail-Adresse ist bereits registriert.";
+                ErrorMessage = "Ein unerwarteter Fehler ist aufgetreten.";
+                // Optional: Logging via IAppLogger hier einbauen
                 return Page();
             }
-
-            if (string.IsNullOrWhiteSpace(Input.Vereinslocation))
-            {
-                ModelState.AddModelError("Input.Vereinslocation", "Bitte ein Land auswählen.");
-            }
-
-            _context.Juroren.Add(Input);
-            await _context.SaveChangesAsync();
-
-            SuccessMessage = $"Danke für deine Anmeldung, {Input.FirstName}!";
-
-            ModelState.Clear();
-            Input = new();
-            return Page();
-
         }
     }
 }

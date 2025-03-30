@@ -1,0 +1,93 @@
+﻿@page "{id}"
+@model BBQHub.Pages.Admin.Events.EditModel
+@{
+    ViewData["Title"] = "Event bearbeiten";
+}
+
+<h1 class="text-2xl font-bold mb-4 text-orange-500">Event bearbeiten</h1>
+
+<form method="post" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-black">
+    <input type="hidden" asp-for="Input.Id" />
+    <div>
+        <label class="block text-sm font-medium">Name</label>
+        <input asp-for="Input.Name" class="w-full p-2 rounded border" />
+    </div>
+    <div>
+        <label class="block text-sm font-medium">Adresse</label>
+        <input asp-for="Input.Address" class="w-full p-2 rounded border" />
+    </div>
+    <div>
+        <label class="block text-sm font-medium">Manager</label>
+        <select asp-for="Input.ManagerId" asp-items="Model.Managers" class="w-full p-2 rounded border"></select>
+    </div>
+    <div class="md:col-span-2">
+        <label class="block text-sm font-medium">Beschreibung</label>
+        <textarea asp-for="Input.Description" rows="3" class="w-full p-2 rounded border"></textarea>
+    </div>
+    @if (Model.Durchgaenge.Any())
+    {
+        <h2 class="text-xl font-semibold mt-10 mb-4 text-orange-400">Durchgänge & Kriterien</h2>
+
+        <div class="space-y-6">
+            @foreach (var d in Model.Durchgaenge)
+            {
+                <div class="border border-zinc-700 rounded p-4 bg-zinc-800 text-white">
+                    <div class="flex justify-between items-center mb-2">
+                        <div>
+                            <span class="font-semibold text-lg">Durchgang @d.Durchgangsnummer: @d.Name</span>
+                        </div>
+                        <div>
+                            <a asp-page="/Admin/Events/Kriterien/Create" asp-route-durchgangId="@d.Id" class="text-sm text-orange-300 hover:underline">
+                                + Kriterium hinzufügen
+                            </a>
+                        </div>
+                    </div>
+
+                    @if (d.Kriterien.Any())
+                    {
+                        <table class="w-full text-sm mt-2">
+                            <thead class="text-left text-orange-200 border-b border-zinc-700">
+                                <tr>
+                                    <th class="py-1">Name</th>
+                                    <th class="py-1">Max. Punkte</th>
+                                    <th class="py-1">Gewichtung</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var k in d.Kriterien)
+                                {
+                                    <tr class="border-b border-zinc-700">
+                                        <td class="py-1">@k.Name</td>
+                                        <td class="py-1">@k.MaxWert</td>
+                                        <td class="py-1">@k.Gewichtung</td>
+                                        <td class="py-1">
+                                            <a asp-page="/Admin/Events/Kriterien/Edit" asp-route-id="@k.Id" class="text-orange-300 hover:underline">✏️</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <div class="text-sm text-zinc-400 mt-2">Noch keine Kriterien hinzugefügt.</div>
+                    }
+                </div>
+            }
+        </div>
+    }
+
+    <a asp-page="/Admin/Events/Durchgaenge/Create" asp-route-EventId="@Model.Input.Id" class="inline-block mt-4 bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">+ Durchgang hinzufügen</a>
+
+    <div class="md:col-span-2 flex justify-between">
+        <button type="submit" class="px-6 py-2 bg-orange-600 text-white rounded hover:bg-orange-700">
+            Aktualisieren
+        </button>
+        <form method="post" asp-page-handler="Delete" onsubmit="return confirm('Möchtest du dieses Event wirklich löschen?');">
+            <input type="hidden" asp-for="Input.Id" />
+            <button type="submit" class="px-6 py-2 bg-red-600 text-white rounded hover:bg-red-700">
+                Löschen
+            </button>
+        </form>
+    </div>
+</form>

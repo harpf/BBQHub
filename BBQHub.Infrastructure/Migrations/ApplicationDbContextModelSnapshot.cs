@@ -17,10 +17,106 @@ namespace BBQHub.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.3")
+                .HasAnnotation("ProductVersion", "8.0.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("BBQHub.Domain.Entities.Bewertung", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DurchgangId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("GewichteteNote")
+                        .HasColumnType("float");
+
+                    b.Property<int>("JurorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("KriteriumId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Punkte")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DurchgangId");
+
+                    b.HasIndex("JurorId");
+
+                    b.HasIndex("KriteriumId");
+
+                    b.ToTable("Bewertungen");
+                });
+
+            modelBuilder.Entity("BBQHub.Domain.Entities.Durchgang", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Durchgangsnummer")
+                        .HasColumnType("int");
+
+                    b.Property<int>("EventId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Durchgaenge");
+                });
+
+            modelBuilder.Entity("BBQHub.Domain.Entities.Event", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("EventId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("LogoPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ManagerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Sponsors")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ManagerId");
+
+                    b.ToTable("Events");
+                });
 
             modelBuilder.Entity("BBQHub.Domain.Entities.Juror", b =>
                 {
@@ -52,6 +148,34 @@ namespace BBQHub.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Juroren");
+                });
+
+            modelBuilder.Entity("BBQHub.Domain.Entities.Kriterium", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DurchgangId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Gewichtung")
+                        .HasColumnType("float");
+
+                    b.Property<int>("MaxWert")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DurchgangId");
+
+                    b.ToTable("Kriterien");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -256,6 +380,53 @@ namespace BBQHub.Infrastructure.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("BBQHub.Domain.Entities.Bewertung", b =>
+                {
+                    b.HasOne("BBQHub.Domain.Entities.Durchgang", "Durchgang")
+                        .WithMany("Bewertungen")
+                        .HasForeignKey("DurchgangId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BBQHub.Domain.Entities.Juror", "Juror")
+                        .WithMany()
+                        .HasForeignKey("JurorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("BBQHub.Domain.Entities.Kriterium", "Kriterium")
+                        .WithMany()
+                        .HasForeignKey("KriteriumId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Durchgang");
+
+                    b.Navigation("Juror");
+
+                    b.Navigation("Kriterium");
+                });
+
+            modelBuilder.Entity("BBQHub.Domain.Entities.Event", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", null)
+                        .WithMany()
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BBQHub.Domain.Entities.Kriterium", b =>
+                {
+                    b.HasOne("BBQHub.Domain.Entities.Durchgang", "Durchgang")
+                        .WithMany("Kriterien")
+                        .HasForeignKey("DurchgangId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Durchgang");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -305,6 +476,13 @@ namespace BBQHub.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("BBQHub.Domain.Entities.Durchgang", b =>
+                {
+                    b.Navigation("Bewertungen");
+
+                    b.Navigation("Kriterien");
                 });
 #pragma warning restore 612, 618
         }

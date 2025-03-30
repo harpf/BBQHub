@@ -192,6 +192,30 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cRWRpdEp1cm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/05_Programmingstuff/03_DotNet/BBQHub/Pages/Admin/Events/CreateEvent.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cRXZlbnRzXENyZWF0ZUV2ZW50LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/05_Programmingstuff/03_DotNet/BBQHub/Pages/Admin/Events/Durchgaenge/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cRXZlbnRzXER1cmNoZ2FlbmdlXENyZWF0ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/05_Programmingstuff/03_DotNet/BBQHub/Pages/Admin/Events/EditEvent.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cRXZlbnRzXEVkaXRFdmVudC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/05_Programmingstuff/03_DotNet/BBQHub/Pages/Admin/Events/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cRXZlbnRzXEluZGV4LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/05_Programmingstuff/03_DotNet/BBQHub/Pages/Admin/Events/Kriterien/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cRXZlbnRzXEtyaXRlcmllblxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/05_Programmingstuff/03_DotNet/BBQHub/Pages/Admin/Events/Kriterien/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cRXZlbnRzXEtyaXRlcmllblxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/05_Programmingstuff/03_DotNet/BBQHub/Pages/Admin/ExportJuroren.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cRXhwb3J0SnVyb3Jlbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -202,6 +226,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/05_Programmingstuff/03_DotNet/BBQHub/Pages/Admin/Juroren.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW5cSnVyb3Jlbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/05_Programmingstuff/03_DotNet/BBQHub/Pages/Bewertung/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQmV3ZXJ0dW5nXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/05_Programmingstuff/03_DotNet/BBQHub/Pages/Error.cshtml]

@@ -1,0 +1,39 @@
+﻿@page
+@model BBQHub.Pages.Admin.Events.IndexModel
+@{
+    ViewData["Title"] = "Events";
+}
+
+<h1 class="text-2xl font-bold mb-4 text-orange-500">Event Übersicht</h1>
+
+<a asp-page="/Admin/Events/CreateEvent" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
+    ➕ Neues Event erstellen
+</a>
+
+<table class="mt-6 w-full text-left border-collapse">
+    <thead>
+        <tr class="bg-zinc-800 text-white">
+            <th class="p-2">ID</th>
+            <th class="p-2">Name</th>
+            <th class="p-2">Adresse</th>
+            <th class="p-2">Manager</th>
+            <th class="p-2">Beschreibung</th>
+            <th class="p-2">Aktionen</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ev in Model.Events)
+        {
+            <tr class="border-b border-zinc-700">
+                <td class="p-2">@ev.Id</td>
+                <td class="p-2">@ev.Name</td>
+                <td class="p-2">@ev.Address</td>
+                <td class="p-2">@ev.ManagerId</td>
+                <td class="p-2">@ev.Description</td>
+                <td class="p-2">
+                    <a asp-page="/Admin/Events/EditEvent" asp-route-id="@ev.Id" class="text-orange-400 hover:underline">Bearbeiten</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

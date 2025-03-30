@@ -1,8 +1,9 @@
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using BBQHub.Infrastructure.Data;
 using BBQHub.Infrastructure.Identity;
 using BBQHub.Application.Common.Interfaces;
+using BBQHub.Application.Juroren.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,6 +34,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IApplicationDbContext>(provider =>
     provider.GetRequiredService<ApplicationDbContext>());
 
+builder.Services.AddScoped<IJurorService, JurorService>();
 
 var app = builder.Build();
 
@@ -42,10 +44,10 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var dbContext = services.GetRequiredService<ApplicationDbContext>();
 
-    // Diese Zeile f�hrt alle Migrationen aus, falls noch nicht angewendet
+    // Diese Zeile führt alle Migrationen aus, falls noch nicht angewendet
     await dbContext.Database.MigrateAsync();
 
-    // Seed AdminUser (z.?B. Standardrolle + Admin-Konto)
+    // Seed AdminUser (z. B. Standardrolle + Admin-Konto)
     await SeedData.EnsureAdminUserAsync(services);
 }
 
