@@ -1,4 +1,4 @@
-using BBQHub.Domain.Entities;
+ï»¿using BBQHub.Domain.Entities;
 using BBQHub.Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -19,7 +19,7 @@ namespace BBQHub.Pages.Admin.Events
         public List<Event> Events { get; set; } = new();
         public Dictionary<int, int> TotalBewertungen { get; set; } = new();
         public Dictionary<int, int> ErwarteteBewertungen { get; set; } = new();
-        public Dictionary<int, List<JurorStatus>> JurorAktivität { get; set; } = new();
+        public Dictionary<int, List<JurorStatus>> JurorAktivitÃ¤t { get; set; } = new();
 
         public class JurorStatus
         {
@@ -42,9 +42,9 @@ namespace BBQHub.Pages.Admin.Events
 
                 var teamZuweisungen = await _context.EventTeamAssignments
                     .CountAsync(a => a.EventId == ev.Id);
-                var erwarteteBewertungen = teamZuweisungen * kriterien.Count;
 
-                ErwarteteBewertungen[ev.Id] = erwarteteBewertungen == 0 ? 1 : erwarteteBewertungen;
+                var erwarteteBewertungen = Math.Max(1, teamZuweisungen * Math.Max(1, kriterien.Count));
+                ErwarteteBewertungen[ev.Id] = erwarteteBewertungen;
 
                 var abgegeben = await _context.Bewertungen
                     .Where(b => durchgangIds.Contains(b.DurchgangId))
@@ -58,7 +58,7 @@ namespace BBQHub.Pages.Admin.Events
                     .ToListAsync();
 
                 var juroren = await _context.Juroren.ToListAsync();
-                JurorAktivität[ev.Id] = jurorBewertungen.Select(j => new JurorStatus
+                JurorAktivitÃ¤t[ev.Id] = jurorBewertungen.Select(j => new JurorStatus
                 {
                     Name = juroren.FirstOrDefault(x => x.Id == j.JurorId)?.FirstName ?? "Unbekannt",
                     Count = j.Count

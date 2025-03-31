@@ -1,4 +1,4 @@
-using BBQHub.Infrastructure.Data;
+ï»¿using BBQHub.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -30,7 +30,7 @@ namespace BBQHub.Pages.Bewertung
         [BindProperty]
         public int SelectedTeamId { get; set; }
 
-        public List<EventTeamAssignment> VerfügbareTeams { get; set; } = new();
+        public List<EventTeamAssignment> VerfÃ¼gbareTeams { get; set; } = new();
 
         public string? ErrorMessage { get; set; }
 
@@ -45,7 +45,7 @@ namespace BBQHub.Pages.Bewertung
                 .Select(b => b.TeamId)
                 .ToListAsync();
 
-            VerfügbareTeams = await _context.EventTeamAssignments
+            VerfÃ¼gbareTeams = await _context.EventTeamAssignments
                 .Include(a => a.Team)
                 .Where(a => a.EventId == EventId && !bereitsBewerteteTeamIds.Contains(a.TeamId))
                 .ToListAsync();
@@ -68,7 +68,7 @@ namespace BBQHub.Pages.Bewertung
 
             if (assignment == null)
             {
-                ErrorMessage = "Ungültige Auswahl.";
+                ErrorMessage = "UngÃ¼ltige Auswahl.";
                 return await OnGetAsync(); // lade erneut die Liste
             }
 
