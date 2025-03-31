@@ -16,29 +16,28 @@
         <table class="w-full text-sm border-collapse text-white mb-6">
             <thead class="bg-zinc-700">
                 <tr>
-                    <th class="p-3 text-left">Team</th>
+                    <th class="p-3 text-left bg-zinc-700">Team</th>
                     @foreach (var kriterium in durchgang.Kriterien)
                     {
-                        <th class="p-3 text-left">@kriterium.Name</th>
+                        <th class="p-3 text-left bg-zinc-700">@kriterium.Name</th>
                     }
                 </tr>
             </thead>
             <tbody>
                 @foreach (var team in Model.Teams)
                 {
-                    <tr class="border-b border-zinc-700">
+                    <tr class="border-b border-zinc-700 hover:bg-zinc-900 transition">
                         <td class="p-3 font-semibold whitespace-nowrap">@team.Name</td>
                         @foreach (var kriterium in durchgang.Kriterien)
                         {
                             var key = (team.Id, durchgang.Id, kriterium.Id);
-                            if (Model.BewertungenMap.ContainsKey(key))
+                            if (Model.BewertungenMap.TryGetValue(key, out var bewertungen))
                             {
-                                var bewertungen = Model.BewertungenMap[key];
                                 var punkte = bewertungen.Select(b => b.Punkte).ToList();
                                 var avg = punkte.Average();
                                 var stddev = Model.BerechneStandardabweichung(punkte);
 
-                                var highlight = stddev >= 2 ? "bg-red-600 text-white font-bold" : "bg-zinc-800";
+                                var highlight = stddev >= 2 ? "bg-red-700 text-white font-bold" : "bg-zinc-800";
 
                                 <td class="p-3 align-top @highlight whitespace-nowrap">
                                     <div>

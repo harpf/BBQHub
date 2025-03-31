@@ -1,0 +1,52 @@
+﻿@page
+@model BBQHub.Pages.Ranglisten.IndexModel
+@using BBQHub.Domain.Entities
+
+@{
+    ViewData["Title"] = "Ranglisten Übersicht";
+}
+
+<h1 class="text-2xl font-bold text-orange-500 mb-4">📊 Ranglisten Übersicht</h1>
+
+<div class="mb-4">
+    <input type="text" placeholder="🔍 Event suchen..." class="w-full p-2 rounded border" oninput="filterEvents(this.value)" />
+</div>
+
+<table class="w-full text-left border-collapse" id="eventTable">
+    <thead>
+        <tr class="bg-zinc-800 text-white">
+            <th class="p-3">Name</th>
+            <th class="p-3">Manager</th>
+            <th class="p-3">Status</th>
+            <th class="p-3">Aktion</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ev in Model.Events)
+        {
+            <tr class="border-b border-zinc-700 text-white">
+                <td class="p-3">@ev.Name</td>
+                <td class="p-3">@ev.ManagerId</td>
+                <td class="p-3">
+                    <span class="px-2 py-1 rounded text-white @(ev.Status == EventStatus.Aktiv ? "bg-green-600" : ev.Status == EventStatus.Inaktiv ? "bg-blue-600" : "bg-red-600")">
+                        @ev.Status
+                    </span>
+                </td>
+                <td class="p-3">
+                    <a asp-page="/Ranglisten/Event" asp-route-id="@ev.Id" class="text-orange-400 hover:underline">Rangliste anzeigen</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        function filterEvents(query) {
+            const rows = document.querySelectorAll('#eventTable tbody tr');
+            rows.forEach(row => {
+                row.style.display = row.innerText.toLowerCase().includes(query.toLowerCase()) ? '' : 'none';
+            });
+        }
+    </script>
+}

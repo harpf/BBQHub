@@ -1,0 +1,88 @@
+﻿@page "{id}"
+@model BBQHub.Pages.Ranglisten.EventRanglisteModel
+@{
+    ViewData["Title"] = "Rangliste";
+    var durchgaenge = Model.Durchgaenge;
+}
+
+<h1 class="text-2xl font-bold text-orange-500 mb-6">Rangliste – @Model.Event?.Name</h1>
+
+<!-- Gesamtrangliste -->
+<section class="mb-10">
+    <h2 class="text-xl font-semibold text-white mb-3">🏆 Gesamtrangliste</h2>
+    <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-sm bg-zinc-800 text-white">
+            <thead class="bg-zinc-700">
+                <tr>
+                    <th class="p-3">Platz</th>
+                    <th class="p-3">Team</th>
+                    @foreach (var dg in durchgaenge)
+                    {
+                        <th class="p-3">Durchgang @dg.Durchgangsnummer</th>
+                    }
+                    <th class="p-3">Gesamt</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var team in Model.Teams
+                .OrderByDescending(t => Model.Gesamtpunkte[t.Id])
+                .Select((t, index) => new { Team = t, Platz = index + 1 }))
+                {
+                    <tr class="border-b border-zinc-700">
+                        <td class="p-3 font-bold">@team.Platz</td>
+                        <td class="p-3 font-semibold">@team.Team.Name</td>
+                        @foreach (var dg in durchgaenge)
+                        {
+                            <td class="p-3">
+                                @Model.PunkteProDurchgang[team.Team.Id].GetValueOrDefault(dg.Id).ToString("0.0")
+                            </td>
+                        }
+                        <td class="p-3 font-bold text-orange-400">
+                            @Model.Gesamtpunkte[team.Team.Id].ToString("0.0")
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- Einzelne Durchgangsranglisten -->
+@foreach (var dg in durchgaenge)
+{
+    <section class="mb-10">
+        <h2 class="text-lg font-semibold text-white mb-2">🥩 Rangliste – Durchgang @dg.Durchgangsnummer: @dg.Name</h2>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-sm bg-zinc-800 text-white">
+                <thead class="bg-zinc-700">
+                    <tr>
+                        <th class="p-3">Platz</th>
+                        <th class="p-3">Team</th>
+                        <th class="p-3">Punkte</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @{
+                        var ranking = Model.Teams
+                        .Select(t => new
+                        {
+                            Team = t,
+                            Punkte = Model.PunkteProDurchgang[t.Id].GetValueOrDefault(dg.Id)
+                        })
+                        .OrderByDescending(x => x.Punkte)
+                        .Select((x, i) => new { x.Team, x.Punkte, Platz = i + 1 });
+
+                        foreach (var row in ranking)
+                        {
+                            <tr class="border-b border-zinc-700">
+                                <td class="p-3">@row.Platz</td>
+                                <td class="p-3 font-semibold">@row.Team.Name</td>
+                                <td class="p-3">@row.Punkte.ToString("0.0")</td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </section>
+}
