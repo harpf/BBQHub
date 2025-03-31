@@ -4,6 +4,7 @@ using BBQHub.Infrastructure.Data;
 using BBQHub.Infrastructure.Identity;
 using BBQHub.Application.Common.Interfaces;
 using BBQHub.Application.Juroren.Services;
+using BBQHub.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,7 +37,11 @@ builder.Services.AddScoped<IApplicationDbContext>(provider =>
 
 builder.Services.AddScoped<IJurorService, JurorService>();
 
+builder.Services.AddSignalR();
+
 var app = builder.Build();
+
+app.MapHub<EventMonitorHub>("/eventMonitorHub");
 
 // Ensure database is created and migrations are applied
 using (var scope = app.Services.CreateScope())

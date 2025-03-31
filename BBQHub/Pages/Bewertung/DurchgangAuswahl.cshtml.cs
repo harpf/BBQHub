@@ -19,6 +19,8 @@ namespace BBQHub.Pages.Bewertung
 
         [BindProperty(SupportsGet = true)]
         public int EventId { get; set; }
+        [BindProperty]
+        public int SelectedDurchgangId { get; set; }
 
         public string? EventName { get; set; }
 
@@ -42,6 +44,20 @@ namespace BBQHub.Pages.Bewertung
                 .ToListAsync();
 
             return Page();
+        }
+        public IActionResult OnPost()
+        {
+            if (SelectedDurchgangId == 0)
+            {
+                ModelState.AddModelError("", "Bitte wähle einen Durchgang aus.");
+                return Page();
+            }
+
+            return RedirectToPage("/Bewertung/TeamCode", new
+            {
+                juryId = JuryId,
+                durchgangId = SelectedDurchgangId
+            });
         }
     }
 }

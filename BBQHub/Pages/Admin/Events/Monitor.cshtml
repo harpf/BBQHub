@@ -1,0 +1,80 @@
+﻿@page
+@model BBQHub.Pages.Admin.Events.MonitorModel
+@{
+    ViewData["Title"] = "Event Monitoring";
+}
+
+<h1 class="text-2xl font-bold mb-4 text-orange-500">Event-Überwachung</h1>
+
+<div class="mb-4">
+    <input type="text" placeholder="🔍 Event suchen..." class="w-full p-2 rounded border" oninput="filterEvents(this.value)" />
+</div>
+
+<table class="w-full border-collapse text-left" id="eventTable">
+    <thead>
+        <tr class="bg-zinc-800 text-white">
+            <th class="p-2">Event</th>
+            <th class="p-2">Status</th>
+            <th class="p-2">Bewertungs-Fortschritt</th>
+            <th class="p-2">Aktive Juroren</th>
+            <th class="p-2">Aktionen</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ev in Model.Events)
+        {
+            var total = Model.TotalBewertungen.ContainsKey(ev.Id) ? Model.TotalBewertungen[ev.Id] : 0;
+            var expected = Model.ErwarteteBewertungen.ContainsKey(ev.Id) ? Model.ErwarteteBewertungen[ev.Id] : 1;
+            var percent = Math.Round(100.0 * total / expected, 1);
+
+            <tr class="border-b border-zinc-700">
+                <td class="p-2">@ev.Name</td>
+                <td class="p-2">
+                    <span class="px-2 py-1 rounded text-white @(ev.Status == BBQHub.Domain.Entities.EventStatus.Aktiv ? "bg-green-600" : ev.Status == BBQHub.Domain.Entities.EventStatus.Inaktiv ? "bg-blue-600" : "bg-red-600")">
+                        @ev.Status
+                    </span>
+                </td>
+                <td class="p-2">
+                    <div class="w-full bg-zinc-700 rounded overflow-hidden h-4">
+                        <div class="bg-orange-500 h-4" style="width:@percent%"></div>
+                    </div>
+                    <span class="text-sm text-white">@percent % (@total / @expected)</span>
+                </td>
+                <td class="p-2">
+                    @if (Model.JurorAktivität.ContainsKey(ev.Id))
+                    {
+                        <ul class="text-sm text-white">
+                            @foreach (var juror in Model.JurorAktivität[ev.Id])
+                            {
+                                <li>@juror.Name: @juror.Count Bewertungen</li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <span class="text-gray-400 text-sm">Noch keine Bewertungen</span>
+                    }
+                </td>
+                <td class="p-2">
+                    <a asp-page="/Admin/Events/Bewertungen" asp-route-id="@ev.Id" class="text-orange-400 hover:underline">Bewertungen einsehen</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("/eventMonitorHub")
+            .build();
+
+        connection.on("UpdateEventMonitor", () => {
+            fetch(window.location.href, { cache: "no-store" })
+                .then(() => location.reload());
+        });
+
+        connection.start().catch(err => console.error(err));
+    </script>
+}

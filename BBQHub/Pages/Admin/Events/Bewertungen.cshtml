@@ -1,0 +1,67 @@
+﻿@page
+@model BBQHub.Pages.Admin.Events.BewertungenModel
+@{
+    ViewData["Title"] = "Bewertungen einsehen";
+}
+
+<h1 class="text-2xl font-bold mb-4 text-orange-500">Bewertungen für Event: @Model.Event?.Name</h1>
+
+@foreach (var durchgang in Model.Durchgaenge)
+{
+    <h2 class="text-xl text-white mt-8 mb-2 border-b border-zinc-700 pb-1">
+        Durchgang @durchgang.Durchgangsnummer: <span class="text-orange-300">@durchgang.Name</span>
+    </h2>
+
+    <div class="overflow-x-auto">
+        <table class="w-full text-sm border-collapse text-white mb-6">
+            <thead class="bg-zinc-700">
+                <tr>
+                    <th class="p-3 text-left">Team</th>
+                    @foreach (var kriterium in durchgang.Kriterien)
+                    {
+                        <th class="p-3 text-left">@kriterium.Name</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var team in Model.Teams)
+                {
+                    <tr class="border-b border-zinc-700">
+                        <td class="p-3 font-semibold whitespace-nowrap">@team.Name</td>
+                        @foreach (var kriterium in durchgang.Kriterien)
+                        {
+                            var key = (team.Id, durchgang.Id, kriterium.Id);
+                            if (Model.BewertungenMap.ContainsKey(key))
+                            {
+                                var bewertungen = Model.BewertungenMap[key];
+                                var punkte = bewertungen.Select(b => b.Punkte).ToList();
+                                var avg = punkte.Average();
+                                var stddev = Model.BerechneStandardabweichung(punkte);
+
+                                var highlight = stddev >= 2 ? "bg-red-600 text-white font-bold" : "bg-zinc-800";
+
+                                <td class="p-3 align-top @highlight whitespace-nowrap">
+                                    <div>
+                                        <div>Ø @avg.ToString("0.0")</div>
+                                        <div class="text-xs text-zinc-300">σ = @stddev.ToString("0.0")</div>
+                                        <a asp-page="/Admin/Events/EditBewertung"
+                                           asp-route-teamId="@team.Id"
+                                           asp-route-durchgangId="@durchgang.Id"
+                                           asp-route-kriteriumId="@kriterium.Id"
+                                           class="text-xs text-orange-300 hover:underline block mt-1">
+                                            ✏️ Bearbeiten
+                                        </a>
+                                    </div>
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="p-3 text-gray-500 italic text-sm">keine Daten</td>
+                            }
+                        }
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

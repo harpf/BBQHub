@@ -1,0 +1,34 @@
+﻿@page
+@model BBQHub.Pages.Admin.Events.EditBewertungModel
+@{
+    ViewData["Title"] = "Bewertungen bearbeiten";
+}
+
+<h1 class="text-2xl font-bold text-orange-500 mb-4">Bewertungen bearbeiten</h1>
+
+<p class="text-white mb-2">Team: <strong>@Model.TeamName</strong></p>
+<p class="text-white mb-2">Durchgang: <strong>@Model.DurchgangName</strong></p>
+<p class="text-white mb-6">Kriterium: <strong>@Model.KriteriumName</strong></p>
+
+<form method="post" class="space-y-4 max-w-2xl text-black">
+    <input type="hidden" asp-for="TeamId" />
+    <input type="hidden" asp-for="DurchgangId" />
+    <input type="hidden" asp-for="KriteriumId" />
+
+    @for (int i = 0; i < Model.Bewertungen.Count; i++)
+    {
+        var b = Model.Bewertungen[i];
+        <div class="p-4 bg-zinc-100 rounded shadow">
+            <input type="hidden" name="bewertungen[@i].Id" value="@b.Id" />
+            <input type="hidden" name="bewertungen[@i].KriteriumId" value="@b.KriteriumId" />
+
+            <label class="block font-semibold mb-1">Juror: @b.Juror.FirstName</label>
+            <input type="number" name="bewertungen[@i].Punkte" value="@b.Punkte"
+                   class="w-full p-2 border rounded" min="0" />
+        </div>
+    }
+
+    <button type="submit" class="mt-6 bg-orange-600 text-white px-6 py-2 rounded hover:bg-orange-700">
+        Änderungen speichern
+    </button>
+</form>
