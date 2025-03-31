@@ -1,0 +1,19 @@
+﻿@page
+@model BBQHub.Pages.Bewertung.DankeModel
+@{
+    ViewData["Title"] = "Vielen Dank!";
+}
+
+<section class="text-center mt-20 space-y-6">
+    <h1 class="text-4xl font-bold text-orange-500">🎉 Vielen Dank für deine Bewertung!</h1>
+
+    <p class="text-lg text-gray-300 max-w-xl mx-auto">
+        Deine Bewertung wurde erfolgreich gespeichert.
+        Falls du weitere Bewertungen vornehmen möchtest, kannst du zum Event zurückkehren.
+    </p>
+
+    <a asp-page="/Bewertung/EventAuswahl" asp-route-juryId="@Model.JuryId"
+       class="inline-block mt-6 px-6 py-3 bg-orange-600 text-white font-semibold rounded hover:bg-orange-700 transition">
+        🔁 Zurück zur Eventauswahl
+    </a>
+</section>

@@ -22,7 +22,7 @@ else
                 <div>
                     <h2 class="text-lg font-semibold">Durchgang @d.Durchgangsnummer: @d.Name</h2>
                 </div>
-                <a asp-page="/Bewertung/Formular"
+                <a asp-page="/Bewertung/TeamCode"
                    asp-route-juryId="@Model.JuryId"
                    asp-route-durchgangId="@d.Id"
                    asp-route-eventId="@Model.EventId"

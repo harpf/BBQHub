@@ -1,4 +1,4 @@
-using BBQHub.Domain.Entities;
+ï»¿using BBQHub.Domain.Entities;
 using BBQHub.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -28,6 +28,14 @@ namespace BBQHub.Pages.Bewertung
 
         public Team? Team { get; set; }
 
+        [BindProperty(SupportsGet = true)]
+        public int TeamId {  get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int EventId { get; set; }
+
+        public string EventName { get; set; } = "";
+
+
         public List<Kriterium> Kriterien { get; set; } = new();
 
         [BindProperty]
@@ -36,64 +44,73 @@ namespace BBQHub.Pages.Bewertung
         public async Task<IActionResult> OnPostAsync()
         {
             var juror = await _context.Juroren.FirstOrDefaultAsync(j => j.JuryId == JuryId);
-            if (juror == null)
-            {
-                ErrorMessage = "Juror nicht gefunden.";
-                return Page();
-            }
+            if (juror == null) return RedirectToPage("/Bewertung/Start");
 
-            // Token über EventTeamAssignment prüfen
-            var assignment = await _context.EventTeamAssignments
-                .Include(a => a.Team)
-                .Include(a => a.Event)
-                .FirstOrDefaultAsync(a => a.Token == Token);
+            // DuplikatsprÃ¼fung
+            bool exists = await _context.Bewertungen.AnyAsync(b =>
+                b.JurorId == juror.Id &&
+                b.DurchgangId == DurchgangId &&
+                b.TeamId == TeamId);
 
-            if (assignment == null)
-            {
-                ErrorMessage = "Ungültiger Team-Code.";
-                return Page();
-            }
-
-            Team = assignment.Team;
-
-            // Doppelte Bewertung verhindern
-            var schonBewertet = await _context.Bewertungen
-                .AnyAsync(b =>
-                    b.JurorId == juror.Id &&
-                    b.DurchgangId == DurchgangId &&
-                    b.TeamId == assignment.TeamId);
-
-            if (schonBewertet)
+            if (exists)
             {
                 ErrorMessage = "Du hast dieses Team in diesem Durchgang bereits bewertet.";
+                EventName = (await _context.Events.FindAsync(EventId))?.Name ?? "Unbekannt";
+                Kriterien = await _context.Kriterien
+                    .Where(k => k.DurchgangId == DurchgangId)
+                    .ToListAsync();
+
                 return Page();
             }
 
             // Kriterien laden
-            Kriterien = await _context.Kriterien
+            var kriterien = await _context.Kriterien
                 .Where(k => k.DurchgangId == DurchgangId)
                 .ToListAsync();
 
             // Bewertungen speichern
-            foreach (var kriterium in Kriterien)
+            foreach (var k in kriterien)
             {
-                var punkt = Punkte.TryGetValue(kriterium.Id, out var value) ? value : 0;
-                var gewichteteNote = punkt * kriterium.Gewichtung;
+                int punkt = Punkte.ContainsKey(k.Id) ? Punkte[k.Id] : 0;
+                double gewichteteNote = punkt * k.Gewichtung;
 
-                _context.Bewertungen.Add(new Domain.Entities.Bewertung
+                _context.Bewertungen.Add(new BBQHub.Domain.Entities.Bewertung
                 {
                     JurorId = juror.Id,
                     DurchgangId = DurchgangId,
-                    TeamId = assignment.TeamId,
-                    KriteriumId = kriterium.Id,
+                    KriteriumId = k.Id,
                     Punkte = punkt,
-                    GewichteteNote = gewichteteNote
+                    GewichteteNote = gewichteteNote,
+                    TeamId = TeamId
                 });
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToPage("/Bewertung/Danke");
-        }
 
+            // PrÃ¼fen, ob es noch weitere bewertbare Teams gibt
+            var bereitsBewerteteTeamIds = await _context.Bewertungen
+                .Where(b => b.JurorId == juror.Id && b.DurchgangId == DurchgangId)
+                .Select(b => b.TeamId)
+                .Distinct()
+                .ToListAsync();
+
+            var weitereTeams = await _context.EventTeamAssignments
+                .Where(a => a.EventId == EventId && !bereitsBewerteteTeamIds.Contains(a.TeamId))
+                .ToListAsync();
+
+            if (weitereTeams.Any())
+            {
+                // ZurÃ¼ck zur Teamauswahl
+                return RedirectToPage("/Bewertung/TeamCode", new
+                {
+                    juryId = JuryId,
+                    eventId = EventId,
+                    durchgangId = DurchgangId
+                });
+            }
+
+            // Alles bewertet â†’ Danke
+            return RedirectToPage("/Bewertung/Danke", new { juryId = JuryId });
+        }
     }
 }

@@ -1,0 +1,52 @@
+﻿@page
+@model BBQHub.Pages.Bewertung.TeamCodeModel
+@{
+    ViewData["Title"] = "Team auswählen";
+}
+
+<h1 class="text-2xl font-bold text-orange-500 mb-6">Team auswählen</h1>
+
+<p class="text-gray-300 mb-2">Juror-ID: <strong>@Model.JuryId</strong></p>
+<p class="text-gray-300 mb-2">Event: <strong>@Model.EventName</strong></p>
+<p class="text-gray-300 mb-6">Durchgang: <strong>@Model.DurchgangName</strong></p>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="bg-red-100 border border-red-500 text-red-700 p-2 mb-4 rounded">
+        @Model.ErrorMessage
+    </div>
+}
+
+@if (!Model.VerfügbareTeams.Any())
+{
+    <div class="bg-yellow-100 border border-yellow-500 text-yellow-800 p-3 rounded mb-6">
+        Kein Team verfügbar, das du in diesem Durchgang bewerten kannst.
+        <a asp-page="/Bewertung/DurchgangAuswahl"
+           asp-route-juryId="@Model.JuryId"
+           asp-route-eventId="@Model.EventId"
+           class="text-blue-600 underline ml-2">Zurück zur Durchgangsauswahl</a>
+    </div>
+}
+else
+{
+    <form method="post" class="space-y-4 max-w-md text-black">
+        <input type="hidden" asp-for="JuryId" />
+        <input type="hidden" asp-for="EventId" />
+        <input type="hidden" asp-for="DurchgangId" />
+
+        <div>
+            <label class="block text-sm font-medium text-white mb-1">Team auswählen</label>
+            <select asp-for="SelectedTeamId" class="w-full p-2 rounded border">
+                <option value="">-- Team wählen --</option>
+                @foreach (var t in Model.VerfügbareTeams)
+                {
+                    <option value="@t.TeamId">@t.Team.Name (@t.Token)</option>
+                }
+            </select>
+        </div>
+
+        <button type="submit" class="bg-orange-600 text-white px-6 py-2 rounded hover:bg-orange-700">
+            Weiter zum Bewertungsformular
+        </button>
+    </form>
+}
