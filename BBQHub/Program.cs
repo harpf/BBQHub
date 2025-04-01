@@ -37,6 +37,8 @@ builder.Services.AddScoped<IApplicationDbContext>(provider =>
 
 builder.Services.AddScoped<IJurorService, JurorService>();
 
+builder.Services.AddScoped<IExportService, ExportService>();
+
 builder.Services.AddSignalR();
 
 var app = builder.Build();

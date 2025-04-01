@@ -3113,7 +3113,8 @@
           "BBQHub.Domain": "1.0.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.0",
           "Microsoft.EntityFrameworkCore": "8.0.3",
-          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.3"
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.3",
+          "QuestPDF": "2025.1.7"
         },
         "compile": {
           "bin/placeholder/BBQHub.Infrastructure.dll": {}

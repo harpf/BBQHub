@@ -304,6 +304,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmFuZ2xpc3RlblxFdmVudC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/05_Programmingstuff/03_DotNet/BBQHub/Pages/Ranglisten/Export.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmFuZ2xpc3RlblxFeHBvcnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/05_Programmingstuff/03_DotNet/BBQHub/Pages/Ranglisten/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmFuZ2xpc3RlblxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
