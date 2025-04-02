@@ -5,6 +5,7 @@ using BBQHub.Infrastructure.Identity;
 using BBQHub.Application.Common.Interfaces;
 using BBQHub.Application.Juroren.Services;
 using BBQHub.Hubs;
+using QuestPDF.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,8 @@ if (OperatingSystem.IsWindows())
         options.SourceName = "BBQHubApp";
     });
 }
+
+QuestPDF.Settings.License = LicenseType.Community;
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")

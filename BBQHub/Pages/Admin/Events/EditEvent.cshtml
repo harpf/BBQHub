@@ -159,6 +159,11 @@
                 }
             </div>
 
+            <a asp-page="/Admin/Events/Logos/ManageLogos" asp-route-eventId="@Model.Input.Id"
+               class="inline-block mt-6 bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600">
+                🎨 Logos verwalten
+            </a>
+
             <a asp-page="/Admin/Events/Durchgaenge/Create"
                asp-route-EventId="@Model.Input.Id"
                class="inline-block mt-4 bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">

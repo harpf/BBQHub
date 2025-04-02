@@ -13,6 +13,22 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\1ba40825-e0fe-4e05-bb5a-410957cd5b9c.jpg",
+      "PackagePath": "staticwebassets\\images\\eventlogos\\1ba40825-e0fe-4e05-bb5a-410957cd5b9c.jpg"
+    },
+    {
+      "Id": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\2a44422f-00b5-4e4f-a8b8-c71d39823a2c.png",
+      "PackagePath": "staticwebassets\\images\\eventlogos\\2a44422f-00b5-4e4f-a8b8-c71d39823a2c.png"
+    },
+    {
+      "Id": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\3b985cb0-2d34-45ab-ae31-903b721f7815.png",
+      "PackagePath": "staticwebassets\\images\\eventlogos\\3b985cb0-2d34-45ab-ae31-903b721f7815.png"
+    },
+    {
+      "Id": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\ca92c4e6-f051-4b31-b4de-5bcb53a08f57.png",
+      "PackagePath": "staticwebassets\\images\\eventlogos\\ca92c4e6-f051-4b31-b4de-5bcb53a08f57.png"
+    },
+    {
       "Id": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

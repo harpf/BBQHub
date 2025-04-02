@@ -35,6 +35,7 @@ namespace BBQHub.Domain.Entities
 
         public List<Team> Teams { get; set; } = new();
         public List<Durchgang> Durchgaenge { get; set; } = new();
+        public List<EventLogo> Logos { get; set; } = new();
 
     }
 }

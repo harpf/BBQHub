@@ -4,25 +4,36 @@ using QuestPDF.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using BBQHub.Application.Common.Interfaces;
 using BBQHub.Infrastructure.Data;
+using BBQHub.Domain.Entities;
 
 public class ExportService : IExportService
 {
     private readonly ApplicationDbContext _context;
+    private readonly string _webRootPath;
 
     public ExportService(ApplicationDbContext context)
     {
         _context = context;
+        _webRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
     }
 
     public async Task<byte[]> ExportRanglisteAsync(int eventId, int? durchgangId, string type)
     {
         var eventData = await _context.Events
-            .Include(e => e.Durchgaenge)
-                .ThenInclude(d => d.Kriterien)
+            .Include(e => e.Durchgaenge).ThenInclude(d => d.Kriterien)
+            .Include(e => e.Teams)
             .FirstOrDefaultAsync(e => e.Id == eventId);
 
         if (eventData == null)
             throw new Exception("Event nicht gefunden");
+
+        var logos = await _context.EventLogos
+            .Where(l => l.EventId == eventId && l.IsActive)
+            .ToListAsync();
+
+        var veranstalterLogo = logos.FirstOrDefault(l => l.Type == LogoType.Veranstalter);
+        var hauptsponsoren = logos.Where(l => l.Type == LogoType.Hauptsponsor).ToList();
+        var nebensponsoren = logos.Where(l => l.Type == LogoType.Nebensponsor).ToList();
 
         var durchgaenge = eventData.Durchgaenge.OrderBy(d => d.Durchgangsnummer).ToList();
 
@@ -37,19 +48,56 @@ public class ExportService : IExportService
             .Where(b => b.Durchgang.EventId == eventId)
             .ToListAsync();
 
-        return QuestPDF.Fluent.Document.Create(document =>
+        return Document.Create(container =>
         {
-            document.Page(page =>
+            container.Page(page =>
             {
                 page.Size(PageSizes.A4);
                 page.Margin(30);
                 page.DefaultTextStyle(x => x.FontSize(12));
 
+                // HEADER
                 page.Header().Row(row =>
                 {
-                    row.RelativeColumn().Text($"Rangliste – {eventData.Name}").FontSize(20).Bold();
-                    row.ConstantColumn(100).Image(GetSponsorLogoBytes());
+                    // Veranstalterlogo links
+                    row.ConstantItem(100).Element(container =>
+                    {
+                        container.AlignLeft().Height(60).Element(inner =>
+                        {
+                            if (veranstalterLogo != null)
+                            {
+                                var path = Path.Combine(_webRootPath, veranstalterLogo.FilePath.TrimStart('/').Replace("/", Path.DirectorySeparatorChar.ToString()));
+                                if (File.Exists(path))
+                                {
+                                    var imageData = File.ReadAllBytes(path);
+                                    inner.Image(imageData).FitHeight();
+                                }
+                            }
+                        });
+                    });
+
+                    // Eventtitel + Ort + Jahr zentriert
+                    row.RelativeItem().Column(col =>
+                    {
+                        col.Item().AlignCenter().Text($"Rangliste – {eventData.Name}").FontSize(20).Bold();
+                        col.Item().AlignCenter().Text($"{eventData.Address} ({DateTime.Now.Year})").Italic().FontSize(10);
+                    });
+
+                    // Sponsorenlogos rechts
+                    row.ConstantItem(200).Column(col =>
+                    {
+                        foreach (var sponsor in hauptsponsoren.Concat(nebensponsoren))
+                        {
+                            var path = Path.Combine(_webRootPath, sponsor.FilePath.TrimStart('/').Replace("/", Path.DirectorySeparatorChar.ToString()));
+                            if (File.Exists(path))
+                            {
+                                var imageBytes = File.ReadAllBytes(path);
+                                col.Item().AlignRight().Height(30).Image(imageBytes).FitHeight();
+                            }
+                        }
+                    });
                 });
+
 
                 page.Content().Element(container =>
                 {
@@ -90,7 +138,7 @@ public class ExportService : IExportService
                                 table.Cell().Text($"{punkte:0.0}");
                             }
                         }
-                        else // Gesamtrangliste
+                        else
                         {
                             table.ColumnsDefinition(columns =>
                             {
@@ -142,7 +190,7 @@ public class ExportService : IExportService
                         }
                     });
                 });
-
+                // Footer ebenfalls unverändert
                 page.Footer()
                     .AlignCenter()
                     .Text(x =>
@@ -152,14 +200,5 @@ public class ExportService : IExportService
                     });
             });
         }).GeneratePdf();
-    }
-
-
-    private byte[] GetSponsorLogoBytes()
-    {
-        var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "sponsor.png");
-        return File.Exists(path)
-            ? File.ReadAllBytes(path)
-            : Placeholders.Image(100, 100);
     }
 }
