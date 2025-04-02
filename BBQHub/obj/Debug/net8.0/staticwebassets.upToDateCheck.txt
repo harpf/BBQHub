@@ -1,5 +1,9 @@
 wwwroot\css\site.css
 wwwroot\favicon.ico
+wwwroot\images\eventlogos\1ba40825-e0fe-4e05-bb5a-410957cd5b9c.jpg
+wwwroot\images\eventlogos\2a44422f-00b5-4e4f-a8b8-c71d39823a2c.png
+wwwroot\images\eventlogos\3b985cb0-2d34-45ab-ae31-903b721f7815.png
+wwwroot\images\eventlogos\ca92c4e6-f051-4b31-b4de-5bcb53a08f57.png
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap.css
 wwwroot\lib\bootstrap\dist\css\bootstrap.css.map

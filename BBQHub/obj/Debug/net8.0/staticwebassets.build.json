@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "GwSNrZ6jOnPGZQ1UWGZbjPdK07XCYcz+5daH1s6G8SY=",
+  "Hash": "ndWAHG+1mL9YBsyvvZWGFHzkmmdGbDu4llc0n7dRIrU=",
   "Source": "BBQHub",
   "BasePath": "_content/BBQHub",
   "Mode": "Default",
@@ -1359,6 +1359,90 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\1ba40825-e0fe-4e05-bb5a-410957cd5b9c.jpg",
+      "SourceId": "BBQHub",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\",
+      "BasePath": "_content/BBQHub",
+      "RelativePath": "images/eventlogos/1ba40825-e0fe-4e05-bb5a-410957cd5b9c#[.{fingerprint}]?.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "wcwqxrp7xv",
+      "Integrity": "UIMZT9KaVZx4+GHSJTb5G8dL85NeCQHGfem894qINLc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\eventlogos\\1ba40825-e0fe-4e05-bb5a-410957cd5b9c.jpg"
+    },
+    {
+      "Identity": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\2a44422f-00b5-4e4f-a8b8-c71d39823a2c.png",
+      "SourceId": "BBQHub",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\",
+      "BasePath": "_content/BBQHub",
+      "RelativePath": "images/eventlogos/2a44422f-00b5-4e4f-a8b8-c71d39823a2c#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "4rfab6rh3n",
+      "Integrity": "wN6mP8zQItGgLHfZaCaaxyGed838OHForckFyVi2uSc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\eventlogos\\2a44422f-00b5-4e4f-a8b8-c71d39823a2c.png"
+    },
+    {
+      "Identity": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\3b985cb0-2d34-45ab-ae31-903b721f7815.png",
+      "SourceId": "BBQHub",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\",
+      "BasePath": "_content/BBQHub",
+      "RelativePath": "images/eventlogos/3b985cb0-2d34-45ab-ae31-903b721f7815#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "e2d4ntajkk",
+      "Integrity": "2nkB+uFn5Bv1jJoSbnod8/mZTy/lqCyHLE+gUEgl1ho=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\eventlogos\\3b985cb0-2d34-45ab-ae31-903b721f7815.png"
+    },
+    {
+      "Identity": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\ca92c4e6-f051-4b31-b4de-5bcb53a08f57.png",
+      "SourceId": "BBQHub",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\",
+      "BasePath": "_content/BBQHub",
+      "RelativePath": "images/eventlogos/ca92c4e6-f051-4b31-b4de-5bcb53a08f57#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "4rfab6rh3n",
+      "Integrity": "wN6mP8zQItGgLHfZaCaaxyGed838OHForckFyVi2uSc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\eventlogos\\ca92c4e6-f051-4b31-b4de-5bcb53a08f57.png"
     },
     {
       "Identity": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\js\\site.js",
@@ -5125,6 +5209,334 @@
         {
           "Name": "integrity",
           "Value": "sha256-16aFlqtpsG9RyieKZUUUjkJpqTgcJtWXwT312I4Iz1s="
+        }
+      ]
+    },
+    {
+      "Route": "images/eventlogos/1ba40825-e0fe-4e05-bb5a-410957cd5b9c.jpg",
+      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\1ba40825-e0fe-4e05-bb5a-410957cd5b9c.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "254420"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"UIMZT9KaVZx4+GHSJTb5G8dL85NeCQHGfem894qINLc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 02 Apr 2025 20:44:19 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-UIMZT9KaVZx4+GHSJTb5G8dL85NeCQHGfem894qINLc="
+        }
+      ]
+    },
+    {
+      "Route": "images/eventlogos/1ba40825-e0fe-4e05-bb5a-410957cd5b9c.wcwqxrp7xv.jpg",
+      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\1ba40825-e0fe-4e05-bb5a-410957cd5b9c.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "254420"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"UIMZT9KaVZx4+GHSJTb5G8dL85NeCQHGfem894qINLc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 02 Apr 2025 20:44:19 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "wcwqxrp7xv"
+        },
+        {
+          "Name": "label",
+          "Value": "images/eventlogos/1ba40825-e0fe-4e05-bb5a-410957cd5b9c.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-UIMZT9KaVZx4+GHSJTb5G8dL85NeCQHGfem894qINLc="
+        }
+      ]
+    },
+    {
+      "Route": "images/eventlogos/2a44422f-00b5-4e4f-a8b8-c71d39823a2c.4rfab6rh3n.png",
+      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\2a44422f-00b5-4e4f-a8b8-c71d39823a2c.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "22681"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"wN6mP8zQItGgLHfZaCaaxyGed838OHForckFyVi2uSc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 02 Apr 2025 20:26:43 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "4rfab6rh3n"
+        },
+        {
+          "Name": "label",
+          "Value": "images/eventlogos/2a44422f-00b5-4e4f-a8b8-c71d39823a2c.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-wN6mP8zQItGgLHfZaCaaxyGed838OHForckFyVi2uSc="
+        }
+      ]
+    },
+    {
+      "Route": "images/eventlogos/2a44422f-00b5-4e4f-a8b8-c71d39823a2c.png",
+      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\2a44422f-00b5-4e4f-a8b8-c71d39823a2c.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "22681"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"wN6mP8zQItGgLHfZaCaaxyGed838OHForckFyVi2uSc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 02 Apr 2025 20:26:43 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-wN6mP8zQItGgLHfZaCaaxyGed838OHForckFyVi2uSc="
+        }
+      ]
+    },
+    {
+      "Route": "images/eventlogos/3b985cb0-2d34-45ab-ae31-903b721f7815.e2d4ntajkk.png",
+      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\3b985cb0-2d34-45ab-ae31-903b721f7815.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4842"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"2nkB+uFn5Bv1jJoSbnod8/mZTy/lqCyHLE+gUEgl1ho=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 02 Apr 2025 20:44:37 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "e2d4ntajkk"
+        },
+        {
+          "Name": "label",
+          "Value": "images/eventlogos/3b985cb0-2d34-45ab-ae31-903b721f7815.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-2nkB+uFn5Bv1jJoSbnod8/mZTy/lqCyHLE+gUEgl1ho="
+        }
+      ]
+    },
+    {
+      "Route": "images/eventlogos/3b985cb0-2d34-45ab-ae31-903b721f7815.png",
+      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\3b985cb0-2d34-45ab-ae31-903b721f7815.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4842"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"2nkB+uFn5Bv1jJoSbnod8/mZTy/lqCyHLE+gUEgl1ho=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 02 Apr 2025 20:44:37 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-2nkB+uFn5Bv1jJoSbnod8/mZTy/lqCyHLE+gUEgl1ho="
+        }
+      ]
+    },
+    {
+      "Route": "images/eventlogos/ca92c4e6-f051-4b31-b4de-5bcb53a08f57.4rfab6rh3n.png",
+      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\ca92c4e6-f051-4b31-b4de-5bcb53a08f57.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "22681"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"wN6mP8zQItGgLHfZaCaaxyGed838OHForckFyVi2uSc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 02 Apr 2025 20:44:45 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "4rfab6rh3n"
+        },
+        {
+          "Name": "label",
+          "Value": "images/eventlogos/ca92c4e6-f051-4b31-b4de-5bcb53a08f57.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-wN6mP8zQItGgLHfZaCaaxyGed838OHForckFyVi2uSc="
+        }
+      ]
+    },
+    {
+      "Route": "images/eventlogos/ca92c4e6-f051-4b31-b4de-5bcb53a08f57.png",
+      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\ca92c4e6-f051-4b31-b4de-5bcb53a08f57.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "22681"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"wN6mP8zQItGgLHfZaCaaxyGed838OHForckFyVi2uSc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 02 Apr 2025 20:44:45 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-wN6mP8zQItGgLHfZaCaaxyGed838OHForckFyVi2uSc="
         }
       ]
     },

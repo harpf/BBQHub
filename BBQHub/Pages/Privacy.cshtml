@@ -1,8 +1,53 @@
 ﻿@page
-@model PrivacyModel
+@model BBQHub.Pages.PrivacyModel
 @{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "Datenschutz";
 }
-<h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<section class="max-w-4xl mx-auto text-white">
+    <h1 class="text-3xl font-bold text-orange-500 mb-6">Datenschutzerklärung</h1>
+
+    <p class="mb-4">
+        Der Schutz deiner persönlichen Daten ist uns wichtig. In dieser Erklärung informieren wir dich darüber,
+        welche personenbezogenen Daten wir im Rahmen der Nutzung von BBQHub erheben, verarbeiten und speichern.
+    </p>
+
+    <h2 class="text-xl font-semibold mt-6 mb-2">1. Verantwortliche Stelle</h2>
+    <p class="mb-4">
+        Verantwortlich für die Datenverarbeitung in dieser Anwendung ist das BBQHub-Organisationsteam.
+        Bei Fragen zur Verarbeitung deiner Daten kannst du dich an die Administratoren wenden.
+    </p>
+
+    <h2 class="text-xl font-semibold mt-6 mb-2">2. Erhebung und Verarbeitung von Daten</h2>
+    <p class="mb-4">
+        BBQHub speichert personenbezogene Daten ausschließlich zur Durchführung und Verwaltung von Events,
+        Bewertungen und Benutzerkonten. Dies betrifft unter anderem:
+    </p>
+    <ul class="list-disc ml-6 mb-4">
+        <li>Registrierungsdaten von Juroren</li>
+        <li>Bewertungen, die Juroren abgeben</li>
+        <li>Event- und Teamdaten</li>
+    </ul>
+
+    <h2 class="text-xl font-semibold mt-6 mb-2">3. Weitergabe von Daten</h2>
+    <p class="mb-4">
+        Es erfolgt keine Weitergabe deiner personenbezogenen Daten an Dritte, es sei denn,
+        dies ist gesetzlich vorgeschrieben oder für die Durchführung des Events notwendig.
+    </p>
+
+    <h2 class="text-xl font-semibold mt-6 mb-2">4. Deine Rechte</h2>
+    <p class="mb-4">
+        Du hast das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung deiner Daten.
+        Wende dich dazu bitte an die Veranstalter oder Administratoren der Plattform.
+    </p>
+
+    <h2 class="text-xl font-semibold mt-6 mb-2">5. Änderungen dieser Erklärung</h2>
+    <p class="mb-4">
+        Wir behalten uns vor, diese Datenschutzerklärung anzupassen, um sie an neue rechtliche Anforderungen
+        oder Änderungen in der Anwendung anzupassen.
+    </p>
+
+    <p class="mt-6 text-sm text-gray-400">
+        Letzte Aktualisierung: @DateTime.Now.ToString("dd.MM.yyyy")
+    </p>
+</section>

@@ -1,3 +1,4 @@
+using BBQHub.Application.Common.Interfaces;
 using BBQHub.Domain.Entities;
 using BBQHub.Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
@@ -11,10 +12,12 @@ namespace BBQHub.Pages.Ranglisten
     public class EventRanglisteModel : PageModel
     {
         private readonly ApplicationDbContext _context;
+        private readonly IExportService _exportService;
 
-        public EventRanglisteModel(ApplicationDbContext context)
+        public EventRanglisteModel(ApplicationDbContext context, IExportService exportService)
         {
             _context = context;
+            _exportService = exportService;
         }
 
         [BindProperty(SupportsGet = true)]
@@ -71,5 +74,18 @@ namespace BBQHub.Pages.Ranglisten
 
             return Page();
         }
+
+        public async Task<IActionResult> OnPostExportGesamtAsync()
+        {
+            var pdfBytes = await _exportService.ExportRanglisteAsync(Id, null, "gesamt");
+            return File(pdfBytes, "application/pdf", $"Rangliste_Gesamt_{DateTime.Now:yyyyMMdd_HHmm}.pdf");
+        }
+
+        public async Task<IActionResult> OnPostExportDurchgangAsync(int durchgangId)
+        {
+            var pdfBytes = await _exportService.ExportRanglisteAsync(Id, durchgangId, "durchgang");
+            return File(pdfBytes, "application/pdf", $"Rangliste_DG{durchgangId}_{DateTime.Now:yyyyMMdd_HHmm}.pdf");
+        }
+
     }
 }

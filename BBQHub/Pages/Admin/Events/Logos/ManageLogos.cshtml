@@ -1,0 +1,57 @@
+﻿@page "{eventId:int}"
+@model BBQHub.Pages.Admin.Events.ManageLogosModel
+@{
+    ViewData["Title"] = "Event-Logos verwalten";
+}
+
+<h1 class="text-2xl font-bold text-orange-500 mb-6">Logos verwalten – @Model.EventName</h1>
+
+<form method="post" enctype="multipart/form-data" class="space-y-4 max-w-lg text-black">
+    <input type="hidden" asp-for="EventId" />
+
+    <div>
+        <label class="block font-medium">Logo-Datei</label>
+        <input asp-for="Upload" type="file" accept="image/*" class="w-full p-2 border rounded bg-white" />
+    </div>
+
+    <div>
+        <label class="block font-medium">Logo-Typ</label>
+        <select asp-for="SelectedType" class="w-full p-2 border rounded">
+            <option value="Veranstalter">Veranstalter</option>
+            <option value="Hauptsponsor">Hauptsponsor</option>
+            <option value="Nebensponsor">Nebensponsor</option>
+        </select>
+    </div>
+
+    <button type="submit" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
+        Logo hochladen
+    </button>
+</form>
+
+@if (Model.ExistingLogos.Any())
+{
+    <h2 class="text-xl font-semibold text-orange-400 mt-8 mb-2">Vorhandene Logos</h2>
+
+    <form method="post" asp-page-handler="SetActive">
+        <input type="hidden" asp-for="EventId" />
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            @for (int i = 0; i < Model.ExistingLogos.Count; i++)
+            {
+                <div class="bg-zinc-800 p-2 rounded text-center">
+                    <img src="@Model.ExistingLogos[i].FilePath" class="w-full h-32 object-contain mb-2" />
+                    <div class="text-sm text-white">@Model.ExistingLogos[i].Type</div>
+                    <input type="hidden" name="LogoSelection[@i].Id" value="@Model.ExistingLogos[i].Id" />
+                    <label class="text-white text-xs">
+                        <input type="checkbox" name="LogoSelection[@i].IsActive" value="true"
+                        @(Model.ExistingLogos[i].IsActive ? "checked" : "") />
+                        Aktiv
+                    </label>
+                </div>
+            }
+        </div>
+
+        <button type="submit" class="mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
+            ✔️ Auswahl speichern
+        </button>
+    </form>
+}

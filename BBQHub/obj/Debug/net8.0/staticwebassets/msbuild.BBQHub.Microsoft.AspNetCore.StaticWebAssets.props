@@ -54,6 +54,78 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico'))</OriginalItemSpec>
     </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\eventlogos\1ba40825-e0fe-4e05-bb5a-410957cd5b9c.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>BBQHub</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/BBQHub</BasePath>
+      <RelativePath>images/eventlogos/1ba40825-e0fe-4e05-bb5a-410957cd5b9c.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>wcwqxrp7xv</Fingerprint>
+      <Integrity>UIMZT9KaVZx4+GHSJTb5G8dL85NeCQHGfem894qINLc=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\eventlogos\1ba40825-e0fe-4e05-bb5a-410957cd5b9c.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\eventlogos\2a44422f-00b5-4e4f-a8b8-c71d39823a2c.png'))">
+      <SourceType>Package</SourceType>
+      <SourceId>BBQHub</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/BBQHub</BasePath>
+      <RelativePath>images/eventlogos/2a44422f-00b5-4e4f-a8b8-c71d39823a2c.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>4rfab6rh3n</Fingerprint>
+      <Integrity>wN6mP8zQItGgLHfZaCaaxyGed838OHForckFyVi2uSc=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\eventlogos\2a44422f-00b5-4e4f-a8b8-c71d39823a2c.png'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\eventlogos\3b985cb0-2d34-45ab-ae31-903b721f7815.png'))">
+      <SourceType>Package</SourceType>
+      <SourceId>BBQHub</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/BBQHub</BasePath>
+      <RelativePath>images/eventlogos/3b985cb0-2d34-45ab-ae31-903b721f7815.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>e2d4ntajkk</Fingerprint>
+      <Integrity>2nkB+uFn5Bv1jJoSbnod8/mZTy/lqCyHLE+gUEgl1ho=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\eventlogos\3b985cb0-2d34-45ab-ae31-903b721f7815.png'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\eventlogos\ca92c4e6-f051-4b31-b4de-5bcb53a08f57.png'))">
+      <SourceType>Package</SourceType>
+      <SourceId>BBQHub</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/BBQHub</BasePath>
+      <RelativePath>images/eventlogos/ca92c4e6-f051-4b31-b4de-5bcb53a08f57.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>4rfab6rh3n</Fingerprint>
+      <Integrity>wN6mP8zQItGgLHfZaCaaxyGed838OHForckFyVi2uSc=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\eventlogos\ca92c4e6-f051-4b31-b4de-5bcb53a08f57.png'))</OriginalItemSpec>
+    </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\site.js'))">
       <SourceType>Package</SourceType>
       <SourceId>BBQHub</SourceId>

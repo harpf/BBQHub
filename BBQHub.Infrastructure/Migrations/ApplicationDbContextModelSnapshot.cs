@@ -131,6 +131,34 @@ namespace BBQHub.Infrastructure.Migrations
                     b.ToTable("Events");
                 });
 
+            modelBuilder.Entity("BBQHub.Domain.Entities.EventLogo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("EventId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventId");
+
+                    b.ToTable("EventLogos");
+                });
+
             modelBuilder.Entity("BBQHub.Domain.Entities.EventTeamAssignment", b =>
                 {
                     b.Property<int>("Id")
@@ -502,6 +530,17 @@ namespace BBQHub.Infrastructure.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("BBQHub.Domain.Entities.EventLogo", b =>
+                {
+                    b.HasOne("BBQHub.Domain.Entities.Event", "Event")
+                        .WithMany("Logos")
+                        .HasForeignKey("EventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Event");
+                });
+
             modelBuilder.Entity("BBQHub.Domain.Entities.EventTeamAssignment", b =>
                 {
                     b.HasOne("BBQHub.Domain.Entities.Event", "Event")
@@ -600,6 +639,8 @@ namespace BBQHub.Infrastructure.Migrations
             modelBuilder.Entity("BBQHub.Domain.Entities.Event", b =>
                 {
                     b.Navigation("Durchgaenge");
+
+                    b.Navigation("Logos");
 
                     b.Navigation("Teams");
                 });
