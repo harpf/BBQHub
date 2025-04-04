@@ -17,6 +17,9 @@ namespace BBQHub.Pages.Admin.Events
         {
             _context = context;
             _userManager = userManager;
+
+            AssignedTeams = new List<EventTeamAssignment>();
+            AvailableTeams = new List<SelectListItem>();
         }
 
         [BindProperty]

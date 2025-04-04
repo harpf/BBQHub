@@ -39,7 +39,7 @@
 
             <!-- Desktop Navigation -->
             <nav class="hidden md:flex space-x-6 items-center text-white font-medium">
-                <a class="hover:underline" asp-page="/Index">Home</a>
+                <a class="hover:underline" asp-page="/Index">Startseite</a>
 
                 @if (SignInManager.IsSignedIn(User) && isAdmin)
                 {
@@ -50,11 +50,11 @@
                 {
                     <a class="hover:underline" asp-page="/Admin/Events/Index">🎉 Events</a>
                     <a class="hover:underline" asp-page="/Admin/Teams/Index">🔧 Teams</a>
-                    <a class="hover:underline" asp-page="/Admin/Events/Monitor">📊 Monitoring</a>
+                    <a class="hover:underline" asp-page="/Admin/Events/Monitor">📊 Event-Übersicht</a>
                     <a class="hover:underline" asp-page="/Ranglisten/Index">🏆 Ranglisten</a>
                 }
 
-                <a class="hover:underline" asp-page="/Privacy">Privacy</a>
+                <a class="hover:underline" asp-page="/Privacy">Datenschutz</a>
                 <partial name="_LoginPartial" />
             </nav>
         </div>
@@ -72,11 +72,10 @@
             {
                 <a class="hover:underline block" asp-page="/Admin/Events/Index">🎉 Events</a>
                 <a class="hover:underline block" asp-page="/Admin/Teams/Index">🔧 Teams</a>
-                <a class="hover:underline block" asp-page="/Admin/Events/Monitor">📊 Monitoring</a>
+                <a class="hover:underline block" asp-page="/Admin/Events/Monitor">📊 Event-Management</a>
                 <a class="hover:underline block" asp-page="/Ranglisten/Index">🏆 Ranglisten</a>
             }
 
-            <a class="hover:underline block" asp-page="/Privacy">Privacy</a>
             <partial name="_LoginPartial" />
         </div>
     </header>
