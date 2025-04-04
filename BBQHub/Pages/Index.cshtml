@@ -36,6 +36,32 @@
         </div>
     }
 
+    @if (Model.AktiveSpontaneEvents.Any())
+    {
+        <div class="mt-10">
+            <h2 class="text-2xl font-semibold text-orange-400 mb-4">📥 Single Masters Teilnahme</h2>
+            <ul class="space-y-2 text-left max-w-xl mx-auto text-white">
+                @foreach (var ev in Model.AktiveSpontaneEvents)
+                {
+                    <li class="bg-zinc-800 p-4 rounded shadow hover:shadow-lg transition">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <div class="font-semibold text-lg">@ev.Name</div>
+                                <div class="text-sm text-gray-400">
+                                    @ev.StartDate.ToString("dd.MM.yyyy HH:mm") – @ev.City
+                                </div>
+                            </div>
+                            <a asp-page="/Teilnahme/Registrieren" asp-route-eventId="@ev.Id"
+                               class="bg-orange-600 hover:bg-orange-700 text-white text-sm px-4 py-2 rounded">
+                                Jetzt registrieren
+                            </a>
+                        </div>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+
     <!-- Info Cards -->
     <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto text-left">
         <div class="bg-zinc-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition">

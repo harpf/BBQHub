@@ -6,6 +6,7 @@ using BBQHub.Application.Common.Interfaces;
 using BBQHub.Application.Juroren.Services;
 using BBQHub.Hubs;
 using QuestPDF.Infrastructure;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,9 @@ if (OperatingSystem.IsWindows())
 }
 
 QuestPDF.Settings.License = LicenseType.Community;
+
+Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+Console.OutputEncoding = Encoding.UTF8;
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")

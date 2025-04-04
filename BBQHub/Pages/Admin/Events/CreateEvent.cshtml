@@ -38,6 +38,14 @@
     </div>
 
     <div>
+        <label class="block text-sm font-medium">Eventart</label>
+        <select asp-for="Input.Typ" class="w-full p-2 rounded border">
+            <option value="0">Geplant mit Teams</option>
+            <option value="1">Spontane Teilnahme</option>
+        </select>
+    </div>
+
+    <div>
         <label class="block text-sm font-medium">Manager</label>
         <select asp-for="Input.ManagerId" asp-items="Model.Managers" class="w-full p-2 rounded border"></select>
     </div>

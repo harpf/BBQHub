@@ -15,5 +15,6 @@ namespace BBQHub.Domain.Entities
         public string Name { get; set; } = string.Empty;
         public List<Kriterium> Kriterien { get; set; } = new();
         public List<Bewertung> Bewertungen { get; set; } = new();
+        public Event? Event { get; set; }
     }
 }

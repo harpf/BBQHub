@@ -37,26 +37,36 @@ namespace BBQHub.Pages.Admin.Events
 
             foreach (var ev in Events)
             {
-                var durchgangIds = ev.Durchgaenge.Select(d => d.Id).ToList();
+                var durchgaenge = ev.Durchgaenge;
+                var durchgangIds = durchgaenge.Select(d => d.Id).ToList();
+                var kriterien = durchgaenge.SelectMany(d => d.Kriterien).ToList();
 
-                // Anzahl Teams im Event
-                var teamZuweisungen = await _context.EventTeamAssignments
-                    .CountAsync(a => a.EventId == ev.Id);
+                int entityCount = 0;
 
-                // Anzahl Kriterien im Event
-                var kriterien = ev.Durchgaenge.SelectMany(d => d.Kriterien).ToList();
+                if (ev.Typ == EventType.SpontanTeilnahme)
+                {
+                    entityCount = await _context.spontanTeilnahmen
+                        .Where(s => durchgangIds.Contains(s.DurchgangId))
+                        .Select(s => s.Id)
+                        .Distinct()
+                        .CountAsync();
+                }
+                else
+                {
+                    entityCount = await _context.EventTeamAssignments
+                        .Where(ea => ea.EventId == ev.Id)
+                        .Select(ea => ea.TeamId)
+                        .Distinct()
+                        .CountAsync();
+                }
 
-                // Anzahl aktiver Juroren im Event (z. B. über Bewertungen ermittelt)
                 var jurorenIds = await _context.Bewertungen
                     .Where(b => durchgangIds.Contains(b.DurchgangId))
                     .Select(b => b.JurorId)
                     .Distinct()
                     .CountAsync();
 
-                // Gesamtanzahl erwarteter Bewertungen
-                var erwarteteBewertungen = teamZuweisungen * kriterien.Count * Math.Max(1, jurorenIds);
-                ErwarteteBewertungen[ev.Id] = erwarteteBewertungen;
-
+                ErwarteteBewertungen[ev.Id] = entityCount * kriterien.Count * Math.Max(jurorenIds, 1);
 
                 var abgegeben = await _context.Bewertungen
                     .Where(b => durchgangIds.Contains(b.DurchgangId))

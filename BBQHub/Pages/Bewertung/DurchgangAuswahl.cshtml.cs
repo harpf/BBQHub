@@ -45,19 +45,40 @@ namespace BBQHub.Pages.Bewertung
 
             return Page();
         }
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPostAsync()
         {
             if (SelectedDurchgangId == 0)
             {
                 ModelState.AddModelError("", "Bitte wähle einen Durchgang aus.");
-                return Page();
+                return await OnGetAsync(); // damit die Seite korrekt neu aufgebaut wird
             }
 
-            return RedirectToPage("/Bewertung/TeamCode", new
+            var durchgang = await _context.Durchgaenge
+                .Include(d => d.Event)
+                .FirstOrDefaultAsync(d => d.Id == SelectedDurchgangId);
+
+            if (durchgang == null || durchgang.Event == null)
+                return NotFound();
+
+            if (durchgang.Event.Typ == BBQHub.Domain.Entities.EventType.SpontanTeilnahme)
             {
-                juryId = JuryId,
-                durchgangId = SelectedDurchgangId
-            });
+                return RedirectToPage("/Bewertung/TeilnehmerCode", new
+                {
+                    juryId = JuryId,
+                    eventId = EventId,
+                    durchgangId = SelectedDurchgangId
+                });
+            }
+            else
+            {
+                return RedirectToPage("/Bewertung/TeamCode", new
+                {
+                    juryId = JuryId,
+                    eventId = EventId,
+                    durchgangId = SelectedDurchgangId
+                });
+            }
         }
+
     }
 }

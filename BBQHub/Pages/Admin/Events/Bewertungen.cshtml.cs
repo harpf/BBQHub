@@ -50,11 +50,21 @@ namespace BBQHub.Pages.Admin.Events
 
             foreach (var b in bewertungen)
             {
-                var key = (b.TeamId, b.DurchgangId, b.KriteriumId);
+                // Verwende TeamId wenn vorhanden, sonst TeilnehmerId
+                int? keyId = b.TeamId ?? b.SpontanTeilnahmeId;
+
+                // Wenn beides fehlt, überspringen
+                if (!keyId.HasValue)
+                    continue;
+
+                var key = (keyId.Value, b.DurchgangId, b.KriteriumId);
+
                 if (!BewertungenMap.ContainsKey(key))
                     BewertungenMap[key] = new List<BBQHub.Domain.Entities.Bewertung>();
+
                 BewertungenMap[key].Add(b);
             }
+
 
             return Page();
         }

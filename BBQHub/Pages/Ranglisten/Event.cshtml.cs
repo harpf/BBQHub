@@ -25,13 +25,18 @@ namespace BBQHub.Pages.Ranglisten
 
         public Event? Event { get; set; }
         public List<Durchgang> Durchgaenge { get; set; } = new();
-        public List<Team> Teams { get; set; } = new();
 
-        public Dictionary<int, Dictionary<int, double>> PunkteProDurchgang = new(); // TeamId -> DurchgangId -> Punkte
-        public Dictionary<int, double> Gesamtpunkte = new(); // TeamId -> Gesamt
+        public bool IstSpontanEvent => Event?.Typ == EventType.SpontanTeilnahme;
+
+        public List<Team> Teams { get; set; } = new();
+        public List<SpontanTeilnahme> Teilnehmer { get; set; } = new();
+
+        public Dictionary<int, Dictionary<int, double>> PunkteProDurchgang = new(); // Id -> DurchgangId -> Punkte
+        public Dictionary<int, double> Gesamtpunkte = new(); // Id -> Gesamt
 
         public Dictionary<int, Dictionary<int, double>> PunkteMitStreichresultat = new();
         public Dictionary<int, double> GesamtMitStreichresultat = new();
+        public Dictionary<int, string> TeilnehmerNamen { get; set; } = new();
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -40,75 +45,143 @@ namespace BBQHub.Pages.Ranglisten
                     .ThenInclude(d => d.Kriterien)
                 .FirstOrDefaultAsync(e => e.Id == Id);
 
-            if (Event == null)
-                return NotFound();
+            if (Event == null) return NotFound();
 
             Durchgaenge = Event.Durchgaenge.OrderBy(d => d.Durchgangsnummer).ToList();
             var durchgangIds = Durchgaenge.Select(d => d.Id).ToList();
-
-            var zuweisungen = await _context.EventTeamAssignments
-                .Where(x => x.EventId == Event.Id)
-                .Include(x => x.Team)
-                .ToListAsync();
-
-            Teams = zuweisungen.Select(z => z.Team).Distinct().ToList();
 
             var bewertungen = await _context.Bewertungen
                 .Where(b => durchgangIds.Contains(b.DurchgangId))
                 .ToListAsync();
 
-            foreach (var team in Teams)
+            if (IstSpontanEvent)
             {
-                PunkteProDurchgang[team.Id] = new Dictionary<int, double>();
-                double gesamt = 0;
+                Teilnehmer = await _context.spontanTeilnahmen
+                    .Where(t => durchgangIds.Contains(t.DurchgangId))
+                    .ToListAsync();
 
-                foreach (var dg in Durchgaenge)
+                Teams = Teilnehmer
+                    .Select(t => new Team
+                    {
+                        Id = t.Id,
+                        Name = t.Name
+                    }).ToList();
+
+                TeilnehmerNamen = Teilnehmer.ToDictionary(t => t.Id, t => t.Name);
+
+                foreach (var teilnehmer in Teilnehmer)
                 {
-                    var punkte = bewertungen
-                        .Where(b => b.DurchgangId == dg.Id && b.TeamId == team.Id)
-                        .Sum(b => b.GewichteteNote);
-
-                    PunkteProDurchgang[team.Id][dg.Id] = punkte;
-                    gesamt += punkte;
-                }
-
-                Gesamtpunkte[team.Id] = gesamt;
-            }
-
-            if (Event.EnableStreichresultate)
-            {
-                foreach (var team in Teams)
-                {
-                    PunkteMitStreichresultat[team.Id] = new Dictionary<int, double>();
-                    double gesamtMitStreich = 0;
+                    PunkteProDurchgang[teilnehmer.Id] = new Dictionary<int, double>();
+                    double gesamt = 0;
 
                     foreach (var dg in Durchgaenge)
                     {
-                        var kriterien = dg.Kriterien;
-                        double summe = 0;
+                        var punkte = bewertungen
+                            .Where(b => b.DurchgangId == dg.Id && b.SpontanTeilnahmeId == teilnehmer.Id)
+                            .Sum(b => b.GewichteteNote);
 
-                        foreach (var kriterium in kriterien)
-                        {
-                            var werte = bewertungen
-                                .Where(b => b.DurchgangId == dg.Id && b.TeamId == team.Id && b.KriteriumId == kriterium.Id)
-                                .Select(b => b.GewichteteNote)
-                                .OrderBy(x => x)
-                                .ToList();
-
-                            if (werte.Count > 2)
-                                werte = werte.Skip(1).Take(werte.Count - 2).ToList(); // Beste & schlechteste Note entfernen
-
-                            summe += werte.Sum();
-                        }
-
-                        PunkteMitStreichresultat[team.Id][dg.Id] = summe;
-                        gesamtMitStreich += summe;
+                        PunkteProDurchgang[teilnehmer.Id][dg.Id] = punkte;
+                        gesamt += punkte;
                     }
 
-                    GesamtMitStreichresultat[team.Id] = gesamtMitStreich;
+                    Gesamtpunkte[teilnehmer.Id] = gesamt;
+                }
+
+                if (Event.EnableStreichresultate)
+                {
+                    foreach (var teilnehmer in Teilnehmer)
+                    {
+                        PunkteMitStreichresultat[teilnehmer.Id] = new Dictionary<int, double>();
+                        double gesamtMitStreich = 0;
+
+                        foreach (var dg in Durchgaenge)
+                        {
+                            var kriterien = dg.Kriterien;
+                            double summe = 0;
+
+                            foreach (var kriterium in kriterien)
+                            {
+                                var werte = bewertungen
+                                    .Where(b => b.DurchgangId == dg.Id && b.SpontanTeilnahmeId == teilnehmer.Id && b.KriteriumId == kriterium.Id)
+                                    .Select(b => b.GewichteteNote)
+                                    .OrderBy(x => x)
+                                    .ToList();
+
+                                if (werte.Count > 2)
+                                    werte = werte.Skip(1).Take(werte.Count - 2).ToList();
+
+                                summe += werte.Sum();
+                            }
+
+                            PunkteMitStreichresultat[teilnehmer.Id][dg.Id] = summe;
+                            gesamtMitStreich += summe;
+                        }
+
+                        GesamtMitStreichresultat[teilnehmer.Id] = gesamtMitStreich;
+                    }
                 }
             }
+            else
+            {
+                var zuweisungen = await _context.EventTeamAssignments
+                    .Where(x => x.EventId == Event.Id)
+                    .Include(x => x.Team)
+                    .ToListAsync();
 
+                Teams = zuweisungen.Select(z => z.Team).Distinct().ToList();
+
+                foreach (var team in Teams)
+                {
+                    PunkteProDurchgang[team.Id] = new Dictionary<int, double>();
+                    double gesamt = 0;
+
+                    foreach (var dg in Durchgaenge)
+                    {
+                        var punkte = bewertungen
+                            .Where(b => b.DurchgangId == dg.Id && b.TeamId == team.Id)
+                            .Sum(b => b.GewichteteNote);
+
+                        PunkteProDurchgang[team.Id][dg.Id] = punkte;
+                        gesamt += punkte;
+                    }
+
+                    Gesamtpunkte[team.Id] = gesamt;
+                }
+
+                if (Event.EnableStreichresultate)
+                {
+                    foreach (var team in Teams)
+                    {
+                        PunkteMitStreichresultat[team.Id] = new Dictionary<int, double>();
+                        double gesamtMitStreich = 0;
+
+                        foreach (var dg in Durchgaenge)
+                        {
+                            var kriterien = dg.Kriterien;
+                            double summe = 0;
+
+                            foreach (var kriterium in kriterien)
+                            {
+                                var werte = bewertungen
+                                    .Where(b => b.DurchgangId == dg.Id && b.TeamId == team.Id && b.KriteriumId == kriterium.Id)
+                                    .Select(b => b.GewichteteNote)
+                                    .OrderBy(x => x)
+                                    .ToList();
+
+                                if (werte.Count > 2)
+                                    werte = werte.Skip(1).Take(werte.Count - 2).ToList();
+
+                                summe += werte.Sum();
+                            }
+
+                            PunkteMitStreichresultat[team.Id][dg.Id] = summe;
+                            gesamtMitStreich += summe;
+                        }
+
+                        GesamtMitStreichresultat[team.Id] = gesamtMitStreich;
+                    }
+                }
+            }
 
             return Page();
         }
@@ -124,6 +197,5 @@ namespace BBQHub.Pages.Ranglisten
             var pdfBytes = await _exportService.ExportRanglisteAsync(Id, durchgangId, "durchgang");
             return File(pdfBytes, "application/pdf", $"Rangliste_DG{durchgangId}_{DateTime.Now:yyyyMMdd_HHmm}.pdf");
         }
-
     }
 }

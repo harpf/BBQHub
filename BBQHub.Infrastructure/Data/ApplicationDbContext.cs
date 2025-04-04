@@ -53,6 +53,7 @@ namespace BBQHub.Infrastructure.Data
         public DbSet<Team> Teams { get; set; }
         public DbSet<EventTeamAssignment> EventTeamAssignments { get; set; }
         public DbSet<EventLogo> EventLogos { get; set; }
+        public DbSet <SpontanTeilnahme> spontanTeilnahmen { get; set; }
 
     }
 
