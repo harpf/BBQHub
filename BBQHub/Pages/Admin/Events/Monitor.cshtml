@@ -25,7 +25,7 @@
         {
             var total = Model.TotalBewertungen.GetValueOrDefault(ev.Id);
             var expected = Model.ErwarteteBewertungen.GetValueOrDefault(ev.Id);
-            var percent = Math.Round(100.0 * total / expected, 1);
+            var percent = expected > 0 ? Math.Round(100.0 * total / expected, 1) : 0;
 
             <tr class="border-b border-zinc-700 hover:bg-zinc-900 transition">
                 <td class="p-3 font-medium">@ev.Name</td>
