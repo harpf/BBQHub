@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Rangliste";
     var durchgaenge = Model.Durchgaenge;
+    var streichAktiv = Model.Event?.EnableStreichresultate == true;
 }
 
 <h1 class="text-2xl font-bold text-orange-500 mb-6">Rangliste – @Model.Event?.Name</h1>
@@ -27,12 +28,20 @@
             {
                 <th class="p-3">Durchgang @dg.Durchgangsnummer</th>
             }
-            <th class="p-3">Gesamt</th>
+            <th class="p-3">
+                Gesamt
+                @if (streichAktiv)
+                {
+                    <span class="text-green-400">(mit Streich)</span>
+                }
+            </th>
         </tr>
     </thead>
     <tbody>
         @foreach (var team in Model.Teams
-        .OrderByDescending(t => Model.Gesamtpunkte[t.Id])
+        .OrderByDescending(t => streichAktiv
+        ? Model.GesamtMitStreichresultat[t.Id]
+        : Model.Gesamtpunkte[t.Id])
         .Select((t, index) => new { Team = t, Platz = index + 1 }))
         {
             <tr class="border-b border-zinc-700">
@@ -40,12 +49,24 @@
                 <td class="p-3 font-semibold">@team.Team.Name</td>
                 @foreach (var dg in durchgaenge)
                 {
+                    var normal = Model.PunkteProDurchgang[team.Team.Id].GetValueOrDefault(dg.Id);
+                    var mitStreich = streichAktiv ? Model.PunkteMitStreichresultat[team.Team.Id].GetValueOrDefault(dg.Id) : 0;
+
                     <td class="p-3">
-                        @Model.PunkteProDurchgang[team.Team.Id].GetValueOrDefault(dg.Id).ToString("0.0")
+                        @normal.ToString("0.0")
+                        @if (streichAktiv)
+                        {
+                            <span class="text-green-400">(@mitStreich.ToString("0.0"))</span>
+                        }
                     </td>
                 }
-                <td class="p-3 font-bold text-orange-400">
-                    @Model.Gesamtpunkte[team.Team.Id].ToString("0.0")
+                @{
+                    var gesamt = streichAktiv
+                    ? Model.GesamtMitStreichresultat[team.Team.Id]
+                    : Model.Gesamtpunkte[team.Team.Id];
+                }
+                <td class="p-3 font-bold @(streichAktiv ? "text-green-400" : "text-orange-400")">
+                    @gesamt.ToString("0.0")
                 </td>
             </tr>
         }
@@ -77,14 +98,24 @@
             </thead>
             <tbody>
                 @foreach (var item in Model.Teams
-               .OrderByDescending(t => Model.PunkteProDurchgang[t.Id].GetValueOrDefault(dg.Id))
+               .OrderByDescending(t => streichAktiv
+               ? Model.PunkteMitStreichresultat[t.Id].GetValueOrDefault(dg.Id)
+               : Model.PunkteProDurchgang[t.Id].GetValueOrDefault(dg.Id))
                .Select((t, index) => new { Team = t, Platz = index + 1 }))
                 {
-                    var punkte = Model.PunkteProDurchgang[item.Team.Id].GetValueOrDefault(dg.Id);
+                    var normal = Model.PunkteProDurchgang[item.Team.Id].GetValueOrDefault(dg.Id);
+                    var mitStreich = streichAktiv ? Model.PunkteMitStreichresultat[item.Team.Id].GetValueOrDefault(dg.Id) : 0;
+
                     <tr class="border-b border-zinc-700">
                         <td class="p-2 font-bold">@item.Platz</td>
                         <td class="p-2">@item.Team.Name</td>
-                        <td class="p-2">@punkte.ToString("0.0")</td>
+                        <td class="p-2">
+                            @normal.ToString("0.0")
+                            @if (streichAktiv)
+                            {
+                                <span class="text-green-400">(@mitStreich.ToString("0.0"))</span>
+                            }
+                        </td>
                     </tr>
                 }
             </tbody>

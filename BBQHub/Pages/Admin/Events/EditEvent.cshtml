@@ -14,8 +14,24 @@
         <input asp-for="Input.Name" class="w-full p-2 rounded border" />
     </div>
     <div>
-        <label class="block text-sm font-medium">Adresse</label>
-        <input asp-for="Input.Address" class="w-full p-2 rounded border" />
+        <label class="block text-sm font-medium">Straße</label>
+        <input asp-for="Input.Street" class="w-full p-2 rounded border" />
+    </div>
+    <div>
+        <label class="block text-sm font-medium">PLZ</label>
+        <input asp-for="Input.ZipCode" class="w-full p-2 rounded border" />
+    </div>
+    <div>
+        <label class="block text-sm font-medium">Ort</label>
+        <input asp-for="Input.City" class="w-full p-2 rounded border" />
+    </div>
+    <div>
+        <label class="block text-sm font-medium">Land</label>
+        <input asp-for="Input.Country" class="w-full p-2 rounded border" />
+    </div>
+    <div>
+        <label class="block text-sm font-medium">Startdatum</label>
+        <input asp-for="Input.StartDate" type="date" class="w-full p-2 rounded border" />
     </div>
     <div>
         <label class="block text-sm font-medium">Manager</label>
@@ -163,6 +179,19 @@
                class="inline-block mt-6 bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600">
                 🎨 Logos verwalten
             </a>
+
+            <form method="post" asp-page-handler="EnableStreichresultate" class="mt-6">
+                <input type="hidden" asp-for="Input.Id" />
+
+                <label class="inline-flex items-center text-black">
+                    <input asp-for="Input.EnableStreichresultate" type="checkbox" class="mr-2" />
+                    <span>Streichresultate aktivieren (beste & schlechteste Note ignorieren)</span>
+                </label>
+
+                <button type="submit" class="ml-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700">
+                    Speichern
+                </button>
+            </form>
 
             <a asp-page="/Admin/Events/Durchgaenge/Create"
                asp-route-EventId="@Model.Input.Id"

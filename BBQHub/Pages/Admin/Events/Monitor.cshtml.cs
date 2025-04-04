@@ -38,13 +38,25 @@ namespace BBQHub.Pages.Admin.Events
             foreach (var ev in Events)
             {
                 var durchgangIds = ev.Durchgaenge.Select(d => d.Id).ToList();
-                var kriterien = ev.Durchgaenge.SelectMany(d => d.Kriterien).ToList();
 
+                // Anzahl Teams im Event
                 var teamZuweisungen = await _context.EventTeamAssignments
                     .CountAsync(a => a.EventId == ev.Id);
 
-                var erwarteteBewertungen = Math.Max(1, teamZuweisungen * Math.Max(1, kriterien.Count));
+                // Anzahl Kriterien im Event
+                var kriterien = ev.Durchgaenge.SelectMany(d => d.Kriterien).ToList();
+
+                // Anzahl aktiver Juroren im Event (z. B. über Bewertungen ermittelt)
+                var jurorenIds = await _context.Bewertungen
+                    .Where(b => durchgangIds.Contains(b.DurchgangId))
+                    .Select(b => b.JurorId)
+                    .Distinct()
+                    .CountAsync();
+
+                // Gesamtanzahl erwarteter Bewertungen
+                var erwarteteBewertungen = teamZuweisungen * kriterien.Count * Math.Max(1, jurorenIds);
                 ErwarteteBewertungen[ev.Id] = erwarteteBewertungen;
+
 
                 var abgegeben = await _context.Bewertungen
                     .Where(b => durchgangIds.Contains(b.DurchgangId))

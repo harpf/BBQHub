@@ -21,21 +21,24 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/BBQHub.styles.css" asp-append-version="true" />
 </head>
-<body class="bg-zinc-900 text-white min-h-screen flex flex-col">
-    <header class="bg-gradient-to-r from-red-800 to-orange-600 shadow-lg">
+<body class="bg-zinc-900 text-white min-h-screen flex flex-col font-sans">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-red-800 to-orange-600 shadow-lg sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <a class="text-2xl font-bold tracking-wide text-white" asp-area="" asp-page="/Index">
+            <a class="text-2xl font-bold text-white tracking-wide" asp-area="" asp-page="/Index">
                 🔥 BBQHub
             </a>
 
-            <button id="menu-toggle" class="md:hidden text-white focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <button id="menu-toggle" class="md:hidden text-white focus:outline-none" aria-label="Menü öffnen">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                           d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
             </button>
 
-            <nav id="menu" class="hidden md:flex flex-col md:flex-row gap-4 md:items-center text-white font-medium">
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-6 items-center text-white font-medium">
                 <a class="hover:underline" asp-page="/Index">Home</a>
 
                 @if (SignInManager.IsSignedIn(User) && isAdmin)
@@ -55,18 +58,41 @@
                 <partial name="_LoginPartial" />
             </nav>
         </div>
+
+        <!-- Mobile Navigation -->
+        <div id="menu" class="md:hidden hidden flex-col bg-zinc-800 text-white px-4 py-4 space-y-3 shadow-lg transition-all duration-300">
+            <a class="hover:underline block" asp-page="/Index">Home</a>
+
+            @if (SignInManager.IsSignedIn(User) && isAdmin)
+            {
+                <a class="hover:underline block" asp-page="/Admin/Juroren">Juroren</a>
+            }
+
+            @if (SignInManager.IsSignedIn(User) && (isAdmin || isOrganizer))
+            {
+                <a class="hover:underline block" asp-page="/Admin/Events/Index">🎉 Events</a>
+                <a class="hover:underline block" asp-page="/Admin/Teams/Index">🔧 Teams</a>
+                <a class="hover:underline block" asp-page="/Admin/Events/Monitor">📊 Monitoring</a>
+                <a class="hover:underline block" asp-page="/Ranglisten/Index">🏆 Ranglisten</a>
+            }
+
+            <a class="hover:underline block" asp-page="/Privacy">Privacy</a>
+            <partial name="_LoginPartial" />
+        </div>
     </header>
 
+    <!-- Main Content -->
     <main class="flex-grow container mx-auto px-4 py-8">
         @RenderBody()
     </main>
 
-    <footer class="bg-zinc-800 text-center py-4 text-sm text-gray-400">
+    <!-- Footer -->
+    <footer class="bg-zinc-800 text-center py-4 text-sm text-gray-400 mt-8">
         &copy; 2025 - BBQHub · <a asp-page="/Privacy" class="underline text-orange-400">Datenschutz</a>
     </footer>
 
+    <!-- Mobile Menu Toggle Script -->
     <script>
-        // Mobile Menü-Toggle
         const toggle = document.getElementById('menu-toggle');
         const menu = document.getElementById('menu');
         toggle.addEventListener('click', () => {
