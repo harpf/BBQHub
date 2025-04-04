@@ -33,24 +33,27 @@
                             var key = (team.Id, durchgang.Id, kriterium.Id);
                             if (Model.BewertungenMap.TryGetValue(key, out var bewertungen))
                             {
+                                var highlight = "";
                                 var punkte = bewertungen.Select(b => b.Punkte).ToList();
-                                var avg = punkte.Average();
                                 var stddev = Model.BerechneStandardabweichung(punkte);
-
-                                var highlight = stddev >= 2 ? "bg-red-700 text-white font-bold" : "bg-zinc-800";
+                                if (stddev >= 2) highlight = "bg-red-700 text-white font-bold";
 
                                 <td class="p-3 align-top @highlight whitespace-nowrap">
-                                    <div>
-                                        <div>Ø @avg.ToString("0.0")</div>
-                                        <div class="text-xs text-zinc-300">σ = @stddev.ToString("0.0")</div>
-                                        <a asp-page="/Admin/Events/EditBewertung"
-                                           asp-route-teamId="@team.Id"
-                                           asp-route-durchgangId="@durchgang.Id"
-                                           asp-route-kriteriumId="@kriterium.Id"
-                                           class="text-xs text-orange-300 hover:underline block mt-1">
-                                            ✏️ Bearbeiten
-                                        </a>
+                                    <div class="space-y-1">
+                                        @foreach (var b in bewertungen)
+                                        {
+                                            <div class="text-sm">
+                                                👤 Juror @b.JurorId: <strong>@b.Punkte</strong>
+                                            </div>
+                                        }
                                     </div>
+                                    <a asp-page="/Admin/Events/EditBewertung"
+                                       asp-route-teamId="@team.Id"
+                                       asp-route-durchgangId="@durchgang.Id"
+                                       asp-route-kriteriumId="@kriterium.Id"
+                                       class="text-xs text-orange-300 hover:underline block mt-2">
+                                        ✏️ Bearbeiten
+                                    </a>
                                 </td>
                             }
                             else

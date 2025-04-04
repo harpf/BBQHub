@@ -4,38 +4,51 @@
     ViewData["Title"] = "BBQHub – Start";
 }
 
-<section class="text-center mt-10 space-y-6">
-    <h1 class="text-4xl md:text-5xl font-bold text-orange-500">
+<section class="mt-10 px-4 sm:px-6 lg:px-8 text-center space-y-8">
+    <!-- Headline -->
+    <h1 class="text-4xl sm:text-5xl font-extrabold text-orange-500 leading-tight">
         Willkommen beim BBQHub!
     </h1>
 
-    <p class="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
-        Deine Plattform für Wettbewerbe, Bewertungen und Juryverwaltung rund ums BBQ.
-        Nimm am aktuellen Event teil oder informiere dich über kommende Veranstaltungen!
+    <!-- Intro -->
+    <p class="text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
+        Deine Plattform für BBQ-Wettbewerbe, Bewertungen und Juryverwaltung.<br class="hidden sm:inline" />
+        Starte direkt mit deiner Teilnahme oder registriere dich als Juror!
     </p>
 
-    <a asp-page="/Bewertung/Start"
-       class="inline-block mt-6 px-6 py-3 bg-orange-800 text-white font-semibold rounded hover:bg-orange-500 transition">
-        🔥 Am Wettbewerb teilnehmen
-    </a>
+    <!-- Call-to-Actions -->
+    <div class="flex flex-col sm:flex-row justify-center gap-4">
+        <a asp-page="/Bewertung/Start"
+           class="inline-block px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white font-semibold rounded-xl shadow transition">
+            🔥 Am Wettbewerb teilnehmen
+        </a>
+        <a asp-page="/Juror/Registrieren"
+           class="inline-block px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl shadow transition">
+            📝 Juror registrieren
+        </a>
+    </div>
 
-    <a asp-page="/Juror/Registrieren"
-       class="inline-block mt-6 px-6 py-3 bg-blue-600 text-white font-semibold rounded hover:bg-blue-700 transition">
-        📝 Juror registrieren
-    </a>
+    @if (Model.NaechstesEvent != null)
+    {
+        <div class="mt-6 text-lg text-white">
+            📅 <strong>Nächstes Event:</strong> @Model.NaechstesEvent.Name startet am
+            <span class="text-orange-400 font-semibold">@Model.NaechstesEvent.StartDate.ToString("dd.MM.yyyy HH:mm")</span>
+        </div>
+    }
 
-    <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto text-left text-gray-300">
-        <div class="bg-zinc-800 p-6 rounded-lg shadow">
-            <h2 class="text-xl font-semibold text-white mb-2">Wettbewerbe</h2>
-            <p>Alle kommenden BBQ-Wettbewerbe auf einen Blick – inklusive Infos & Teilnahmebedingungen.</p>
+    <!-- Info Cards -->
+    <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto text-left">
+        <div class="bg-zinc-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition">
+            <h2 class="text-xl font-bold text-white mb-2">🍖 Wettbewerbe</h2>
+            <p class="text-gray-300">Alle kommenden BBQ-Events auf einen Blick – mit Infos, Regeln und Anmeldung.</p>
         </div>
-        <div class="bg-zinc-800 p-6 rounded-lg shadow">
-            <h2 class="text-xl font-semibold text-white mb-2">Jury-Bereich</h2>
-            <p>Einfacher Zugang für Juroren mit individuellen Bewertungsformularen und Profilübersicht.</p>
+        <div class="bg-zinc-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition">
+            <h2 class="text-xl font-bold text-white mb-2">🧑‍⚖️ Jury-Bereich</h2>
+            <p class="text-gray-300">Bewertungen, Durchgänge & persönliche Profile – alles für Juroren an einem Ort.</p>
         </div>
-        <div class="bg-zinc-800 p-6 rounded-lg shadow">
-            <h2 class="text-xl font-semibold text-white mb-2">Verwaltung</h2>
-            <p>Für Organisatoren: Teilnehmer verwalten, Bewertungen exportieren, Events konfigurieren.</p>
+        <div class="bg-zinc-800 rounded-xl p-6 shadow-lg hover:shadow-xl transition">
+            <h2 class="text-xl font-bold text-white mb-2">⚙️ Verwaltung</h2>
+            <p class="text-gray-300">Für Veranstalter: Teilnehmer verwalten, Events konfigurieren & Ergebnisse exportieren.</p>
         </div>
     </div>
 </section>

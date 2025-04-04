@@ -1,5 +1,5 @@
 ﻿@{
-    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout !=  null)
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout != null)
     {
         Layout = parentLayout.ToString();
     }
@@ -9,20 +9,25 @@
     }
 }
 
-<h1>Manage your account</h1>
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <h1 class="text-3xl font-bold text-orange-500 mb-6">Konto verwalten</h1>
 
-<div>
-    <h2>Change your account settings</h2>
-    <hr />
-    <div class="row">
-        <div class="col-md-3">
-            <partial name="_ManageNav" />
-        </div>
-        <div class="col-md-9">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <!-- 📚 Navigation (partial) -->
+        <aside class="md:col-span-1">
+            <div class="bg-zinc-800 rounded-lg shadow p-4 space-y-2">
+                <partial name="_ManageNav" />
+            </div>
+        </aside>
+
+        <!-- 📄 Content -->
+        <main class="md:col-span-3 bg-white rounded-lg shadow p-6 text-gray-800 [&_a]:text-blue-600 [&_a:hover]:underline [&_h1]:text-black [&_h2]:text-black [&_label]:text-gray-700">
+            <h2 class="text-xl font-semibold mb-4">Einstellungen ändern</h2>
+            <hr class="mb-6" />
             @RenderBody()
-        </div>
+        </main>
     </div>
-</div>
+</section>
 
 @section Scripts {
     @RenderSection("Scripts", required: false)

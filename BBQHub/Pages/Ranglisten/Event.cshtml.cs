@@ -30,6 +30,9 @@ namespace BBQHub.Pages.Ranglisten
         public Dictionary<int, Dictionary<int, double>> PunkteProDurchgang = new(); // TeamId -> DurchgangId -> Punkte
         public Dictionary<int, double> Gesamtpunkte = new(); // TeamId -> Gesamt
 
+        public Dictionary<int, Dictionary<int, double>> PunkteMitStreichresultat = new();
+        public Dictionary<int, double> GesamtMitStreichresultat = new();
+
         public async Task<IActionResult> OnGetAsync()
         {
             Event = await _context.Events
@@ -71,6 +74,41 @@ namespace BBQHub.Pages.Ranglisten
 
                 Gesamtpunkte[team.Id] = gesamt;
             }
+
+            if (Event.EnableStreichresultate)
+            {
+                foreach (var team in Teams)
+                {
+                    PunkteMitStreichresultat[team.Id] = new Dictionary<int, double>();
+                    double gesamtMitStreich = 0;
+
+                    foreach (var dg in Durchgaenge)
+                    {
+                        var kriterien = dg.Kriterien;
+                        double summe = 0;
+
+                        foreach (var kriterium in kriterien)
+                        {
+                            var werte = bewertungen
+                                .Where(b => b.DurchgangId == dg.Id && b.TeamId == team.Id && b.KriteriumId == kriterium.Id)
+                                .Select(b => b.GewichteteNote)
+                                .OrderBy(x => x)
+                                .ToList();
+
+                            if (werte.Count > 2)
+                                werte = werte.Skip(1).Take(werte.Count - 2).ToList(); // Beste & schlechteste Note entfernen
+
+                            summe += werte.Sum();
+                        }
+
+                        PunkteMitStreichresultat[team.Id][dg.Id] = summe;
+                        gesamtMitStreich += summe;
+                    }
+
+                    GesamtMitStreichresultat[team.Id] = gesamtMitStreich;
+                }
+            }
+
 
             return Page();
         }

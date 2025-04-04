@@ -4,69 +4,81 @@
     ViewData["Title"] = "Juroren";
 }
 
-<h1 class="text-2xl font-bold mb-4">Jurorenübersicht</h1>
+<h1 class="text-3xl font-bold mb-6 text-orange-500">Jurorenübersicht</h1>
 
-<form method="get" class="mb-4 flex gap-2 items-center">
+<!-- 🔍 Suchleiste -->
+<form method="get" class="mb-6 flex flex-col sm:flex-row gap-3 sm:items-center">
     <input type="text" name="SearchTerm" value="@Model.SearchTerm"
-           placeholder="Suchen..." class="p-2 rounded text-black w-64" />
-    <button type="submit" class="px-4 py-2 bg-orange-600 text-white rounded hover:bg-orange-700">Suchen</button>
+           placeholder="🔎 Juror suchen..." class="p-3 rounded w-full sm:w-72 text-black shadow focus:outline-none focus:ring-2 focus:ring-orange-500" />
+    <button type="submit" class="px-4 py-2 bg-orange-600 text-white rounded hover:bg-orange-700 transition">
+        Suchen
+    </button>
+    <a href="/Admin/ExportJuroren"
+       class="px-4 py-2 bg-orange-600 text-white rounded hover:bg-orange-700 transition whitespace-nowrap">
+        📤 Exportieren
+    </a>
 </form>
 
-<a href="/Admin/ExportJuroren" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
-    📤 Juroren exportieren
-</a>
-
-<table class="min-w-full border border-gray-600 text-left text-sm">
-    <thead class="bg-orange-600 text-white">
-        <tr>
-            <th class="p-2">
-                <a asp-page="./Juroren" asp-route-SortOrder="@((Model.SortOrder == "firstname") ? "firstname_desc" : "firstname")" asp-route-SearchTerm="@Model.SearchTerm">
-                    Vorname
-                </a>
-            </th>
-            <th class="p-2">
-                <a asp-page="./Juroren" asp-route-SortOrder="@((Model.SortOrder == "lastname") ? "lastname_desc" : "lastname")" asp-route-SearchTerm="@Model.SearchTerm">
-                    Nachname
-                </a>
-            </th>
-            <th class="p-2">Jury-ID</th>
-            <th class="p-2">E-Mail</th>
-            <th class="p-2">Vereinslocation</th>
-        </tr>
-    </thead>
-    <tbody class="bg-white text-black">
-        @foreach (var juror in Model.JurorenList)
-        {
-            <tr class="border-t border-gray-300">
-                <td class="p-2">@juror.FirstName</td>
-                <td class="p-2">@juror.LastName</td>
-                <td class="p-2">@juror.JuryId</td>
-                <td class="p-2">@juror.Email</td>
-                <td class="p-2">@juror.Vereinslocation</td>
-                <td class="p-2">
-                    <a asp-page="/Admin/EditJuror" asp-route-id="@juror.Id"
-                       class="text-blue-600 hover:underline">Bearbeiten</a>
-                </td>
+<!-- 📋 Tabelle -->
+<div class="overflow-x-auto bg-white rounded shadow-lg">
+    <table class="min-w-full divide-y divide-gray-300 text-sm text-left">
+        <thead class="bg-orange-600 text-white">
+            <tr>
+                <th class="p-3 whitespace-nowrap">
+                    <a asp-page="./Juroren" asp-route-SortOrder="@((Model.SortOrder == "firstname") ? "firstname_desc" : "firstname")" asp-route-SearchTerm="@Model.SearchTerm" class="hover:underline">
+                        Vorname
+                    </a>
+                </th>
+                <th class="p-3 whitespace-nowrap">
+                    <a asp-page="./Juroren" asp-route-SortOrder="@((Model.SortOrder == "lastname") ? "lastname_desc" : "lastname")" asp-route-SearchTerm="@Model.SearchTerm" class="hover:underline">
+                        Nachname
+                    </a>
+                </th>
+                <th class="p-3 whitespace-nowrap">Jury-ID</th>
+                <th class="p-3 whitespace-nowrap">E-Mail</th>
+                <th class="p-3 whitespace-nowrap">Vereinslocation</th>
+                <th class="p-3 whitespace-nowrap text-right">Aktionen</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody class="divide-y divide-gray-200 text-gray-900">
+            @foreach (var juror in Model.JurorenList)
+            {
+                <tr class="hover:bg-orange-50 transition">
+                    <td class="p-3">@juror.FirstName</td>
+                    <td class="p-3">@juror.LastName</td>
+                    <td class="p-3">@juror.JuryId</td>
+                    <td class="p-3">@juror.Email</td>
+                    <td class="p-3">@juror.Vereinslocation</td>
+                    <td class="p-3 text-right">
+                        <a asp-page="/Admin/EditJuror" asp-route-id="@juror.Id"
+                           class="text-blue-600 hover:text-blue-800 font-semibold transition">
+                            ✏️ Bearbeiten
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 <!-- 🔢 Pagination -->
-<div class="mt-4 flex gap-2">
-    @if (Model.Page > 1)
-    {
-        <a asp-page="./Juroren" asp-route-Page="@(Model.Page - 1)" asp-route-SortOrder="@Model.SortOrder" asp-route-SearchTerm="@Model.SearchTerm"
-           class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">Zurück</a>
-    }
-    @for (int i = 1; i <= Model.TotalPages; i++)
-    {
-        <a asp-page="./Juroren" asp-route-Page="@i" asp-route-SortOrder="@Model.SortOrder" asp-route-SearchTerm="@Model.SearchTerm"
-           class="px-3 py-1 rounded @(i == Model.Page ? "bg-orange-600 text-white" : "bg-gray-200 hover:bg-gray-300")">@i</a>
-    }
-    @if (Model.Page < Model.TotalPages)
-    {
-        <a asp-page="./Juroren" asp-route-Page="@(Model.Page + 1)" asp-route-SortOrder="@Model.SortOrder" asp-route-SearchTerm="@Model.SearchTerm"
-           class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">Weiter</a>
-    }
-</div>
+@if (Model.TotalPages > 1)
+{
+    <div class="mt-6 flex flex-wrap gap-2 justify-center">
+        @if (Model.Page > 1)
+        {
+            <a asp-page="./Juroren" asp-route-Page="@(Model.Page - 1)" asp-route-SortOrder="@Model.SortOrder" asp-route-SearchTerm="@Model.SearchTerm"
+               class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">⬅️ Zurück</a>
+        }
+        @for (int i = 1; i <= Model.TotalPages; i++)
+        {
+            <a asp-page="./Juroren" asp-route-Page="@i" asp-route-SortOrder="@Model.SortOrder" asp-route-SearchTerm="@Model.SearchTerm"
+               class="px-3 py-1 rounded @(i == Model.Page ? "bg-orange-600 text-white" : "bg-gray-200 hover:bg-gray-300")">@i</a>
+        }
+        @if (Model.Page < Model.TotalPages)
+        {
+            <a asp-page="./Juroren" asp-route-Page="@(Model.Page + 1)" asp-route-SortOrder="@Model.SortOrder" asp-route-SearchTerm="@Model.SearchTerm"
+               class="px-3 py-1 bg-gray-200 rounded hover:bg-gray-300">Weiter ➡️</a>
+        }
+    </div>
+}

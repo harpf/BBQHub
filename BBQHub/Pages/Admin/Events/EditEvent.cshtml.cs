@@ -78,14 +78,22 @@ namespace BBQHub.Pages.Admin.Events
                 return NotFound();
 
             existing.Name = Input.Name;
-            existing.Address = Input.Address;
             existing.Description = Input.Description;
             existing.ManagerId = Input.ManagerId;
+            existing.EnableStreichresultate = Input.EnableStreichresultate;
+
+            // Neue Felder übernehmen
+            existing.Street = Input.Street;
+            existing.ZipCode = Input.ZipCode;
+            existing.City = Input.City;
+            existing.Country = Input.Country;
+            existing.StartDate = Input.StartDate;
 
             await _context.SaveChangesAsync();
 
             return RedirectToPage("/Admin/Events/Index");
         }
+
         public async Task<IActionResult> OnPostDeleteAsync()
         {
             var existing = await _context.Events.FindAsync(Input.Id);
@@ -139,6 +147,18 @@ namespace BBQHub.Pages.Admin.Events
             await _context.SaveChangesAsync();
 
             return RedirectToPage(new { id = eventId });
+        }
+        public async Task<IActionResult> OnPostEnableStreichresultateAsync()
+        {
+            var existing = await _context.Events.FindAsync(Input.Id);
+            if (existing == null)
+                return NotFound();
+        
+            existing.EnableStreichresultate = Input.EnableStreichresultate;
+        
+            await _context.SaveChangesAsync();
+        
+            return RedirectToPage(new { id = Input.Id });
         }
 
     }
