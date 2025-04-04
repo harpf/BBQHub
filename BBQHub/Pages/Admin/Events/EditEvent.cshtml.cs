@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +29,8 @@ namespace BBQHub.Pages.Admin.Events
         public List<Team> Teams { get; set; } = new();
         public List<EventTeamAssignment> AssignedTeams { get; set; }
         public List<SelectListItem> AvailableTeams { get; set; }
+        public Dictionary<int, List<SpontanTeilnahme>> TeilnehmerByDurchgang { get; set; } = new();
+
 
         public async Task<IActionResult> OnGetAsync(int id)
         {
@@ -65,6 +67,20 @@ namespace BBQHub.Pages.Admin.Events
                 })
                 .ToListAsync();
 
+            // 🆕 Teilnehmer für spontane Events laden
+            if (ev.Typ == EventType.SpontanTeilnahme)
+            {
+                var durchgangIds = ev.Durchgaenge.Select(d => d.Id).ToList();
+
+                var teilnahmen = await _context.spontanTeilnahmen
+                    .Where(t => durchgangIds.Contains(t.DurchgangId))
+                    .ToListAsync();
+
+                TeilnehmerByDurchgang = teilnahmen
+                    .GroupBy(t => t.DurchgangId)
+                    .ToDictionary(g => g.Key, g => g.ToList());
+            }
+
             return Page();
         }
 
@@ -82,7 +98,7 @@ namespace BBQHub.Pages.Admin.Events
             existing.ManagerId = Input.ManagerId;
             existing.EnableStreichresultate = Input.EnableStreichresultate;
 
-            // Neue Felder �bernehmen
+            // Neue Felder übernehmen
             existing.Street = Input.Street;
             existing.ZipCode = Input.ZipCode;
             existing.City = Input.City;
@@ -111,7 +127,7 @@ namespace BBQHub.Pages.Admin.Events
             if (SelectedTeamId <= 0)
                 return RedirectToPage(new { id = eventId });
 
-            // Pr�fen ob Team bereits zugewiesen wurde
+            // Prüfen ob Team bereits zugewiesen wurde
             bool alreadyAssigned = await _context.EventTeamAssignments
                 .AnyAsync(a => a.EventId == eventId && a.TeamId == SelectedTeamId);
 
@@ -158,6 +174,27 @@ namespace BBQHub.Pages.Admin.Events
         
             await _context.SaveChangesAsync();
         
+            return RedirectToPage(new { id = Input.Id });
+        }
+        public async Task<IActionResult> OnPostLoeschenTeilnehmerAsync(int TeilnehmerId)
+        {
+            var t = await _context.spontanTeilnahmen.FindAsync(TeilnehmerId);
+            if (t == null) return NotFound();
+
+            _context.spontanTeilnahmen.Remove(t);
+            await _context.SaveChangesAsync();
+
+            return RedirectToPage(new { id = Input.Id });
+        }
+
+        public async Task<IActionResult> OnPostVerschiebenTeilnehmerAsync(int TeilnehmerId, int NeuerDurchgangId)
+        {
+            var t = await _context.spontanTeilnahmen.FindAsync(TeilnehmerId);
+            if (t == null) return NotFound();
+
+            t.DurchgangId = NeuerDurchgangId;
+            await _context.SaveChangesAsync();
+
             return RedirectToPage(new { id = Input.Id });
         }
 

@@ -8,7 +8,16 @@
 
 <p class="text-gray-300 mb-2">Juror-ID: <strong>@Model.JuryId</strong></p>
 <p class="text-gray-300 mb-2">Event: <strong>@Model.EventName</strong></p>
-<p class="text-gray-300 mb-6">Durchgang: <strong>@Model.DurchgangName</strong></p>
+<p class="text-gray-300 mb-2">Durchgang: <strong>@Model.DurchgangName</strong></p>
+
+@if (Model.TeamId != null)
+{
+    <p class="text-gray-300 mb-6">Bewertung für Team-ID: <strong>@Model.TeamId</strong></p>
+}
+else if (Model.TeilnehmerId != null)
+{
+    <p class="text-gray-300 mb-6">Bewertung für Teilnehmer-ID: <strong>@Model.TeilnehmerId</strong></p>
+}
 
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
 {
@@ -22,6 +31,7 @@
     <input type="hidden" asp-for="DurchgangId" />
     <input type="hidden" asp-for="EventId" />
     <input type="hidden" asp-for="TeamId" />
+    <input type="hidden" asp-for="TeilnehmerId" />
 
     @if (Model.Kriterien.Any())
     {

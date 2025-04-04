@@ -45,7 +45,10 @@ namespace BBQHub.Infrastructure.Migrations
                     b.Property<int>("Punkte")
                         .HasColumnType("int");
 
-                    b.Property<int>("TeamId")
+                    b.Property<int?>("SpontanTeilnahmeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TeamId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -55,6 +58,8 @@ namespace BBQHub.Infrastructure.Migrations
                     b.HasIndex("JurorId");
 
                     b.HasIndex("KriteriumId");
+
+                    b.HasIndex("SpontanTeilnahmeId");
 
                     b.HasIndex("TeamId");
 
@@ -261,6 +266,58 @@ namespace BBQHub.Infrastructure.Migrations
                     b.HasIndex("DurchgangId");
 
                     b.ToTable("Kriterien");
+                });
+
+            modelBuilder.Entity("BBQHub.Domain.Entities.SpontanTeilnahme", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Anmeldezeit")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("City")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DurchgangId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Telefonnummer")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Token")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DurchgangId");
+
+                    b.ToTable("spontanTeilnahmen");
                 });
 
             modelBuilder.Entity("BBQHub.Domain.Entities.Team", b =>
@@ -515,11 +572,13 @@ namespace BBQHub.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("BBQHub.Domain.Entities.SpontanTeilnahme", "SpontanTeilnahme")
+                        .WithMany()
+                        .HasForeignKey("SpontanTeilnahmeId");
+
                     b.HasOne("BBQHub.Domain.Entities.Team", "Team")
                         .WithMany("Bewertungen")
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TeamId");
 
                     b.Navigation("Durchgang");
 
@@ -527,16 +586,20 @@ namespace BBQHub.Infrastructure.Migrations
 
                     b.Navigation("Kriterium");
 
+                    b.Navigation("SpontanTeilnahme");
+
                     b.Navigation("Team");
                 });
 
             modelBuilder.Entity("BBQHub.Domain.Entities.Durchgang", b =>
                 {
-                    b.HasOne("BBQHub.Domain.Entities.Event", null)
+                    b.HasOne("BBQHub.Domain.Entities.Event", "Event")
                         .WithMany("Durchgaenge")
                         .HasForeignKey("EventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Event");
                 });
 
             modelBuilder.Entity("BBQHub.Domain.Entities.Event", b =>
@@ -585,6 +648,17 @@ namespace BBQHub.Infrastructure.Migrations
                         .HasForeignKey("DurchgangId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("BBQHub.Domain.Entities.SpontanTeilnahme", b =>
+                {
+                    b.HasOne("BBQHub.Domain.Entities.Durchgang", "Durchgang")
+                        .WithMany()
+                        .HasForeignKey("DurchgangId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Durchgang");
                 });
 
             modelBuilder.Entity("BBQHub.Domain.Entities.Team", b =>

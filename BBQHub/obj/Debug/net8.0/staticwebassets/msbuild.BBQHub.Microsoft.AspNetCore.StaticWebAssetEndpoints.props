@@ -16,13 +16,13 @@
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-DMj\u002BLsxdjuoZyJCZr8STW1kE\u002BOChMGSTR7JByk\u002BV4Sk="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"960"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022DMj\u002BLsxdjuoZyJCZr8STW1kE\u002BOChMGSTR7JByk\u002BV4Sk=\u0022"},{"Name":"Last-Modified","Value":"Fri, 04 Apr 2025 12:36:36 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"960"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022DMj\u002BLsxdjuoZyJCZr8STW1kE\u002BOChMGSTR7JByk\u002BV4Sk=\u0022"},{"Name":"Last-Modified","Value":"Fri, 04 Apr 2025 12:42:17 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/BBQHub/css/site.sw7sp2715i.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"sw7sp2715i"},{"Name":"integrity","Value":"sha256-DMj\u002BLsxdjuoZyJCZr8STW1kE\u002BOChMGSTR7JByk\u002BV4Sk="},{"Name":"label","Value":"_content/BBQHub/css/site.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"960"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022DMj\u002BLsxdjuoZyJCZr8STW1kE\u002BOChMGSTR7JByk\u002BV4Sk=\u0022"},{"Name":"Last-Modified","Value":"Fri, 04 Apr 2025 12:36:36 GMT"}]]]></ResponseHeaders>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"960"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022DMj\u002BLsxdjuoZyJCZr8STW1kE\u002BOChMGSTR7JByk\u002BV4Sk=\u0022"},{"Name":"Last-Modified","Value":"Fri, 04 Apr 2025 12:42:17 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/BBQHub/favicon.61n19gt1b8.ico">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico'))</AssetFile>

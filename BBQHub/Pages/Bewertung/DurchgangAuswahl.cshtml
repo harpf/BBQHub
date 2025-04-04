@@ -15,21 +15,23 @@
 }
 else
 {
-    <ul class="space-y-4">
+    <form method="post" class="space-y-4">
+        <input type="hidden" name="JuryId" value="@Model.JuryId" />
+        <input type="hidden" name="EventId" value="@Model.EventId" />
+
         @foreach (var d in Model.Durchgaenge)
         {
-            <li class="bg-zinc-800 p-4 rounded shadow text-white flex justify-between items-center">
+            <div class="bg-zinc-800 p-4 rounded shadow text-white flex justify-between items-center">
                 <div>
                     <h2 class="text-lg font-semibold">Durchgang @d.Durchgangsnummer: @d.Name</h2>
                 </div>
-                <a asp-page="/Bewertung/TeamCode"
-                   asp-route-juryId="@Model.JuryId"
-                   asp-route-durchgangId="@d.Id"
-                   asp-route-eventId="@Model.EventId"
-                   class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
+                <button name="SelectedDurchgangId"
+                        value="@d.Id"
+                        type="submit"
+                        class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
                     Bewerten
-                </a>
-            </li>
+                </button>
+            </div>
         }
-    </ul>
+    </form>
 }

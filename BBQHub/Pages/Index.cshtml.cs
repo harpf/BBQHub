@@ -18,11 +18,19 @@ public class IndexModel : PageModel
     }
     public Event? NaechstesEvent { get; set; }
 
+    public List<Event> AktiveSpontaneEvents { get; set; } = new();
+
     public async Task OnGetAsync()
     {
         NaechstesEvent = await _context.Events
             .Where(e => e.Status == EventStatus.Aktiv && e.StartDate > DateTime.Now)
             .OrderBy(e => e.StartDate)
             .FirstOrDefaultAsync();
+
+        AktiveSpontaneEvents = await _context.Events
+            .Where(e => e.Status == EventStatus.Aktiv && e.Typ == EventType.SpontanTeilnahme)
+            .OrderBy(e => e.StartDate)
+            .ToListAsync();
     }
+
 }

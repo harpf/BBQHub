@@ -6,6 +6,9 @@
 
 <h1 class="text-2xl font-bold mb-4 text-orange-500">Bewertung abgeben</h1>
 
+<p class="text-gray-300 mb-1">Event: <strong>@Model.EventName</strong></p>
+<p class="text-gray-300 mb-4">Durchgang: <strong>@Model.DurchgangName</strong></p>
+
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
 {
     <div class="bg-red-100 border border-red-500 text-red-700 p-2 mb-4 rounded">
@@ -15,26 +18,29 @@
 
 <form method="post" class="space-y-4 text-black">
     <input type="hidden" asp-for="JuryId" />
+    <input type="hidden" asp-for="EventId" />
     <input type="hidden" asp-for="DurchgangId" />
-
-    <div>
-        <label class="block font-medium">Team-Code eingeben</label>
-        <input asp-for="Token" class="w-full p-2 border rounded" />
-    </div>
+    <input type="hidden" asp-for="TeamId" />
+    <input type="hidden" asp-for="TeilnehmerId" />
 
     @if (Model.Kriterien.Any())
     {
         <h2 class="text-lg font-semibold mt-6 text-orange-500">Kriterien</h2>
-        @foreach (var k in Model.Kriterien)
+
+        @foreach (var kriterium in Model.Kriterien)
         {
             <div>
-                <label>@k.Name (max. @k.MaxWert Punkte)</label>
-                <input name="Punkte[@k.Id]" type="number" max="@k.MaxWert" class="w-full p-2 border rounded" />
+                <label class="block font-medium mb-1">@kriterium.Name (max. @kriterium.MaxWert Punkte)</label>
+                <input name="BewertetePunkte[@kriterium.Id]" type="number" min="0" max="@kriterium.MaxWert" required class="w-full p-2 border rounded" />
             </div>
         }
 
         <button type="submit" class="mt-4 px-6 py-2 bg-orange-600 text-white rounded hover:bg-orange-700">
             Bewertung abschicken
         </button>
+    }
+    else
+    {
+        <p class="text-sm text-gray-400">Keine Kriterien für diesen Durchgang vorhanden.</p>
     }
 </form>

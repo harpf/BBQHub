@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "aj3ucPGTdbVgeH8KjsoXAQAq325XJVDQ00OZORS8Rc4=",
+  "Hash": "g+YJM+X9zv1kp2LK2RxdkdydqKhsfAYUHf93XCxUhVE=",
   "Source": "BBQHub",
   "BasePath": "_content/BBQHub",
   "Mode": "Default",
@@ -2851,7 +2851,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 04 Apr 2025 12:36:36 GMT"
+          "Value": "Fri, 04 Apr 2025 12:42:17 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2888,7 +2888,7 @@
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 04 Apr 2025 12:36:36 GMT"
+          "Value": "Fri, 04 Apr 2025 12:42:17 GMT"
         },
         {
           "Name": "Cache-Control",

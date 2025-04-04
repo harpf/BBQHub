@@ -29,7 +29,10 @@ namespace BBQHub.Pages.Bewertung
         public int DurchgangId { get; set; }
 
         [BindProperty(SupportsGet = true)]
-        public int TeamId { get; set; }
+        public int? TeamId { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public int? TeilnehmerId { get; set; }
 
         [BindProperty]
         public Dictionary<int, int> Punkte { get; set; } = new();
@@ -39,7 +42,8 @@ namespace BBQHub.Pages.Bewertung
         public string EventName { get; set; } = "";
         public string DurchgangName { get; set; } = "";
         public List<Kriterium> Kriterien { get; set; } = new();
-        
+
+        public bool IstTeamBewertung => TeamId != null;
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -63,17 +67,19 @@ namespace BBQHub.Pages.Bewertung
         public async Task<IActionResult> OnPostAsync()
         {
             var juror = await _context.Juroren.FirstOrDefaultAsync(j => j.JuryId == JuryId);
-            if (juror == null) return RedirectToPage("/Bewertung/Start");
+            if (juror == null)
+                return RedirectToPage("/Bewertung/Start");
 
             // Duplikatsprüfung
             bool exists = await _context.Bewertungen.AnyAsync(b =>
                 b.JurorId == juror.Id &&
                 b.DurchgangId == DurchgangId &&
-                b.TeamId == TeamId);
+                b.TeamId == TeamId &&
+                b.SpontanTeilnahmeId == TeilnehmerId);
 
             if (exists)
             {
-                ErrorMessage = "Du hast dieses Team in diesem Durchgang bereits bewertet.";
+                ErrorMessage = "Du hast diese Bewertung bereits abgegeben.";
                 await OnGetAsync(); // Für EventName etc.
                 return Page();
             }
@@ -94,7 +100,8 @@ namespace BBQHub.Pages.Bewertung
                     KriteriumId = k.Id,
                     Punkte = punkt,
                     GewichteteNote = gewichteteNote,
-                    TeamId = TeamId
+                    TeamId = TeamId,
+                    SpontanTeilnahmeId = TeilnehmerId
                 });
             }
 
@@ -102,31 +109,54 @@ namespace BBQHub.Pages.Bewertung
 
             await _hubContext.Clients.All.SendAsync("UpdateEventMonitor");
 
-            // 🔍 Prüfen, ob es noch ein weiteres Team gibt, das der Juror nicht bewertet hat
-            var bereitsBewerteteTeamIds = await _context.Bewertungen
-                .Where(b => b.JurorId == juror.Id && b.DurchgangId == DurchgangId)
-                .Select(b => b.TeamId)
-                .Distinct()
-                .ToListAsync();
-
-            var nochVerfuegbareTeams = await _context.EventTeamAssignments
-                .Where(a => a.EventId == EventId && !bereitsBewerteteTeamIds.Contains(a.TeamId))
-                .ToListAsync();
-
-            if (nochVerfuegbareTeams.Any())
+            if (IstTeamBewertung)
             {
-                // Zurück zur Team-Auswahlseite
-                return RedirectToPage("/Bewertung/TeamCode", new
+                // Prüfen, ob noch Teams verfügbar sind
+                var bewertet = await _context.Bewertungen
+                    .Where(b => b.JurorId == juror.Id && b.DurchgangId == DurchgangId)
+                    .Select(b => b.TeamId)
+                    .Distinct()
+                    .ToListAsync();
+
+                var nochVerfuegbareTeams = await _context.EventTeamAssignments
+                    .Where(a => a.EventId == EventId && !bewertet.Contains(a.TeamId))
+                    .ToListAsync();
+
+                if (nochVerfuegbareTeams.Any())
                 {
-                    juryId = JuryId,
-                    eventId = EventId,
-                    durchgangId = DurchgangId
-                });
+                    return RedirectToPage("/Bewertung/TeamCode", new
+                    {
+                        juryId = JuryId,
+                        eventId = EventId,
+                        durchgangId = DurchgangId
+                    });
+                }
+            }
+            else
+            {
+                // Prüfen, ob noch Teilnehmer verfügbar sind
+                var bewertet = await _context.Bewertungen
+                    .Where(b => b.JurorId == juror.Id && b.DurchgangId == DurchgangId)
+                    .Select(b => b.SpontanTeilnahmeId)
+                    .Distinct()
+                    .ToListAsync();
+
+                var nochVerfuegbareTeilnehmer = await _context.spontanTeilnahmen
+                    .Where(t => t.DurchgangId == DurchgangId && !bewertet.Contains(t.Id))
+                    .ToListAsync();
+
+                if (nochVerfuegbareTeilnehmer.Any())
+                {
+                    return RedirectToPage("/Bewertung/TeilnehmerCode", new
+                    {
+                        juryId = JuryId,
+                        eventId = EventId,
+                        durchgangId = DurchgangId
+                    });
+                }
             }
 
-            // Wenn alle bewertet: Danke-Seite
             return RedirectToPage("/Bewertung/Danke");
         }
-
     }
 }

@@ -4,6 +4,8 @@
     ViewData["Title"] = "Rangliste";
     var durchgaenge = Model.Durchgaenge;
     var streichAktiv = Model.Event?.EnableStreichresultate == true;
+    var istSpontan = Model.IstSpontanEvent;
+
 }
 
 <h1 class="text-2xl font-bold text-orange-500 mb-6">Rangliste – @Model.Event?.Name</h1>
@@ -23,7 +25,7 @@
     <thead class="bg-zinc-700">
         <tr>
             <th class="p-3">Platz</th>
-            <th class="p-3">Team</th>
+            <th class="p-3">@((istSpontan ? "Teilnehmer" : "Team"))</th>
             @foreach (var dg in durchgaenge)
             {
                 <th class="p-3">Durchgang @dg.Durchgangsnummer</th>
@@ -38,19 +40,25 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var team in Model.Teams
+        @foreach (var eintrag in Model.Teams
         .OrderByDescending(t => streichAktiv
         ? Model.GesamtMitStreichresultat[t.Id]
         : Model.Gesamtpunkte[t.Id])
         .Select((t, index) => new { Team = t, Platz = index + 1 }))
         {
             <tr class="border-b border-zinc-700">
-                <td class="p-3 font-bold">@team.Platz</td>
-                <td class="p-3 font-semibold">@team.Team.Name</td>
+                <td class="p-3 font-bold">@eintrag.Platz</td>
+                <td class="p-3 font-semibold">
+                    @(istSpontan
+                        ? Model.TeilnehmerNamen.GetValueOrDefault(eintrag.Team.Id, "Unbekannt")
+                        : eintrag.Team.Name)
+                </td>
                 @foreach (var dg in durchgaenge)
                 {
-                    var normal = Model.PunkteProDurchgang[team.Team.Id].GetValueOrDefault(dg.Id);
-                    var mitStreich = streichAktiv ? Model.PunkteMitStreichresultat[team.Team.Id].GetValueOrDefault(dg.Id) : 0;
+                    var normal = Model.PunkteProDurchgang[eintrag.Team.Id].GetValueOrDefault(dg.Id);
+                    var mitStreich = streichAktiv
+                    ? Model.PunkteMitStreichresultat[eintrag.Team.Id].GetValueOrDefault(dg.Id)
+                    : 0;
 
                     <td class="p-3">
                         @normal.ToString("0.0")
@@ -62,8 +70,8 @@
                 }
                 @{
                     var gesamt = streichAktiv
-                    ? Model.GesamtMitStreichresultat[team.Team.Id]
-                    : Model.Gesamtpunkte[team.Team.Id];
+                    ? Model.GesamtMitStreichresultat[eintrag.Team.Id]
+                    : Model.Gesamtpunkte[eintrag.Team.Id];
                 }
                 <td class="p-3 font-bold @(streichAktiv ? "text-green-400" : "text-orange-400")">
                     @gesamt.ToString("0.0")
@@ -92,7 +100,7 @@
             <thead class="bg-zinc-700">
                 <tr>
                     <th class="p-2">Platz</th>
-                    <th class="p-2">Team</th>
+                    <th class="p-2">@((istSpontan ? "Teilnehmer" : "Team"))</th>
                     <th class="p-2">Punkte</th>
                 </tr>
             </thead>
@@ -104,11 +112,17 @@
                .Select((t, index) => new { Team = t, Platz = index + 1 }))
                 {
                     var normal = Model.PunkteProDurchgang[item.Team.Id].GetValueOrDefault(dg.Id);
-                    var mitStreich = streichAktiv ? Model.PunkteMitStreichresultat[item.Team.Id].GetValueOrDefault(dg.Id) : 0;
+                    var mitStreich = streichAktiv
+                    ? Model.PunkteMitStreichresultat[item.Team.Id].GetValueOrDefault(dg.Id)
+                    : 0;
 
                     <tr class="border-b border-zinc-700">
                         <td class="p-2 font-bold">@item.Platz</td>
-                        <td class="p-2">@item.Team.Name</td>
+                        <td class="p-2">
+                            @(istSpontan
+                                ? Model.TeilnehmerNamen.GetValueOrDefault(item.Team.Id, "Unbekannt")
+                                : item.Team.Name)
+                        </td>
                         <td class="p-2">
                             @normal.ToString("0.0")
                             @if (streichAktiv)
