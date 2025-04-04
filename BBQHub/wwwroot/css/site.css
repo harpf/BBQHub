@@ -25,15 +25,11 @@ body {
 }
 
 /* 🌓 Dark Theme Bereich */
-body.bg-zinc-900,
-body.dark {
-    label
-
-{
+body.bg-zinc-900 label,
+body.dark label {
     color: white !important;
 }
 
-}
 
 /* Inputs überall einheitlich hell & lesbar */
 input[type="text"],

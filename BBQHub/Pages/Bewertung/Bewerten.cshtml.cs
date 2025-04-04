@@ -56,7 +56,7 @@ namespace BBQHub.Pages.Bewertung
             if (durchgang == null)
                 return NotFound();
 
-            EventName = durchgang.Event.Name;
+            EventName = durchgang.Event?.Name ?? "Unbekanntes Event";
             DurchgangName = durchgang.Name;
             Kriterien = durchgang.Kriterien.OrderBy(k => k.Name).ToList();
 

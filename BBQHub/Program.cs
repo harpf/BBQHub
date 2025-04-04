@@ -6,10 +6,10 @@ using BBQHub.Application.Common.Interfaces;
 using BBQHub.Application.Juroren.Services;
 using BBQHub.Hubs;
 using QuestPDF.Infrastructure;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+#pragma warning disable CA1416 // Validate platform compatibility
 if (OperatingSystem.IsWindows())
 {
     builder.Logging.AddEventLog(options =>
@@ -17,11 +17,9 @@ if (OperatingSystem.IsWindows())
         options.SourceName = "BBQHubApp";
     });
 }
+#pragma warning restore CA1416
 
 QuestPDF.Settings.License = LicenseType.Community;
-
-Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-Console.OutputEncoding = Encoding.UTF8;
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")

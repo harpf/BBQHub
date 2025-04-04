@@ -24,12 +24,12 @@ namespace BBQHub.Pages.Teilnahme
 
         [BindProperty]
         public int SelectedDurchgangId { get; set; }
-        [BindProperty] public string Street { get; set; }
-        [BindProperty] public string ZipCode { get; set; }
-        [BindProperty] public string City { get; set; }
-        [BindProperty] public string Country { get; set; }
-        [BindProperty] public string Email { get; set; }
-        [BindProperty] public string Telefonnummer { get; set; }
+        [BindProperty] public string Street { get; set; } = string.Empty;
+        [BindProperty] public string ZipCode { get; set; } = string.Empty;
+        [BindProperty] public string City { get; set; } = string.Empty;
+        [BindProperty] public string Country { get; set; } = string.Empty;
+        [BindProperty] public string Email { get; set; } = string.Empty;
+        [BindProperty] public string Telefonnummer { get; set; } = string.Empty;
         [BindProperty]
         public int Token { get; set; }
 

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Identity;
 using BBQHub.Infrastructure.Data;
 using BBQHub.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace BBQHub.Pages.Admin.Events
 {
@@ -25,9 +26,9 @@ namespace BBQHub.Pages.Admin.Events
 
         public async Task<IActionResult> OnGetAsync()
         {
-            Managers = _userManager.Users
+            Managers = await _userManager.Users
                 .Select(u => new SelectListItem { Value = u.Id, Text = u.Email })
-                .ToList();
+                .ToListAsync();
 
             return Page();
         }
