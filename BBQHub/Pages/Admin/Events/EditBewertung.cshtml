@@ -6,12 +6,13 @@
 
 <h1 class="text-2xl font-bold text-orange-500 mb-4">Bewertungen bearbeiten</h1>
 
-<p class="text-white mb-2">Team: <strong>@Model.TeamName</strong></p>
+<p class="text-white mb-2">@((Model.IstSpontanBewertung ? "Teilnehmer" : "Team")): <strong>@Model.TeamName</strong></p>
 <p class="text-white mb-2">Durchgang: <strong>@Model.DurchgangName</strong></p>
 <p class="text-white mb-6">Kriterium: <strong>@Model.KriteriumName</strong></p>
 
 <form method="post" class="space-y-4 max-w-2xl text-black">
     <input type="hidden" asp-for="TeamId" />
+    <input type="hidden" asp-for="TeilnehmerId" />
     <input type="hidden" asp-for="DurchgangId" />
     <input type="hidden" asp-for="KriteriumId" />
 

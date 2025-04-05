@@ -49,7 +49,7 @@ namespace BBQHub.Pages.Juror
             }
             catch (Exception ex)
             {
-                ErrorMessage = "Ein unerwarteter Fehler ist aufgetreten.";
+                ErrorMessage = $"Ein unerwarteter Fehler ist aufgetreten. {ex}";
                 // Optional: Logging via IAppLogger hier einbauen
                 return Page();
             }
