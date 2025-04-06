@@ -13,6 +13,22 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\icons\\android-icon-192x192.png",
+      "PackagePath": "staticwebassets\\icons\\android-icon-192x192.png"
+    },
+    {
+      "Id": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\icons\\apple-touch-icon-114x114.png",
+      "PackagePath": "staticwebassets\\icons\\apple-touch-icon-114x114.png"
+    },
+    {
+      "Id": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\icons\\favicon-96x96.ico",
+      "PackagePath": "staticwebassets\\icons\\favicon-96x96.ico"
+    },
+    {
+      "Id": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\12aee461-d104-44fa-a9bb-ee4d1f89abf3.png",
+      "PackagePath": "staticwebassets\\images\\eventlogos\\12aee461-d104-44fa-a9bb-ee4d1f89abf3.png"
+    },
+    {
       "Id": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\1ba40825-e0fe-4e05-bb5a-410957cd5b9c.jpg",
       "PackagePath": "staticwebassets\\images\\eventlogos\\1ba40825-e0fe-4e05-bb5a-410957cd5b9c.jpg"
     },
@@ -23,6 +39,22 @@
     {
       "Id": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\3b985cb0-2d34-45ab-ae31-903b721f7815.png",
       "PackagePath": "staticwebassets\\images\\eventlogos\\3b985cb0-2d34-45ab-ae31-903b721f7815.png"
+    },
+    {
+      "Id": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\4df9c6f5-26c9-4fe2-9d7d-26f28e5aacee.png",
+      "PackagePath": "staticwebassets\\images\\eventlogos\\4df9c6f5-26c9-4fe2-9d7d-26f28e5aacee.png"
+    },
+    {
+      "Id": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\526e8044-64ab-49f1-b264-e0c0765d4c8c.png",
+      "PackagePath": "staticwebassets\\images\\eventlogos\\526e8044-64ab-49f1-b264-e0c0765d4c8c.png"
+    },
+    {
+      "Id": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\685d5763-2ad4-4d18-bd47-dd08945df333.png",
+      "PackagePath": "staticwebassets\\images\\eventlogos\\685d5763-2ad4-4d18-bd47-dd08945df333.png"
+    },
+    {
+      "Id": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\a2890e15-79cb-449b-bc75-99dff47a0fca.png",
+      "PackagePath": "staticwebassets\\images\\eventlogos\\a2890e15-79cb-449b-bc75-99dff47a0fca.png"
     },
     {
       "Id": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\ca92c4e6-f051-4b31-b4de-5bcb53a08f57.png",

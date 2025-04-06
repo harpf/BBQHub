@@ -4,19 +4,21 @@
     ViewData["Title"] = "Bewertung abgeben";
 }
 
-<h1 class="text-2xl font-bold mb-4 text-orange-500">Bewertung abgeben</h1>
+<h1 class="text-3xl font-bold text-orange-500 mb-6">📝 Bewertung abgeben</h1>
 
-<p class="text-gray-300 mb-1">Event: <strong>@Model.EventName</strong></p>
-<p class="text-gray-300 mb-4">Durchgang: <strong>@Model.DurchgangName</strong></p>
+<div class="mb-4 text-zinc-300">
+    <p><span class="font-semibold">Event:</span> @Model.EventName</p>
+    <p><span class="font-semibold">Durchgang:</span> @Model.DurchgangName</p>
+</div>
 
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
 {
-    <div class="bg-red-100 border border-red-500 text-red-700 p-2 mb-4 rounded">
-        @Model.ErrorMessage
+    <div class="bg-red-600/20 text-red-400 border border-red-500 px-4 py-3 rounded mb-6">
+        ⚠️ @Model.ErrorMessage
     </div>
 }
 
-<form method="post" class="space-y-4 text-black">
+<form method="post" class="space-y-6 max-w-2xl bg-zinc-800 p-6 rounded-lg shadow text-white">
     <input type="hidden" asp-for="JuryId" />
     <input type="hidden" asp-for="EventId" />
     <input type="hidden" asp-for="DurchgangId" />
@@ -25,22 +27,32 @@
 
     @if (Model.Kriterien.Any())
     {
-        <h2 class="text-lg font-semibold mt-6 text-orange-500">Kriterien</h2>
+        <h2 class="text-xl font-semibold text-orange-400 mb-4">Kriterien</h2>
 
         @foreach (var kriterium in Model.Kriterien)
         {
-            <div>
-                <label class="block font-medium mb-1">@kriterium.Name (max. @kriterium.MaxWert Punkte)</label>
-                <input name="BewertetePunkte[@kriterium.Id]" type="number" min="0" max="@kriterium.MaxWert" required class="w-full p-2 border rounded" />
+            <div class="space-y-1">
+                <label for="BewertetePunkte[@kriterium.Id]" class="block font-medium">
+                    @kriterium.Name <span class="text-sm text-zinc-400">(max. @kriterium.MaxWert Punkte)</span>
+                </label>
+                <input name="BewertetePunkte[@kriterium.Id]"
+                       type="number"
+                       min="0"
+                       max="@kriterium.MaxWert"
+                       required
+                       class="w-full p-3 border rounded text-black focus:outline-none focus:ring-2 focus:ring-orange-500" />
             </div>
         }
 
-        <button type="submit" class="mt-4 px-6 py-2 bg-orange-600 text-white rounded hover:bg-orange-700">
-            Bewertung abschicken
-        </button>
+        <div class="flex justify-end pt-4">
+            <button type="submit"
+                    class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded shadow transition">
+                ✅ Bewertung abschicken
+            </button>
+        </div>
     }
     else
     {
-        <p class="text-sm text-gray-400">Keine Kriterien für diesen Durchgang vorhanden.</p>
+        <p class="text-sm text-gray-400 italic">❗ Für diesen Durchgang wurden noch keine Bewertungskriterien definiert.</p>
     }
 </form>

@@ -24,11 +24,11 @@ body {
     box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
-/* 🌓 Dark Theme Bereich */
-body.bg-zinc-900 label,
+/* 🌓 Dark Theme Bereich !important */
+/*body.bg-zinc-900 label,
 body.dark label {
-    color: white !important;
-}
+    color: black;
+}*/
 
 
 /* Inputs überall einheitlich hell & lesbar */

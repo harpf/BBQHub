@@ -2,6 +2,7 @@
 @model BBQHub.Pages.Admin.Events.BewertungenModel
 @{
     ViewData["Title"] = "Bewertungen einsehen";
+    var istSpontan = Model.IstSpontanEvent;
 }
 
 <h1 class="text-2xl font-bold mb-4 text-orange-500">Bewertungen für Event: @Model.Event?.Name</h1>
@@ -12,58 +13,97 @@
         Durchgang @durchgang.Durchgangsnummer: <span class="text-orange-300">@durchgang.Name</span>
     </h2>
 
-    <div class="overflow-x-auto">
-        <table class="w-full text-sm border-collapse text-white mb-6">
-            <thead class="bg-zinc-700">
-                <tr>
-                    <th class="p-3 text-left bg-zinc-700">Team</th>
-                    @foreach (var kriterium in durchgang.Kriterien)
-                    {
-                        <th class="p-3 text-left bg-zinc-700">@kriterium.Name</th>
-                    }
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var team in Model.Teams)
+    <div class="overflow-x-auto mt-4 bg-zinc-800 rounded-xl shadow-lg p-4">
+    <table class="min-w-full text-sm text-white border-separate border-spacing-0">
+        <thead>
+            <tr class="bg-zinc-700 text-xs uppercase tracking-wider">
+                <th class="p-3 text-left rounded-tl-lg">@((istSpontan ? "Teilnehmer" : "Team"))</th>
+                @foreach (var kriterium in durchgang.Kriterien)
                 {
-                    <tr class="border-b border-zinc-700 hover:bg-zinc-900 transition">
-                        <td class="p-3 font-semibold whitespace-nowrap">@team.Name</td>
-                        @foreach (var kriterium in durchgang.Kriterien)
-                        {
-                            var key = (team.Id, durchgang.Id, kriterium.Id);
-                            if (Model.BewertungenMap.TryGetValue(key, out var bewertungen))
-                            {
-                                var highlight = "";
-                                var punkte = bewertungen.Select(b => b.Punkte).ToList();
-                                var stddev = Model.BerechneStandardabweichung(punkte);
-                                if (stddev >= 2) highlight = "bg-red-700 text-white font-bold";
-
-                                <td class="p-3 align-top @highlight whitespace-nowrap">
-                                    <div class="space-y-1">
-                                        @foreach (var b in bewertungen)
-                                        {
-                                            <div class="text-sm">
-                                                👤 Juror @b.JurorId: <strong>@b.Punkte</strong>
-                                            </div>
-                                        }
-                                    </div>
-                                    <a asp-page="/Admin/Events/EditBewertung"
-                                       asp-route-teamId="@team.Id"
-                                       asp-route-durchgangId="@durchgang.Id"
-                                       asp-route-kriteriumId="@kriterium.Id"
-                                       class="text-xs text-orange-300 hover:underline block mt-2">
-                                        ✏️ Bearbeiten
-                                    </a>
-                                </td>
-                            }
-                            else
-                            {
-                                <td class="p-3 text-gray-500 italic text-sm">keine Daten</td>
-                            }
-                        }
-                    </tr>
+                    <th class="p-3 text-left">@kriterium.Name</th>
                 }
-            </tbody>
-        </table>
-    </div>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                var datensätze = istSpontan ? Model.SpontanTeilnahmen.Cast<object>() : Model.Teams.Cast<object>();
+            }
+
+            @foreach (var eintrag in datensätze)
+            {
+                string name = istSpontan
+                    ? ((dynamic)eintrag).Vorname + " " + ((dynamic)eintrag).Nachname
+                    : ((dynamic)eintrag).Name;
+
+                int id = istSpontan
+                    ? ((dynamic)eintrag).Id
+                    : ((dynamic)eintrag).Id;
+
+                <tr class="hover:bg-zinc-900 border-b border-zinc-700 transition duration-150">
+                    <td class="p-3 font-semibold text-orange-300 whitespace-nowrap">@name</td>
+
+                    @foreach (var kriterium in durchgang.Kriterien)
+{
+    var key = istSpontan
+        ? (id, durchgang.Id, kriterium.Id)
+        : (id, durchgang.Id, kriterium.Id);
+
+    if (Model.BewertungenMap.TryGetValue(key, out var bewertungen))
+    {
+        var punkte = bewertungen.Select(b => b.Punkte).ToList();
+        var stddev = Model.BerechneStandardabweichung(punkte);
+        var highlight = stddev >= 2 ? "bg-red-600 text-white font-bold ring-2 ring-red-400" : "";
+
+        <td class="p-3 align-top whitespace-normal break-words max-w-md @highlight">
+            <div class="space-y-3 text-sm leading-snug">
+                @foreach (var b in bewertungen)
+                {
+                    <div class="bg-zinc-700/50 p-2 rounded-md">
+                        <div class="text-xs text-orange-300 mb-1">
+                            👤 Juror @b.JurorId:
+                        </div>
+
+                        @if (kriterium.BewertungsTyp == BBQHub.Domain.Entities.BewertungsTyp.Text)
+                        {
+                            <div class="text-white whitespace-pre-line break-words">
+                                📝 @b.TextBewertung
+                            </div>
+                        }
+                        else if (kriterium.BewertungsTyp == BBQHub.Domain.Entities.BewertungsTyp.Decimal)
+                        {
+                            <div class="text-white">
+                                <strong>@b.Punkte.ToString("0.0")</strong>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="text-white font-semibold">
+                                @b.Punkte Punkte
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+
+            <a asp-page="/Admin/Events/EditBewertung"
+               asp-route-teamId="@id"
+               asp-route-durchgangId="@durchgang.Id"
+               asp-route-kriteriumId="@kriterium.Id"
+               class="text-xs text-blue-400 hover:underline block mt-2">
+                ✏️ Bearbeiten
+            </a>
+            </td>
+            }
+            else
+            {
+                <td class="p-3 text-zinc-400 italic text-sm">Keine Daten</td>
+            }
+            }
+
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
 }

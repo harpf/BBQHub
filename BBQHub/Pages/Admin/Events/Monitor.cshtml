@@ -6,73 +6,83 @@
 
 <h1 class="text-2xl font-bold mb-4 text-orange-500">Event-Management</h1>
 
-<div class="mb-6">
-    <input type="text" placeholder="🔍 Event suchen..." class="w-full p-3 rounded border border-zinc-600 text-black" oninput="filterEvents(this.value)" />
+<div class="mb-6 max-w-lg">
+    <input type="text"
+           placeholder="🔍 Event suchen..."
+           class="w-full p-3 rounded-lg bg-zinc-800 border border-zinc-600 text-white focus:outline-none focus:ring-2 focus:ring-orange-500"
+           oninput="filterEvents(this.value)" />
 </div>
 
-<table class="w-full border-collapse text-sm text-left bg-zinc-800 text-white" id="eventTable">
-    <thead class="bg-zinc-700 text-white uppercase text-xs tracking-wider">
-        <tr>
-            <th class="p-3">Event</th>
-            <th class="p-3">Status</th>
-            <th class="p-3 w-1/3">Bewertungs-Fortschritt</th>
-            <th class="p-3">Aktive Juroren</th>
-            <th class="p-3">Aktionen</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var ev in Model.Events)
-        {
-            var total = Model.TotalBewertungen.GetValueOrDefault(ev.Id);
-            var expected = Model.ErwarteteBewertungen.GetValueOrDefault(ev.Id);
-            var percent = expected > 0 ? Math.Round(100.0 * total / expected, 1) : 0;
-
-            <tr class="border-b border-zinc-700 hover:bg-zinc-900 transition">
-                <td class="p-3 font-medium">@ev.Name</td>
-                <td class="p-3">
-                    <span class="px-2 py-1 rounded text-white text-xs font-semibold @(
-                        ev.Status switch
-                        {
-                            BBQHub.Domain.Entities.EventStatus.Aktiv => "bg-green-600",
-                            BBQHub.Domain.Entities.EventStatus.Inaktiv => "bg-blue-600",
-                            _ => "bg-red-600"
-                        })">
-                        @ev.Status
-                    </span>
-                </td>
-                <td class="p-3 align-middle">
-                    <div class="relative w-full bg-zinc-700 rounded-full h-5 overflow-hidden">
-                        <div class="bg-orange-500 h-full transition-all duration-300" style="width:@percent%"></div>
-                        <div class="absolute top-0 left-0 w-full h-full flex items-center justify-center text-xs text-white font-semibold">
-                            @percent% (@total / @expected)
-                        </div>
-                    </div>
-                </td>
-                <td class="p-3">
-                    @if (Model.JurorAktivität.TryGetValue(ev.Id, out var juroren) && juroren.Any())
-                    {
-                        <ul class="space-y-1 text-xs leading-snug">
-                            @foreach (var juror in juroren)
-                            {
-                                <li>👤 <span class="font-semibold">@juror.Name</span>: @juror.Count Bewertungen</li>
-                            }
-                        </ul>
-                    }
-                    else
-                    {
-                        <span class="text-gray-400 italic text-xs">Keine Aktivität</span>
-                    }
-                </td>
-                <td class="p-3">
-                    <a asp-page="/Admin/Events/Bewertungen" asp-route-id="@ev.Id"
-                       class="text-orange-400 hover:underline text-sm">
-                        📄 Bewertungen einsehen
-                    </a>
-                </td>
+<div class="overflow-x-auto rounded-xl shadow-lg">
+    <table class="min-w-full text-sm bg-zinc-800 text-white" id="eventTable">
+        <thead class="bg-zinc-700 uppercase text-xs tracking-wider">
+            <tr>
+                <th class="p-4 text-left">📛 Event</th>
+                <th class="p-4 text-left">📊 Status</th>
+                <th class="p-4 text-left w-1/3">⏱ Fortschritt</th>
+                <th class="p-4 text-left">👥 Juroren</th>
+                <th class="p-4 text-left">⚙️ Aktion</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var ev in Model.Events)
+            {
+                var total = Model.TotalBewertungen.GetValueOrDefault(ev.Id);
+                var expected = Model.ErwarteteBewertungen.GetValueOrDefault(ev.Id);
+                var percent = expected > 0 ? Math.Round(100.0 * total / expected, 1) : 0;
+
+                <tr class="event-row border-b border-zinc-700 hover:bg-zinc-900 transition duration-200" data-event-id="@ev.Id">
+                    <td class="p-4 font-semibold text-orange-400" data-field="name">@ev.Name</td>
+
+                    <td class="p-4" data-field="status">
+                        <span class="inline-block px-2 py-1 rounded-full text-xs font-bold tracking-wide status-badge @(
+                            ev.Status switch {
+                                BBQHub.Domain.Entities.EventStatus.Aktiv => "bg-green-600 text-white",
+                                BBQHub.Domain.Entities.EventStatus.Inaktiv => "bg-blue-500 text-white",
+                                _ => "bg-red-600 text-white"
+                            })">@ev.Status</span>
+                    </td>
+
+                    <td class="p-4" data-field="progress">
+                        <div class="w-full bg-zinc-700 rounded-full h-5 relative overflow-hidden shadow-inner progress-bar">
+                            <div class="bg-orange-500 h-full inner-bar" style="width:@percent%"></div>
+                            <div class="absolute inset-0 flex items-center justify-center text-xs font-semibold text-white">
+                                @percent% (@total / @expected)
+                            </div>
+                        </div>
+                    </td>
+
+
+                    <td class="p-4">
+                        @if (Model.JurorAktivität.TryGetValue(ev.Id, out var juroren) && juroren.Any())
+                        {
+                            <ul class="space-y-1 text-xs text-zinc-200">
+                                @foreach (var juror in juroren)
+                                {
+                                    <li>
+                                        <span class="font-medium">👤 @juror.Name</span>
+                                        <span class="text-zinc-400 ml-1">(@juror.Count Bewertungen)</span>
+                                    </li>
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <span class="text-zinc-500 italic text-xs">Keine Aktivität</span>
+                        }
+                    </td>
+
+                    <td class="p-4">
+                        <a asp-page="/Admin/Events/Bewertungen" asp-route-id="@ev.Id"
+                           class="text-orange-400 hover:underline text-sm font-medium">
+                            📄 Anzeigen
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 @section Scripts {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
@@ -81,19 +91,65 @@
             .withUrl("/eventMonitorHub")
             .build();
 
-        connection.on("UpdateEventMonitor", () => {
-            fetch(window.location.href, { cache: "no-store" })
-                .then(() => location.reload());
+            connection.on("UpdateEventMonitor", async () => {
+            const response = await fetch("/api/events/live-monitor");
+            const updatedData = await response.json(); // <-- Diese API musst du bereitstellen!
+
+            updatedData.forEach(event => {
+                const row = document.querySelector(`tr[data-event-id="${event.id}"]`);
+                if (!row) return;
+
+                updateField(row, "name", event.name);
+                updateStatus(row, event.status);
+                updateProgress(row, event.total, event.expected);
+            });
         });
 
-        connection.start().catch(err => console.error(err));
-
-        function filterEvents(search) {
-            const rows = document.querySelectorAll("#eventTable tbody tr");
-            rows.forEach(row => {
-                const text = row.textContent.toLowerCase();
-                row.style.display = text.includes(search.toLowerCase()) ? "" : "none";
-            });
+        function updateField(row, field, value) {
+            const el = row.querySelector(`[data-field="${field}"]`);
+            if (el && el.textContent.trim() !== value) {
+                el.textContent = value;
+                highlight(el);
+            }
         }
+
+        function updateStatus(row, newStatus) {
+            const el = row.querySelector('[data-field="status"] .status-badge');
+            if (!el) return;
+
+            const current = el.textContent.trim();
+            if (current === newStatus) return;
+
+            el.textContent = newStatus;
+
+            // Entferne alte Klasse und setze neue
+            el.className = "inline-block px-2 py-1 rounded-full text-xs font-bold tracking-wide status-badge";
+            if (newStatus === "Aktiv") el.classList.add("bg-green-600", "text-white");
+            else if (newStatus === "Inaktiv") el.classList.add("bg-blue-500", "text-white");
+            else el.classList.add("bg-red-600", "text-white");
+
+            highlight(el);
+        }
+
+        function updateProgress(row, total, expected) {
+            const percent = expected > 0 ? Math.round((total / expected) * 100) : 0;
+
+            const bar = row.querySelector('.progress-bar .inner-bar');
+            const label = row.querySelector('.progress-bar .absolute');
+
+            if (!bar || !label) return;
+
+            bar.style.width = `${percent}%`;
+            label.textContent = `${percent}% (${total} / ${expected})`;
+
+            highlight(bar);
+        }
+
+        function highlight(element) {
+            element.classList.add("ring", "ring-orange-400");
+            setTimeout(() => element.classList.remove("ring", "ring-orange-400"), 1000);
+        }
+
+        connection.start().catch(err => console.error(err));
     </script>
 }

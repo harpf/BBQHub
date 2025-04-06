@@ -20,44 +20,59 @@ namespace BBQHub.Pages.Admin.Events
         [BindProperty(SupportsGet = true)]
         public int Id { get; set; } // EventId
 
-        public Domain.Entities.Event? Event { get; set; }
+        public Event? Event { get; set; }
+
         public List<Team> Teams { get; set; } = new();
+        public List<SpontanTeilnahme> SpontanTeilnahmen { get; set; } = new();
         public List<Durchgang> Durchgaenge { get; set; } = new();
-        public Dictionary<(int TeamId, int DurchgangId, int KriteriumId), List<BBQHub.Domain.Entities.Bewertung>> BewertungenMap { get; set; } = new();
+
+        // Key: (TeamId or TeilnehmerId, DurchgangId, KriteriumId)
+        public Dictionary<(int, int, int), List<BBQHub.Domain.Entities.Bewertung>> BewertungenMap { get; set; } = new();
+
+        public bool IstSpontanEvent => Event?.Typ == EventType.SpontanTeilnahme;
 
         public async Task<IActionResult> OnGetAsync()
         {
             Event = await _context.Events
                 .Include(e => e.Durchgaenge)
-                .ThenInclude(d => d.Kriterien)
+                    .ThenInclude(d => d.Kriterien)
                 .FirstOrDefaultAsync(e => e.Id == Id);
 
             if (Event == null) return NotFound();
 
-            Durchgaenge = Event.Durchgaenge;
+            Durchgaenge = Event.Durchgaenge.OrderBy(d => d.Durchgangsnummer).ToList();
+            var durchgangIds = Durchgaenge.Select(d => d.Id).ToList();
 
-            Teams = await _context.EventTeamAssignments
-                .Include(a => a.Team)
-                .Where(a => a.EventId == Id)
-                .Select(a => a.Team)
-                .ToListAsync();
+            if (IstSpontanEvent)
+            {
+                SpontanTeilnahmen = await _context.spontanTeilnahmen
+                    .Where(t => durchgangIds.Contains(t.DurchgangId))
+                    .ToListAsync();
+            }
+            else
+            {
+                Teams = await _context.EventTeamAssignments
+                    .Where(a => a.EventId == Id)
+                    .Include(a => a.Team)
+                    .Select(a => a.Team)
+                    .ToListAsync();
+            }
 
             var bewertungen = await _context.Bewertungen
-                .Where(b => b.Durchgang.EventId == Id)
+                .Where(b => durchgangIds.Contains(b.DurchgangId))
                 .Include(b => b.Kriterium)
                 .Include(b => b.Juror)
                 .ToListAsync();
 
             foreach (var b in bewertungen)
             {
-                // Verwende TeamId wenn vorhanden, sonst TeilnehmerId
-                int? keyId = b.TeamId ?? b.SpontanTeilnahmeId;
+                // Schlüssel ist entweder TeamId oder SpontanTeilnahmeId
+                int? entityId = b.TeamId ?? b.SpontanTeilnahmeId;
 
-                // Wenn beides fehlt, überspringen
-                if (!keyId.HasValue)
+                if (!entityId.HasValue)
                     continue;
 
-                var key = (keyId.Value, b.DurchgangId, b.KriteriumId);
+                var key = (entityId.Value, b.DurchgangId, b.KriteriumId);
 
                 if (!BewertungenMap.ContainsKey(key))
                     BewertungenMap[key] = new List<BBQHub.Domain.Entities.Bewertung>();
@@ -65,11 +80,10 @@ namespace BBQHub.Pages.Admin.Events
                 BewertungenMap[key].Add(b);
             }
 
-
             return Page();
         }
 
-        public double BerechneStandardabweichung(List<int> werte)
+        public double BerechneStandardabweichung(List<double> werte)
         {
             if (werte.Count == 0) return 0;
             double avg = werte.Average();

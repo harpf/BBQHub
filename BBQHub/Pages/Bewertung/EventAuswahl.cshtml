@@ -4,31 +4,35 @@
     ViewData["Title"] = "Event auswählen";
 }
 
-<h1 class="text-2xl font-bold text-orange-500 mb-6">Wähle ein Event</h1>
+<h1 class="text-3xl font-bold text-orange-500 mb-6">📅 Eventauswahl</h1>
 
-<p class="text-gray-300 mb-4">Juror-ID: <strong>@Model.JuryId</strong></p>
+<p class="text-gray-300 mb-6 text-sm" hidden>
+    Deine Juror-ID: <span class="font-semibold text-white">@Model.JuryId</span>
+</p>
 
 @if (!Model.Events.Any())
 {
-    <div class="text-red-400">Aktuell sind keine aktiven Events verfügbar.</div>
+    <div class="text-red-400 bg-red-900 bg-opacity-20 p-4 rounded shadow-inner border border-red-700">
+        🚫 Aktuell sind keine aktiven Events verfügbar.
+    </div>
 }
 else
 {
-    <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         @foreach (var ev in Model.Events)
         {
-            <li class="bg-zinc-800 p-4 rounded shadow text-white flex justify-between items-center">
-                <div>
-                    <h2 class="text-lg font-semibold">@ev.Name</h2>
-                    <p class="text-sm text-zinc-400">@ev.Description</p>
+            <div class="bg-zinc-800 rounded-xl shadow-lg p-5 hover:ring-2 hover:ring-orange-500 transition-all">
+                <div class="mb-4">
+                    <h2 class="text-xl font-semibold text-white">@ev.Name</h2>
+                    <p class="text-sm text-zinc-400">@(!string.IsNullOrWhiteSpace(ev.Description) ? ev.Description : "Kein Beschreibungstext vorhanden.")</p>
                 </div>
                 <a asp-page="/Bewertung/DurchgangAuswahl"
                    asp-route-juryId="@Model.JuryId"
                    asp-route-eventId="@ev.Id"
-                   class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
-                    Auswählen
+                   class="inline-block bg-orange-600 hover:bg-orange-700 text-white px-5 py-2 rounded-lg font-medium shadow">
+                    ➡️ Event wählen
                 </a>
-            </li>
+            </div>
         }
-    </ul>
+    </div>
 }

@@ -6,39 +6,54 @@
     ViewData["Title"] = "Ranglisten Übersicht";
 }
 
-<h1 class="text-2xl font-bold text-orange-500 mb-4">Ranglisten Übersicht</h1>
+<div class="max-w-6xl mx-auto px-4">
+    <h1 class="text-3xl font-bold text-orange-500 mb-6">🏆 Ranglisten Übersicht</h1>
 
-<div class="mb-4">
-    <input type="text" placeholder="🔍 Event suchen..." class="w-full p-2 rounded border" oninput="filterEvents(this.value)" />
+    <div class="mb-6">
+        <input type="text" placeholder="🔍 Event suchen..."
+               class="w-full p-3 rounded-lg border border-zinc-600 text-black shadow focus:ring-2 focus:ring-orange-500"
+               oninput="filterEvents(this.value)" />
+    </div>
+
+    <div class="overflow-x-auto rounded-lg shadow-lg bg-zinc-800">
+        <table class="min-w-full text-sm text-left text-white border-collapse" id="eventTable">
+            <thead class="bg-zinc-700 uppercase text-xs tracking-wider">
+                <tr>
+                    <th class="p-4">📛 Name</th>
+                    <th class="p-4">👤 Manager</th>
+                    <th class="p-4">📌 Status</th>
+                    <th class="p-4">📄 Aktion</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-zinc-700">
+                @foreach (var ev in Model.Events)
+                {
+                    <tr class="hover:bg-zinc-900 transition">
+                        <td class="p-4 font-semibold">@ev.Name</td>
+                        <td class="p-4">@ev.ManagerName</td>
+                        <td class="p-4">
+                            <span class="px-2 py-1 rounded text-xs font-bold @(
+                                ev.Status switch
+                                {
+                                    EventStatus.Aktiv => "bg-green-600",
+                                    EventStatus.Inaktiv => "bg-blue-600",
+                                    _ => "bg-red-600"
+                                })">
+                                @ev.Status
+                            </span>
+                        </td>
+                        <td class="p-4">
+                            <a asp-page="/Ranglisten/Event" asp-route-id="@ev.Id"
+                               class="text-orange-400 hover:text-orange-300 hover:underline font-medium transition">
+                                🔍 Rangliste anzeigen
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
-
-<table class="w-full text-left border-collapse" id="eventTable">
-    <thead>
-        <tr class="bg-zinc-800 text-white">
-            <th class="p-3">Name</th>
-            <th class="p-3">Manager</th>
-            <th class="p-3">Status</th>
-            <th class="p-3">Aktion</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var ev in Model.Events)
-        {
-            <tr class="border-b border-zinc-700 text-white">
-                <td class="p-3">@ev.Name</td>
-                <td class="p-3">@ev.ManagerId</td>
-                <td class="p-3">
-                    <span class="px-2 py-1 rounded text-white @(ev.Status == EventStatus.Aktiv ? "bg-green-600" : ev.Status == EventStatus.Inaktiv ? "bg-blue-600" : "bg-red-600")">
-                        @ev.Status
-                    </span>
-                </td>
-                <td class="p-3">
-                    <a asp-page="/Ranglisten/Event" asp-route-id="@ev.Id" class="text-orange-400 hover:underline">Rangliste anzeigen</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
 
 @section Scripts {
     <script>

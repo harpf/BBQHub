@@ -12,8 +12,9 @@ namespace BBQHub.Domain.Entities
         public int JurorId { get; set; }
         public int DurchgangId { get; set; }
         public int KriteriumId { get; set; }
-        public int Punkte { get; set; }
+        public double Punkte { get; set; }
         public double GewichteteNote { get; set; }
+        public string? TextBewertung { get; set; }
         public int? TeamId { get; set; }
         public int? SpontanTeilnahmeId { get; set; }
 

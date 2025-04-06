@@ -336,8 +336,16 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGVpbG5haG1lXEJlc3TDpHRpZ3VuZy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/05_Programmingstuff/03_DotNet/BBQHub/Pages/Teilnahme/Datenschutz.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGVpbG5haG1lXERhdGVuc2NodXR6LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/05_Programmingstuff/03_DotNet/BBQHub/Pages/Teilnahme/Registrieren.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGVpbG5haG1lXFJlZ2lzdHJpZXJlbi5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/05_Programmingstuff/03_DotNet/BBQHub/Pages/Teilnahme/TeilnahmePdf.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVGVpbG5haG1lXFRlaWxuYWhtZVBkZi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/05_Programmingstuff/03_DotNet/BBQHub/Pages/_ViewImports.cshtml]

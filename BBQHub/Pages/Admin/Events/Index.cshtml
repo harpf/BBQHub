@@ -5,53 +5,116 @@
     ViewData["Title"] = "Events";
 }
 
-<h1 class="text-2xl font-bold mb-4 text-orange-500">Event Übersicht</h1>
+<div class="min-h-screen bg-zinc-900 px-4 py-10 text-white">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex justify-between items-center mb-8">
+            <h1 class="text-4xl font-bold text-orange-400">📅 Event Übersicht</h1>
+            <a asp-page="/Admin/Events/CreateEvent"
+               class="bg-orange-600 text-white px-4 py-2 rounded-lg hover:bg-orange-700 transition shadow font-medium">
+                ➕ Neues Event
+            </a>
+        </div>
 
-<a asp-page="/Admin/Events/CreateEvent" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
-    ➕ Neues Event erstellen
-</a>
+        <!-- 🖥️ Tabellenansicht (ab md sichtbar) -->
+        <div class="hidden md:block overflow-x-auto bg-zinc-800 rounded-lg shadow ring-1 ring-zinc-700">
+            <table class="min-w-full divide-y divide-zinc-700 text-sm text-left">
+                <thead class="bg-orange-600 text-white uppercase text-xs tracking-wide">
+                    <tr>
+                        <th class="p-3">ID</th>
+                        <th class="p-3">Name</th>
+                        <th class="p-3">Startdatum</th>
+                        <th class="p-3">Manager</th>
+                        <th class="p-3">Beschreibung</th>
+                        <th class="p-3">Status</th>
+                        <th class="p-3">Aktionen</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-zinc-700">
+                    @foreach (var ev in Model.Events)
+                    {
+                        <tr class="hover:bg-orange-500/10 transition">
+                            <td class="p-3">@ev.Id</td>
+                            <td class="p-3">@ev.Name</td>
+                            <td class="p-3">@ev.StartDate.ToString("dd.MM.yyyy")</td>
+                            <td class="p-3">@ev.ManagerName</td>
+                            <td class="p-3">@ev.Description</td>
+                            <td class="p-3">
+                                <span class="px-2 py-1 rounded-full text-xs font-semibold
+                                    @(
+                                        ev.Status == EventStatus.Aktiv ? "bg-green-600 text-white" :
+                                        ev.Status == EventStatus.Inaktiv ? "bg-yellow-600 text-white" :
+                                        ev.Status == EventStatus.Abgeschlossen ? "bg-red-600 text-white" :
+                                        "bg-gray-600 text-white"
+                                    )">
+                                    @ev.Status
+                                </span>
+                            </td>
+                            <td class="p-3 space-y-1">
+                                <a asp-page="/Admin/Events/EditEvent" asp-route-id="@ev.Id"
+                                   class="block text-blue-400 hover:text-blue-200 font-semibold">✏️ Bearbeiten</a>
 
-<table class="mt-6 w-full text-left border-collapse">
-    <thead>
-        <tr class="bg-zinc-800 text-white">
-            <th class="p-2">ID</th>
-            <th class="p-2">Name</th>
-            <th class="p-2">Adresse</th>
-            <th class="p-2">Manager</th>
-            <th class="p-2">Beschreibung</th>
-            <th class="p-2">Aktionen</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var ev in Model.Events)
-        {
-            <tr class="border-b border-zinc-700">
-                <td class="p-2">@ev.Id</td>
-                <td class="p-2">@ev.Name</td>
-                <td class="p-2">@ev.StartDate</td>
-                <td class="p-2">@ev.ManagerId</td>
-                <td class="p-2">@ev.Description</td>
-                <td class="p-2 space-y-1">
-                    <a asp-page="/Admin/Events/EditEvent" asp-route-id="@ev.Id" class="text-orange-400 hover:underline block">✏️ Bearbeiten</a>
+                                <form method="post" asp-page-handler="ToggleStatus">
+                                    <input type="hidden" name="id" value="@ev.Id" />
+                                    <input type="hidden" name="newStatus" value="@(ev.Status == EventStatus.Aktiv ? EventStatus.Inaktiv : EventStatus.Aktiv)" />
+                                    <button type="submit"
+                                            class="w-full text-sm bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded transition">
+                                        @(ev.Status == EventStatus.Aktiv ? "🔒 Deaktivieren" : "✅ Aktivieren")
+                                    </button>
+                                </form>
 
-                    <form method="post" asp-page-handler="ToggleStatus" class="inline-block">
-                        <input type="hidden" name="id" value="@ev.Id" />
-                        <input type="hidden" name="newStatus" value="@(ev.Status == EventStatus.Aktiv ? EventStatus.Inaktiv : EventStatus.Aktiv)" />
-                        <button type="submit" class="text-sm text-white bg-blue-600 px-2 py-1 rounded hover:bg-blue-700 mt-1">
-                            @(ev.Status == EventStatus.Aktiv ? "🔒 Deaktivieren" : "✅ Aktivieren")
-                        </button>
-                    </form>
+                                <form method="post" asp-page-handler="ToggleStatus">
+                                    <input type="hidden" name="id" value="@ev.Id" />
+                                    <input type="hidden" name="newStatus" value="Abgeschlossen" />
+                                    <button type="submit"
+                                            class="w-full text-sm bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded transition">
+                                        🚩 Abschließen
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
 
-                    <form method="post" asp-page-handler="ToggleStatus" class="inline-block">
-                        <input type="hidden" name="id" value="@ev.Id" />
-                        <input type="hidden" name="newStatus" value="Abgeschlossen" />
-                        <button type="submit" class="text-sm text-white bg-red-600 px-2 py-1 rounded hover:bg-red-700 mt-1">
-                            🚩 Abschließen
-                        </button>
-                    </form>
-                </td>
+        <!-- 📱 Card View (nur auf kleinen Displays sichtbar) -->
+        <div class="md:hidden space-y-4 mt-6">
+            @foreach (var ev in Model.Events)
+            {
+                <div class="bg-zinc-800 rounded-lg p-4 shadow-md border border-zinc-700">
+                    <div class="text-lg font-bold text-orange-300 mb-2">@ev.Name</div>
+                    <div class="text-sm text-white space-y-1">
+                        <div><span class="font-medium text-zinc-400">ID:</span> @ev.Id</div>
+                        <div><span class="font-medium text-zinc-400">Start:</span> @ev.StartDate.ToString("dd.MM.yyyy")</div>
+                        <div><span class="font-medium text-zinc-400">Manager:</span> @ev.ManagerName</div>
+                        <div><span class="font-medium text-zinc-400">Beschreibung:</span> @ev.Description</div>
+                    </div>
+                    <div class="mt-4 flex flex-col gap-2">
+                        <a asp-page="/Admin/Events/EditEvent" asp-route-id="@ev.Id"
+                           class="w-full text-center bg-blue-600 text-white py-2 rounded hover:bg-blue-700 font-semibold">
+                            ✏️ Bearbeiten
+                        </a>
 
-            </tr>
-        }
-    </tbody>
-</table>
+                        <form method="post" asp-page-handler="ToggleStatus" class="w-full">
+                            <input type="hidden" name="id" value="@ev.Id" />
+                            <input type="hidden" name="newStatus" value="@(ev.Status == EventStatus.Aktiv ? EventStatus.Inaktiv : EventStatus.Aktiv)" />
+                            <button type="submit"
+                                    class="w-full bg-orange-600 text-white py-2 rounded hover:bg-orange-700 font-semibold">
+                                @(ev.Status == EventStatus.Aktiv ? "🔒 Deaktivieren" : "✅ Aktivieren")
+                            </button>
+                        </form>
+
+                        <form method="post" asp-page-handler="ToggleStatus" class="w-full">
+                            <input type="hidden" name="id" value="@ev.Id" />
+                            <input type="hidden" name="newStatus" value="Abgeschlossen" />
+                            <button type="submit"
+                                    class="w-full bg-red-600 text-white py-2 rounded hover:bg-red-700 font-semibold">
+                                🚩 Abschließen
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

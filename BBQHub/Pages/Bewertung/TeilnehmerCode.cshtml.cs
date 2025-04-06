@@ -52,7 +52,6 @@ namespace BBQHub.Pages.Bewertung
             // Lade alle Teilnehmer für diesen Durchgang
             VerfügbareTeilnahmen = await _context.spontanTeilnahmen
                 .Where(t => t.DurchgangId == DurchgangId)
-                .OrderBy(t => t.Name)
                 .ToListAsync();
 
             return Page();

@@ -1,4 +1,4 @@
-using BBQHub.Application.Common.Interfaces;
+﻿using BBQHub.Application.Common.Interfaces;
 using BBQHub.Domain.Entities;
 using BBQHub.Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
@@ -37,6 +37,9 @@ namespace BBQHub.Pages.Ranglisten
         public Dictionary<int, Dictionary<int, double>> PunkteMitStreichresultat = new();
         public Dictionary<int, double> GesamtMitStreichresultat = new();
         public Dictionary<int, string> TeilnehmerNamen { get; set; } = new();
+        // Dictionary: (TeamId, DurchgangId) → Liste aller Kriterienauswertungen
+        public Dictionary<(int teamId, int durchgangId), List<KriteriumAuswertung>> KriteriumAuswertungen { get; set; } = new();
+
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -64,10 +67,11 @@ namespace BBQHub.Pages.Ranglisten
                     .Select(t => new Team
                     {
                         Id = t.Id,
-                        Name = t.Name
+                        Name = $"{t.Vorname} {t.Nachname}"
                     }).ToList();
 
-                TeilnehmerNamen = Teilnehmer.ToDictionary(t => t.Id, t => t.Name);
+                TeilnehmerNamen = Teilnehmer.ToDictionary(t => t.Id, t => $"{t.Vorname} {t.Nachname}");
+
 
                 foreach (var teilnehmer in Teilnehmer)
                 {
@@ -120,6 +124,36 @@ namespace BBQHub.Pages.Ranglisten
                         GesamtMitStreichresultat[teilnehmer.Id] = gesamtMitStreich;
                     }
                 }
+                foreach (var teilnehmer in Teilnehmer)
+                {
+                    foreach (var dg in Durchgaenge)
+                    {
+                        var kriterien = dg.Kriterien;
+                        var key = (teilnehmer.Id, dg.Id);
+                        var auswertungen = new List<KriteriumAuswertung>();
+
+                        foreach (var kriterium in kriterien)
+                        {
+                            var punkte = bewertungen
+                                .Where(b => b.DurchgangId == dg.Id && b.SpontanTeilnahmeId == teilnehmer.Id && b.KriteriumId == kriterium.Id)
+                                .Select(b => b.Punkte)
+                                .ToList();
+
+                            if (punkte.Any())
+                            {
+                                auswertungen.Add(new KriteriumAuswertung
+                                {
+                                    KriteriumName = kriterium.Name,
+                                    VergebenePunkte = (int)punkte.Average(),
+                                    GewichteteNote = Math.Round(punkte.Average() * kriterium.Gewichtung, 2)
+                                });
+                            }
+                        }
+
+                        KriteriumAuswertungen[key] = auswertungen;
+                    }
+                }
+
             }
             else
             {
@@ -181,21 +215,51 @@ namespace BBQHub.Pages.Ranglisten
                         GesamtMitStreichresultat[team.Id] = gesamtMitStreich;
                     }
                 }
+                foreach (var team in Teams)
+                {
+                    foreach (var dg in Durchgaenge)
+                    {
+                        var kriterien = dg.Kriterien;
+                        var key = (team.Id, dg.Id);
+                        var auswertungen = new List<KriteriumAuswertung>();
+
+                        foreach (var kriterium in kriterien)
+                        {
+                            var punkte = bewertungen
+                                .Where(b => b.DurchgangId == dg.Id && b.TeamId == team.Id && b.KriteriumId == kriterium.Id)
+                                .Select(b => b.Punkte)
+                                .ToList();
+
+                            if (punkte.Any())
+                            {
+                                auswertungen.Add(new KriteriumAuswertung
+                                {
+                                    KriteriumName = kriterium.Name,
+                                    VergebenePunkte = (int)punkte.Average(),
+                                    GewichteteNote = Math.Round(punkte.Average() * kriterium.Gewichtung, 2)
+                                });
+                            }
+                        }
+
+                        KriteriumAuswertungen[key] = auswertungen;
+                    }
+                }
+
             }
 
             return Page();
         }
 
-        public async Task<IActionResult> OnPostExportGesamtAsync()
+        public async Task<IActionResult> OnPostExportGesamtAsync(int id)
         {
-            var pdfBytes = await _exportService.ExportRanglisteAsync(Id, null, "gesamt");
-            return File(pdfBytes, "application/pdf", $"Rangliste_Gesamt_{DateTime.Now:yyyyMMdd_HHmm}.pdf");
+            var pdfBytes = await _exportService.ExportRanglisteAsync(id, null, "gesamt");
+            return File(pdfBytes, "application/pdf", $"Rangliste_{id}_Gesamt.pdf");
         }
 
-        public async Task<IActionResult> OnPostExportDurchgangAsync(int durchgangId)
+        public async Task<IActionResult> OnPostExportDurchgangAsync(int id, int durchgangId)
         {
-            var pdfBytes = await _exportService.ExportRanglisteAsync(Id, durchgangId, "durchgang");
-            return File(pdfBytes, "application/pdf", $"Rangliste_DG{durchgangId}_{DateTime.Now:yyyyMMdd_HHmm}.pdf");
+            var pdfBytes = await _exportService.ExportRanglisteAsync(id, durchgangId, "durchgang");
+            return File(pdfBytes, "application/pdf", $"Rangliste_{id}_Durchgang_{durchgangId}.pdf");
         }
     }
 }

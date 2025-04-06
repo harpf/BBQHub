@@ -21,7 +21,7 @@ public class JurorenModel : PageModel
     public string? SearchTerm { get; set; }
 
     [BindProperty(SupportsGet = true)]
-    public int Page { get; set; } = 1;
+    public int CurrentPage { get; set; } = 1;
 
     public int TotalPages { get; set; }
 
@@ -54,7 +54,7 @@ public class JurorenModel : PageModel
         TotalPages = (int)Math.Ceiling(totalCount / (double)pageSize);
 
         JurorenList = await query
-            .Skip((Page - 1) * pageSize)
+            .Skip((CurrentPage - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();
     }

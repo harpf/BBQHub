@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Ti39lzy9PvViA57SusIkmbG2faxmhVgUZiqVBlfj9wM=",
+  "Hash": "g4FK9aW7IVgE9FAUhwQ+ODKxTD6GsljW/IebDUDVQIM=",
   "Source": "BBQHub",
   "BasePath": "_content/BBQHub",
   "Mode": "Default",
@@ -1333,8 +1333,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "y9rx8rpxw9",
-      "Integrity": "qtM4WDwS/46YvsDtjB7KhMwGxh0otoBnmupDHcfdOIk=",
+      "Fingerprint": "onw88afhhv",
+      "Integrity": "rAiBkNqELleCqUmeTfHe09OWR9RS8cpowNezbBjIOok=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -1359,6 +1359,90 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\icons\\android-icon-192x192.png",
+      "SourceId": "BBQHub",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\",
+      "BasePath": "_content/BBQHub",
+      "RelativePath": "icons/android-icon-192x192#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "g86w1k78aa",
+      "Integrity": "kMjSFEl/9ZkpLktFdwZDuCMaK1XmGUs/zVlD+ySbrms=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\icons\\android-icon-192x192.png"
+    },
+    {
+      "Identity": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\icons\\apple-touch-icon-114x114.png",
+      "SourceId": "BBQHub",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\",
+      "BasePath": "_content/BBQHub",
+      "RelativePath": "icons/apple-touch-icon-114x114#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "0aws91xy2e",
+      "Integrity": "mJAaO794FR7jtzWhYlMajJiIMoqLkvQlrY2yPrd0yIQ=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\icons\\apple-touch-icon-114x114.png"
+    },
+    {
+      "Identity": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\icons\\favicon-96x96.ico",
+      "SourceId": "BBQHub",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\",
+      "BasePath": "_content/BBQHub",
+      "RelativePath": "icons/favicon-96x96#[.{fingerprint}]?.ico",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "vue23vtv81",
+      "Integrity": "SfmMdyuEXEOi0LcPO7aB8UT3G1b7p0fCZQ+p5MX39XA=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\icons\\favicon-96x96.ico"
+    },
+    {
+      "Identity": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\12aee461-d104-44fa-a9bb-ee4d1f89abf3.png",
+      "SourceId": "BBQHub",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\",
+      "BasePath": "_content/BBQHub",
+      "RelativePath": "images/eventlogos/12aee461-d104-44fa-a9bb-ee4d1f89abf3#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "4rfab6rh3n",
+      "Integrity": "wN6mP8zQItGgLHfZaCaaxyGed838OHForckFyVi2uSc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\eventlogos\\12aee461-d104-44fa-a9bb-ee4d1f89abf3.png"
     },
     {
       "Identity": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\1ba40825-e0fe-4e05-bb5a-410957cd5b9c.jpg",
@@ -1422,6 +1506,90 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\eventlogos\\3b985cb0-2d34-45ab-ae31-903b721f7815.png"
+    },
+    {
+      "Identity": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\4df9c6f5-26c9-4fe2-9d7d-26f28e5aacee.png",
+      "SourceId": "BBQHub",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\",
+      "BasePath": "_content/BBQHub",
+      "RelativePath": "images/eventlogos/4df9c6f5-26c9-4fe2-9d7d-26f28e5aacee#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "4rfab6rh3n",
+      "Integrity": "wN6mP8zQItGgLHfZaCaaxyGed838OHForckFyVi2uSc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\eventlogos\\4df9c6f5-26c9-4fe2-9d7d-26f28e5aacee.png"
+    },
+    {
+      "Identity": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\526e8044-64ab-49f1-b264-e0c0765d4c8c.png",
+      "SourceId": "BBQHub",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\",
+      "BasePath": "_content/BBQHub",
+      "RelativePath": "images/eventlogos/526e8044-64ab-49f1-b264-e0c0765d4c8c#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "e2d4ntajkk",
+      "Integrity": "2nkB+uFn5Bv1jJoSbnod8/mZTy/lqCyHLE+gUEgl1ho=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\eventlogos\\526e8044-64ab-49f1-b264-e0c0765d4c8c.png"
+    },
+    {
+      "Identity": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\685d5763-2ad4-4d18-bd47-dd08945df333.png",
+      "SourceId": "BBQHub",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\",
+      "BasePath": "_content/BBQHub",
+      "RelativePath": "images/eventlogos/685d5763-2ad4-4d18-bd47-dd08945df333#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "4rfab6rh3n",
+      "Integrity": "wN6mP8zQItGgLHfZaCaaxyGed838OHForckFyVi2uSc=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\eventlogos\\685d5763-2ad4-4d18-bd47-dd08945df333.png"
+    },
+    {
+      "Identity": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\a2890e15-79cb-449b-bc75-99dff47a0fca.png",
+      "SourceId": "BBQHub",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\",
+      "BasePath": "_content/BBQHub",
+      "RelativePath": "images/eventlogos/a2890e15-79cb-449b-bc75-99dff47a0fca#[.{fingerprint}]?.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "e2d4ntajkk",
+      "Integrity": "2nkB+uFn5Bv1jJoSbnod8/mZTy/lqCyHLE+gUEgl1ho=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\eventlogos\\a2890e15-79cb-449b-bc75-99dff47a0fca.png"
     },
     {
       "Identity": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\ca92c4e6-f051-4b31-b4de-5bcb53a08f57.png",
@@ -2839,7 +3007,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "953"
+          "Value": "957"
         },
         {
           "Name": "Content-Type",
@@ -2847,11 +3015,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"qtM4WDwS/46YvsDtjB7KhMwGxh0otoBnmupDHcfdOIk=\""
+          "Value": "\"rAiBkNqELleCqUmeTfHe09OWR9RS8cpowNezbBjIOok=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 04 Apr 2025 21:28:13 GMT"
+          "Value": "Sun, 06 Apr 2025 08:07:25 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2861,12 +3029,12 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-qtM4WDwS/46YvsDtjB7KhMwGxh0otoBnmupDHcfdOIk="
+          "Value": "sha256-rAiBkNqELleCqUmeTfHe09OWR9RS8cpowNezbBjIOok="
         }
       ]
     },
     {
-      "Route": "css/site.y9rx8rpxw9.css",
+      "Route": "css/site.onw88afhhv.css",
       "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\css\\site.css",
       "Selectors": [],
       "ResponseHeaders": [
@@ -2876,7 +3044,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "953"
+          "Value": "957"
         },
         {
           "Name": "Content-Type",
@@ -2884,11 +3052,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"qtM4WDwS/46YvsDtjB7KhMwGxh0otoBnmupDHcfdOIk=\""
+          "Value": "\"rAiBkNqELleCqUmeTfHe09OWR9RS8cpowNezbBjIOok=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Fri, 04 Apr 2025 21:28:13 GMT"
+          "Value": "Sun, 06 Apr 2025 08:07:25 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -2898,7 +3066,7 @@
       "EndpointProperties": [
         {
           "Name": "fingerprint",
-          "Value": "y9rx8rpxw9"
+          "Value": "onw88afhhv"
         },
         {
           "Name": "label",
@@ -2906,7 +3074,7 @@
         },
         {
           "Name": "integrity",
-          "Value": "sha256-qtM4WDwS/46YvsDtjB7KhMwGxh0otoBnmupDHcfdOIk="
+          "Value": "sha256-rAiBkNqELleCqUmeTfHe09OWR9RS8cpowNezbBjIOok="
         }
       ]
     },
@@ -2989,6 +3157,252 @@
         {
           "Name": "integrity",
           "Value": "sha256-Jtxf9L+5ITKRc1gIRl4VbUpGkRNfOBXjYTdhJD4facM="
+        }
+      ]
+    },
+    {
+      "Route": "icons/android-icon-192x192.g86w1k78aa.png",
+      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\icons\\android-icon-192x192.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "14665"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"kMjSFEl/9ZkpLktFdwZDuCMaK1XmGUs/zVlD+ySbrms=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 19:44:10 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "g86w1k78aa"
+        },
+        {
+          "Name": "label",
+          "Value": "icons/android-icon-192x192.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-kMjSFEl/9ZkpLktFdwZDuCMaK1XmGUs/zVlD+ySbrms="
+        }
+      ]
+    },
+    {
+      "Route": "icons/android-icon-192x192.png",
+      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\icons\\android-icon-192x192.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "14665"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"kMjSFEl/9ZkpLktFdwZDuCMaK1XmGUs/zVlD+ySbrms=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 19:44:10 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-kMjSFEl/9ZkpLktFdwZDuCMaK1XmGUs/zVlD+ySbrms="
+        }
+      ]
+    },
+    {
+      "Route": "icons/apple-touch-icon-114x114.0aws91xy2e.png",
+      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\icons\\apple-touch-icon-114x114.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "7035"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"mJAaO794FR7jtzWhYlMajJiIMoqLkvQlrY2yPrd0yIQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 19:44:10 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "0aws91xy2e"
+        },
+        {
+          "Name": "label",
+          "Value": "icons/apple-touch-icon-114x114.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-mJAaO794FR7jtzWhYlMajJiIMoqLkvQlrY2yPrd0yIQ="
+        }
+      ]
+    },
+    {
+      "Route": "icons/apple-touch-icon-114x114.png",
+      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\icons\\apple-touch-icon-114x114.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "7035"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"mJAaO794FR7jtzWhYlMajJiIMoqLkvQlrY2yPrd0yIQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 19:44:10 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-mJAaO794FR7jtzWhYlMajJiIMoqLkvQlrY2yPrd0yIQ="
+        }
+      ]
+    },
+    {
+      "Route": "icons/favicon-96x96.ico",
+      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\icons\\favicon-96x96.ico",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "38078"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/x-icon"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"SfmMdyuEXEOi0LcPO7aB8UT3G1b7p0fCZQ+p5MX39XA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 19:44:11 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-SfmMdyuEXEOi0LcPO7aB8UT3G1b7p0fCZQ+p5MX39XA="
+        }
+      ]
+    },
+    {
+      "Route": "icons/favicon-96x96.vue23vtv81.ico",
+      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\icons\\favicon-96x96.ico",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "38078"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/x-icon"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"SfmMdyuEXEOi0LcPO7aB8UT3G1b7p0fCZQ+p5MX39XA=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 19:44:11 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "vue23vtv81"
+        },
+        {
+          "Name": "label",
+          "Value": "icons/favicon-96x96.ico"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-SfmMdyuEXEOi0LcPO7aB8UT3G1b7p0fCZQ+p5MX39XA="
         }
       ]
     },
@@ -5213,6 +5627,88 @@
       ]
     },
     {
+      "Route": "images/eventlogos/12aee461-d104-44fa-a9bb-ee4d1f89abf3.4rfab6rh3n.png",
+      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\12aee461-d104-44fa-a9bb-ee4d1f89abf3.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "22681"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"wN6mP8zQItGgLHfZaCaaxyGed838OHForckFyVi2uSc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 13:09:54 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "4rfab6rh3n"
+        },
+        {
+          "Name": "label",
+          "Value": "images/eventlogos/12aee461-d104-44fa-a9bb-ee4d1f89abf3.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-wN6mP8zQItGgLHfZaCaaxyGed838OHForckFyVi2uSc="
+        }
+      ]
+    },
+    {
+      "Route": "images/eventlogos/12aee461-d104-44fa-a9bb-ee4d1f89abf3.png",
+      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\12aee461-d104-44fa-a9bb-ee4d1f89abf3.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "22681"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"wN6mP8zQItGgLHfZaCaaxyGed838OHForckFyVi2uSc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 13:09:54 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-wN6mP8zQItGgLHfZaCaaxyGed838OHForckFyVi2uSc="
+        }
+      ]
+    },
+    {
       "Route": "images/eventlogos/1ba40825-e0fe-4e05-bb5a-410957cd5b9c.jpg",
       "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\1ba40825-e0fe-4e05-bb5a-410957cd5b9c.jpg",
       "Selectors": [],
@@ -5445,6 +5941,334 @@
         {
           "Name": "Last-Modified",
           "Value": "Wed, 02 Apr 2025 20:44:37 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-2nkB+uFn5Bv1jJoSbnod8/mZTy/lqCyHLE+gUEgl1ho="
+        }
+      ]
+    },
+    {
+      "Route": "images/eventlogos/4df9c6f5-26c9-4fe2-9d7d-26f28e5aacee.4rfab6rh3n.png",
+      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\4df9c6f5-26c9-4fe2-9d7d-26f28e5aacee.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "22681"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"wN6mP8zQItGgLHfZaCaaxyGed838OHForckFyVi2uSc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 12:05:04 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "4rfab6rh3n"
+        },
+        {
+          "Name": "label",
+          "Value": "images/eventlogos/4df9c6f5-26c9-4fe2-9d7d-26f28e5aacee.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-wN6mP8zQItGgLHfZaCaaxyGed838OHForckFyVi2uSc="
+        }
+      ]
+    },
+    {
+      "Route": "images/eventlogos/4df9c6f5-26c9-4fe2-9d7d-26f28e5aacee.png",
+      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\4df9c6f5-26c9-4fe2-9d7d-26f28e5aacee.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "22681"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"wN6mP8zQItGgLHfZaCaaxyGed838OHForckFyVi2uSc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 12:05:04 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-wN6mP8zQItGgLHfZaCaaxyGed838OHForckFyVi2uSc="
+        }
+      ]
+    },
+    {
+      "Route": "images/eventlogos/526e8044-64ab-49f1-b264-e0c0765d4c8c.e2d4ntajkk.png",
+      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\526e8044-64ab-49f1-b264-e0c0765d4c8c.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4842"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"2nkB+uFn5Bv1jJoSbnod8/mZTy/lqCyHLE+gUEgl1ho=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 11:23:42 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "e2d4ntajkk"
+        },
+        {
+          "Name": "label",
+          "Value": "images/eventlogos/526e8044-64ab-49f1-b264-e0c0765d4c8c.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-2nkB+uFn5Bv1jJoSbnod8/mZTy/lqCyHLE+gUEgl1ho="
+        }
+      ]
+    },
+    {
+      "Route": "images/eventlogos/526e8044-64ab-49f1-b264-e0c0765d4c8c.png",
+      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\526e8044-64ab-49f1-b264-e0c0765d4c8c.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4842"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"2nkB+uFn5Bv1jJoSbnod8/mZTy/lqCyHLE+gUEgl1ho=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 11:23:42 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-2nkB+uFn5Bv1jJoSbnod8/mZTy/lqCyHLE+gUEgl1ho="
+        }
+      ]
+    },
+    {
+      "Route": "images/eventlogos/685d5763-2ad4-4d18-bd47-dd08945df333.4rfab6rh3n.png",
+      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\685d5763-2ad4-4d18-bd47-dd08945df333.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "22681"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"wN6mP8zQItGgLHfZaCaaxyGed838OHForckFyVi2uSc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 11:23:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "4rfab6rh3n"
+        },
+        {
+          "Name": "label",
+          "Value": "images/eventlogos/685d5763-2ad4-4d18-bd47-dd08945df333.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-wN6mP8zQItGgLHfZaCaaxyGed838OHForckFyVi2uSc="
+        }
+      ]
+    },
+    {
+      "Route": "images/eventlogos/685d5763-2ad4-4d18-bd47-dd08945df333.png",
+      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\685d5763-2ad4-4d18-bd47-dd08945df333.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "22681"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"wN6mP8zQItGgLHfZaCaaxyGed838OHForckFyVi2uSc=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 11:23:28 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-wN6mP8zQItGgLHfZaCaaxyGed838OHForckFyVi2uSc="
+        }
+      ]
+    },
+    {
+      "Route": "images/eventlogos/a2890e15-79cb-449b-bc75-99dff47a0fca.e2d4ntajkk.png",
+      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\a2890e15-79cb-449b-bc75-99dff47a0fca.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4842"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"2nkB+uFn5Bv1jJoSbnod8/mZTy/lqCyHLE+gUEgl1ho=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 13:10:01 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "e2d4ntajkk"
+        },
+        {
+          "Name": "label",
+          "Value": "images/eventlogos/a2890e15-79cb-449b-bc75-99dff47a0fca.png"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-2nkB+uFn5Bv1jJoSbnod8/mZTy/lqCyHLE+gUEgl1ho="
+        }
+      ]
+    },
+    {
+      "Route": "images/eventlogos/a2890e15-79cb-449b-bc75-99dff47a0fca.png",
+      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\images\\eventlogos\\a2890e15-79cb-449b-bc75-99dff47a0fca.png",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4842"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/png"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"2nkB+uFn5Bv1jJoSbnod8/mZTy/lqCyHLE+gUEgl1ho=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sat, 05 Apr 2025 13:10:01 GMT"
         },
         {
           "Name": "Cache-Control",

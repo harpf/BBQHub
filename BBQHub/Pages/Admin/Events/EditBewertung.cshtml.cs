@@ -16,13 +16,18 @@ namespace BBQHub.Pages.Admin.Events
         }
 
         [BindProperty(SupportsGet = true)]
-        public int TeamId { get; set; }
+        public int? TeamId { get; set; }
+
+        [BindProperty(SupportsGet = true)]
+        public int? TeilnehmerId { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public int DurchgangId { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public int KriteriumId { get; set; }
+
+        public bool IstSpontanBewertung => TeilnehmerId.HasValue;
 
         public List<BBQHub.Domain.Entities.Bewertung> Bewertungen { get; set; } = new();
         public string TeamName { get; set; } = "";
@@ -31,16 +36,33 @@ namespace BBQHub.Pages.Admin.Events
 
         public async Task<IActionResult> OnGetAsync()
         {
+            if (TeamId == null && TeilnehmerId == null)
+                return NotFound();
+
             Bewertungen = await _context.Bewertungen
                 .Include(b => b.Juror)
                 .Include(b => b.Kriterium)
                 .Include(b => b.Durchgang)
-                .Where(b => b.TeamId == TeamId && b.DurchgangId == DurchgangId && b.KriteriumId == KriteriumId)
+                .Where(b =>
+                    b.DurchgangId == DurchgangId &&
+                    b.KriteriumId == KriteriumId &&
+                    ((TeamId != null && b.TeamId == TeamId) || (TeilnehmerId != null && b.SpontanTeilnahmeId == TeilnehmerId))
+                )
                 .ToListAsync();
 
             if (!Bewertungen.Any()) return NotFound();
 
-            TeamName = (await _context.Teams.FindAsync(TeamId))?.Name ?? "Unbekannt";
+            if (IstSpontanBewertung)
+            {
+                var teilnehmer = await _context.spontanTeilnahmen.FindAsync(TeilnehmerId);
+                TeamName = teilnehmer != null ? $"{teilnehmer.Vorname} {teilnehmer.Nachname}" : "Unbekannt";
+
+            }
+            else
+            {
+                TeamName = (await _context.Teams.FindAsync(TeamId))?.Name ?? "Unbekannt";
+            }
+
             KriteriumName = Bewertungen.First().Kriterium.Name;
             DurchgangName = Bewertungen.First().Durchgang.Name;
 

@@ -1,0 +1,144 @@
+﻿@page
+@model BBQHub.Domain.Entities.TeilnahmePdfData;
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="utf-8" />
+    <title>Teilnahme PDF</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: #000;
+            background-color: #fff;
+            font-size: 12px;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 20px;
+            color: #e67e22;
+        }
+
+        .section {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 12px;
+            border-radius: 6px;
+        }
+
+        .label {
+            font-weight: bold;
+        }
+
+        .signature {
+            border: 1px solid #ccc;
+            height: 100px;
+            margin-top: 8px;
+        }
+
+        .logos {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+            .logos img {
+                height: 60px;
+                object-fit: contain;
+            }
+
+        .info-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+            .info-table td {
+                padding: 4px 8px;
+                vertical-align: top;
+            }
+
+                .info-table td.label {
+                    font-weight: bold;
+                    width: 140px;
+                }
+    </style>
+</head>
+<body>
+
+    <!-- Logos -->
+    @if (!string.IsNullOrEmpty(Model.LogoVeranstalter) || !string.IsNullOrEmpty(Model.LogoHauptsponsor) || !string.IsNullOrEmpty(Model.LogoNebensponsor))
+    {
+        <div class="logos">
+            @if (!string.IsNullOrEmpty(Model.LogoVeranstalter))
+            {
+                <img src="@Model.LogoVeranstalter" alt="Veranstalterlogo" />
+            }
+            @if (!string.IsNullOrEmpty(Model.LogoHauptsponsor))
+            {
+                <img src="@Model.LogoHauptsponsor" alt="Hauptsponsorlogo" />
+            }
+            @if (!string.IsNullOrEmpty(Model.LogoNebensponsor))
+            {
+                <img src="@Model.LogoNebensponsor" alt="Nebensponsorlogo" />
+            }
+        </div>
+    }
+
+    <h1>Teilnahmeformular – @Model.EventName</h1>
+
+    <div class="section">
+        <p><span class="label">Vorausscheidung:</span> @Model.EventStandort</p>
+        <p><span class="label">Datum:</span> @Model.EventDatum</p>
+        <p><span class="label">Menü:</span> @Model.EventMenue</p>
+    </div>
+
+    <div class="section">
+        <h2>Persönliche Angaben</h2>
+        <table class="info-table">
+            <tr><td class="label">Vorname:</td><td>@Model.Vorname</td></tr>
+            <tr><td class="label">Nachname:</td><td>@Model.Nachname</td></tr>
+            <tr><td class="label">Adresse:</td><td>@Model.Adresse</td></tr>
+            <tr><td class="label">PLZ / Ort:</td><td>@Model.PLZ @Model.Ort</td></tr>
+            <tr><td class="label">Land:</td><td>@Model.Land</td></tr>
+            <tr><td class="label">E-Mail:</td><td>@Model.Email</td></tr>
+            <tr><td class="label">Telefonnummer:</td><td>@Model.Telefonnummer</td></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Datenschutzerklärung</h2>
+        <p>
+            Ich habe die Datenschutzerklärung gelesen und akzeptiere sie.
+            <br />
+            Datum: <strong>@Model.DatenschutzerklaerungDatum.ToString("dd.MM.yyyy")</strong>
+        </p>
+        <div class="signature">
+            @if (!string.IsNullOrEmpty(Model.DatenschutzerklaerungUnterschrift))
+            {
+                <img src="data:image/png;base64,@Model.DatenschutzerklaerungUnterschrift" alt="Unterschrift Datenschutz" style="height: 100px;" />
+            }
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Teilnahmebestätigung</h2>
+        <p>
+            Ich bestätige meine Teilnahme und bin mit den Teilnahmebedingungen einverstanden.
+            <br />
+            Datum: <strong>@Model.TeilnahmeDatum.ToString("dd.MM.yyyy")</strong>
+        </p>
+        <div class="signature">
+            @if (!string.IsNullOrEmpty(Model.TeilnahmeUnterschrift))
+            {
+                <img src="data:image/png;base64,@Model.TeilnahmeUnterschrift" alt="Teilnahme-Unterschrift" style="height: 100px;" />
+            }
+        </div>
+    </div>
+
+</body>
+</html>

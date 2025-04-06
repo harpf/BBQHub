@@ -88,21 +88,52 @@ namespace BBQHub.Pages.Bewertung
                 .Where(k => k.DurchgangId == DurchgangId)
                 .ToListAsync();
 
+            var form = Request.Form;
+
             foreach (var k in kriterien)
             {
-                int punkt = Punkte.ContainsKey(k.Id) ? Punkte[k.Id] : 0;
-                double gewichteteNote = punkt * k.Gewichtung;
+                var rawValue = form[$"Punkte[{k.Id}]"];
 
-                _context.Bewertungen.Add(new BBQHub.Domain.Entities.Bewertung
+                if (string.IsNullOrWhiteSpace(rawValue))
+                    continue;
+
+                var bewertung = new BBQHub.Domain.Entities.Bewertung
                 {
                     JurorId = juror.Id,
                     DurchgangId = DurchgangId,
                     KriteriumId = k.Id,
-                    Punkte = punkt,
-                    GewichteteNote = gewichteteNote,
                     TeamId = TeamId,
                     SpontanTeilnahmeId = TeilnehmerId
-                });
+                };
+
+                switch (k.BewertungsTyp)
+                {
+                    case BewertungsTyp.Text:
+                        bewertung.TextBewertung = rawValue;
+                        bewertung.Punkte = 0;
+                        bewertung.GewichteteNote = 0;
+                        break;
+
+                    case BewertungsTyp.Decimal:
+                        var rawDecimal = form[$"Punkte[{k.Id}]"].ToString().Replace(",", ".");
+                        if (double.TryParse(rawDecimal, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out var dezimal))
+                        {
+                            bewertung.Punkte = (int)Math.Round(dezimal);
+                            bewertung.GewichteteNote = dezimal * k.Gewichtung;
+                        }
+                        break;
+
+                    case BewertungsTyp.Integer:
+                    default:
+                        if (int.TryParse(rawValue, out var punkte))
+                        {
+                            bewertung.Punkte = punkte;
+                            bewertung.GewichteteNote = punkte * k.Gewichtung;
+                        }
+                        break;
+                }
+
+                _context.Bewertungen.Add(bewertung);
             }
 
             await _context.SaveChangesAsync();

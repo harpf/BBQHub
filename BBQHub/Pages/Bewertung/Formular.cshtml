@@ -4,29 +4,30 @@
     ViewData["Title"] = "Bewertung abgeben";
 }
 
-<h1 class="text-2xl font-bold text-orange-500 mb-6">Bewertung abgeben</h1>
+<h1 class="text-3xl font-bold text-orange-500 mb-6">📝 Bewertung abgeben</h1>
 
-<p class="text-gray-300 mb-2">Juror-ID: <strong>@Model.JuryId</strong></p>
-<p class="text-gray-300 mb-2">Event: <strong>@Model.EventName</strong></p>
-<p class="text-gray-300 mb-2">Durchgang: <strong>@Model.DurchgangName</strong></p>
-
-@if (Model.TeamId != null)
-{
-    <p class="text-gray-300 mb-6">Bewertung für Team-ID: <strong>@Model.TeamId</strong></p>
-}
-else if (Model.TeilnehmerId != null)
-{
-    <p class="text-gray-300 mb-6">Bewertung für Teilnehmer-ID: <strong>@Model.TeilnehmerId</strong></p>
-}
+<div class="text-zinc-300 mb-6 space-y-1">
+    <p hidden><strong>Juror-ID:</strong> @Model.JuryId</p>
+    <p><strong>Event:</strong> @Model.EventName</p>
+    <p><strong>Durchgang:</strong> @Model.DurchgangName</p>
+    @if (Model.TeamId != null)
+    {
+        <p><strong>Team-ID:</strong> @Model.TeamId</p>
+    }
+    else if (Model.TeilnehmerId != null)
+    {
+        <p><strong>Teilnehmer:</strong> @Model.TeilnehmerId</p>
+    }
+</div>
 
 @if (!string.IsNullOrEmpty(Model.ErrorMessage))
 {
-    <div class="bg-red-100 border border-red-500 text-red-700 p-2 mb-4 rounded">
-        @Model.ErrorMessage
+    <div class="bg-red-600/20 text-red-400 border border-red-500 px-4 py-3 rounded mb-6">
+        ⚠️ @Model.ErrorMessage
     </div>
 }
 
-<form method="post" class="space-y-4 max-w-xl text-black">
+<form method="post" class="space-y-6 max-w-2xl bg-zinc-800 p-6 rounded-lg shadow text-white">
     <input type="hidden" asp-for="JuryId" />
     <input type="hidden" asp-for="DurchgangId" />
     <input type="hidden" asp-for="EventId" />
@@ -35,31 +36,65 @@ else if (Model.TeilnehmerId != null)
 
     @if (Model.Kriterien.Any())
     {
-        <h2 class="text-lg font-semibold text-orange-500">Kriterien</h2>
+        <h2 class="text-xl font-semibold text-orange-400 mb-4">Kriterien</h2>
 
         @foreach (var k in Model.Kriterien)
         {
-            <div>
-                <label class="block mb-1">@k.Name (max. @k.MaxWert Punkte)</label>
-                <input name="Punkte[@k.Id]" type="number" min="0" max="@k.MaxWert" class="w-full p-2 rounded border" />
+            <div class="space-y-1">
+                <label for="Punkte[@k.Id]" class="block font-medium">
+                    @k.Name
+                    @if (k.BewertungsTyp == Domain.Entities.BewertungsTyp.Integer || k.BewertungsTyp == Domain.Entities.BewertungsTyp.Decimal)
+                    {
+                        <span class="text-sm text-zinc-400">(max. @k.MaxWert Punkte)</span>
+                    }
+                </label>
+
+                @if (k.BewertungsTyp == Domain.Entities.BewertungsTyp.Text)
+                {
+                    <textarea name="Punkte[@k.Id]"
+                              rows="3"
+                              class="w-full p-3 border rounded text-black focus:outline-none focus:ring-2 focus:ring-orange-500"
+                              placeholder="Deine Bewertung als Freitext …"></textarea>
+                }
+                else if (k.BewertungsTyp == Domain.Entities.BewertungsTyp.Decimal)
+                {
+                    <input name="Punkte[@k.Id]"
+                           type="number"
+                           step="0.1"
+                           min="0"
+                           max="@k.MaxWert"
+                           required
+                           class="w-full p-3 border rounded text-black focus:outline-none focus:ring-2 focus:ring-orange-500" />
+                }
+                else
+                {
+                    <input name="Punkte[@k.Id]"
+                           type="number"
+                           step="1"
+                           min="0"
+                           max="@k.MaxWert"
+                           required
+                           class="w-full p-3 border rounded text-black focus:outline-none focus:ring-2 focus:ring-orange-500" />
+                }
             </div>
         }
 
-        <div class="flex gap-4 mt-6">
-            <button type="submit" class="bg-orange-600 text-white px-6 py-2 rounded hover:bg-orange-700">
-                Bewertung abschicken
+        <div class="flex flex-col sm:flex-row sm:justify-end gap-4 pt-6">
+            <button type="submit"
+                    class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded shadow transition">
+                ✅ Bewertung abschicken
             </button>
 
             <a asp-page="/Bewertung/DurchgangAuswahl"
                asp-route-juryId="@Model.JuryId"
                asp-route-eventId="@Model.EventId"
-               class="inline-block bg-zinc-600 text-white px-6 py-2 rounded hover:bg-zinc-700">
+               class="bg-zinc-600 hover:bg-zinc-700 text-white px-6 py-2 rounded shadow transition text-center">
                 ⬅️ Zurück zur Durchgangsauswahl
             </a>
         </div>
     }
     else
     {
-        <p class="text-sm text-zinc-400">Keine Bewertungskriterien gefunden.</p>
+        <p class="text-sm text-zinc-400 italic">❗ Für diesen Durchgang wurden noch keine Bewertungskriterien definiert.</p>
     }
 </form>

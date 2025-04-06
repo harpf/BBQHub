@@ -30,6 +30,13 @@ namespace BBQHub.Pages.Bewertung
                 return Page();
             }
 
+            if (JuryId == 0)
+            {
+                ModelState.AddModelError("JuryId", "Bitte eine gültige Juror-ID eingeben.");
+                return Page();
+            }
+
+
             return RedirectToPage("/Bewertung/EventAuswahl", new { juryId = JuryId });
         }
 

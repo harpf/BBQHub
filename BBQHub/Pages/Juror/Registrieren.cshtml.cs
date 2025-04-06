@@ -30,7 +30,7 @@ namespace BBQHub.Pages.Juror
             "Schweiz", "Deutschland", "Österreich", "Italien", "Frankreich"
         };
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostSubmitAsync()
         {
             try
             {
@@ -49,7 +49,7 @@ namespace BBQHub.Pages.Juror
             }
             catch (Exception ex)
             {
-                ErrorMessage = "Ein unerwarteter Fehler ist aufgetreten.";
+                ErrorMessage = $"Ein unerwarteter Fehler ist aufgetreten. {ex}";
                 // Optional: Logging via IAppLogger hier einbauen
                 return Page();
             }
