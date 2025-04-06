@@ -1,0 +1,111 @@
+﻿@page "{eventId:int}"
+@model BBQHub.Pages.Teilnahme.DatenschutzModel
+@{
+    ViewData["Title"] = "Datenschutzerklärung";
+}
+
+<h1 class="text-xl font-bold mb-4 text-center">Einwilligungserklärung zur Verwendung von Film- und Fotoaufnahmen</h1>
+
+<div class="bg-white text-black p-6 rounded shadow max-w-4xl mx-auto space-y-6">
+
+    <p>
+        Im Rahmen der Veranstaltung <strong>Bell BBQ Single Masters</strong> wird der Verantwortliche an allen Veranstaltungstagen Foto- und Filmaufnahmen anfertigen, auf denen auch die Arbeitnehmer des Arbeitgebers zu sehen sind.
+    </p>
+
+    <p>
+        Die Foto- und Filmaufnahmen werden durch den Verantwortlichen und/oder einer anderen Gesellschaft, die zur gleichen Unternehmensgruppe gehört, für Präsentations-, Dokumentations- und Werbezwecke insgesamt oder teilweise im Intranet, Internet, Fernsehen, Zeitschriften, Zeitungen, Flyern, Broschüren und anderen Medien verwendet und zwar geografisch und zeitlich unbegrenzt. Zur Unternehmensgruppe des Verantwortlichen gehören insbesondere die Gesellschaften, die in den Halbjahres- und Jahresberichten der Bell Food Group (abrufbar im Internet unter
+        <a href="https://www.bellfoodgroup.com/de/investoren/geschaeftsberichte/" class="text-blue-700 underline" target="_blank">https://www.bellfoodgroup.com/de/investoren/geschaeftsberichte/</a>) aufgeführt sind.
+    </p>
+
+    <p>
+        Die Aufnahmen können ebenfalls durch Dritte im Wege einer durch den Verantwortlichen eingeräumten Unterlizenz genutzt werden – insbesondere Sponsoren oder Veranstaltungspartner.
+    </p>
+
+    <p>
+        Ich, der/die Unterzeichnete, erkläre im Hinblick auf das Vorstehende Folgendes:
+    </p>
+
+    <div class="border p-4 rounded space-y-2 bg-zinc-50">
+        <label class="block">
+            <input type="checkbox" class="mr-2" required />
+            Ich erteile dem Veranstalter die unbefristete Erlaubnis, Aufnahmen von mir zu erstellen und wie oben beschrieben zu verwenden.
+        </label>
+        <label class="block">
+            <input type="checkbox" class="mr-2" required />
+            Ich erteile meine widerrufliche Zustimmung zur Nutzung dieser Aufnahmen inkl. möglicher Rückschlüsse auf meine Herkunft, Religion oder Gesundheit.
+        </label>
+    </div>
+
+    <p class="text-sm font-semibold text-gray-800">
+        Diese Einwilligung ist freiwillig und jederzeit in Textform (z. B. Brief, E-Mail) widerruflich. Ich kann sie ohne Angabe von Gründen verweigern, kann dann allerdings nicht an der Veranstaltung teilnehmen, da es aufgrund des Veranstaltungscharakters nicht oder nur unter schweren Bedingungen möglich ist, Personen auf Film- und Fotomaterial nicht zu erfassen oder diese nachträglich zu löschen.
+    </p>
+
+    <p class="text-sm text-gray-700">
+        Ich weiss und akzeptiere, dass Fotos und Filme im Internet weltweit zugänglich sind und mit Suchmaschinen gefunden und mit anderen Informationen verknüpft werden können, woraus sich unter Umständen Persönlichkeitsprofile über mich erstellen lassen.
+    </p>
+
+    <!-- 📄 Formular -->
+    <form method="post" class="space-y-4" id="datenschutzForm">
+        <input type="hidden" asp-for="EventId" />
+
+        <!-- Name & Datum -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label class="block text-sm font-semibold mb-1">Vorname</label>
+                <input asp-for="Vorname" class="w-full p-2 rounded border" required />
+                <span asp-validation-for="Vorname" class="text-red-500 text-sm"></span>
+            </div>
+            <div>
+                <label class="block text-sm font-semibold mb-1">Nachname</label>
+                <input asp-for="Nachname" class="w-full p-2 rounded border" required />
+                <span asp-validation-for="Nachname" class="text-red-500 text-sm"></span>
+            </div>
+        </div>
+
+        <!-- Unterschrift -->
+        <div>
+            <label class="block text-sm font-semibold mb-1 mt-4">Unterschrift</label>
+            <canvas id="signature-pad" class="border rounded w-full h-40 bg-white"></canvas>
+            <input type="hidden" asp-for="UnterschriftBild" id="UnterschriftBild" />
+            <button type="button" onclick="clearSignature()" class="text-xs text-orange-500 mt-1 hover:underline">🧹 Löschen</button>
+            <span asp-validation-for="UnterschriftBild" class="text-red-500 text-sm"></span>
+        </div>
+
+        <div>
+            <label class="block text-sm font-semibold mb-1 mt-4">Datum</label>
+            <input asp-for="Datum" type="date" class="w-full p-2 rounded border" required />
+            <span asp-validation-for="Datum" class="text-red-500 text-sm"></span>
+        </div>
+
+        <!-- ✅ Akzeptieren Button -->
+        <div class="text-right mt-6">
+            <button type="submit" class="bg-orange-600 text-white px-6 py-2 rounded hover:bg-orange-700">
+                ✅ Akzeptieren
+            </button>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+    <script>
+        const canvas = document.getElementById('signature-pad');
+        const signaturePad = new SignaturePad(canvas);
+
+        function clearSignature() {
+            signaturePad.clear();
+            document.getElementById('UnterschriftBild').value = "";
+        }
+
+        document.getElementById("datenschutzForm").addEventListener("submit", function (e) {
+            if (signaturePad.isEmpty()) {
+                alert("Bitte unterschreiben, bevor du fortfährst.");
+                e.preventDefault();
+                return false;
+            }
+
+            // Unterschrift in verstecktes Feld schreiben
+            document.getElementById("UnterschriftBild").value = signaturePad.toDataURL();
+        });
+    </script>
+}

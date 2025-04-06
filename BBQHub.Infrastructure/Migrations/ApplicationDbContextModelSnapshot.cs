@@ -123,6 +123,9 @@ namespace BBQHub.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("Menue")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -287,6 +290,12 @@ namespace BBQHub.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("DatenschutzDatum")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DatenschutzUnterschriftBild")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("DurchgangId")
                         .HasColumnType("int");
 
@@ -294,13 +303,18 @@ namespace BBQHub.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
+                    b.Property<string>("Nachname")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Street")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TeilnahmeUnterschriftBild")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("TeilnahmeUnterschriftDatum")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Telefonnummer")
                         .IsRequired()
@@ -308,6 +322,9 @@ namespace BBQHub.Infrastructure.Migrations
 
                     b.Property<int>("Token")
                         .HasColumnType("int");
+
+                    b.Property<string>("Vorname")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ZipCode")
                         .IsRequired()

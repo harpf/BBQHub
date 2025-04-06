@@ -4,59 +4,216 @@
     ViewData["Title"] = "Spontane Teilnahme";
 }
 
-<h1 class="text-2xl font-bold mb-6 text-orange-500">Spontane Teilnahme – @Model.EventName</h1>
+<h1 class="text-2xl font-bold mb-6 text-orange-500">Anmeldeformular – @Model.EventName</h1>
 
 @if (Model.Durchgaenge.Any())
 {
-    <form method="post" class="space-y-4 max-w-xl text-black">
+    <form method="post" class="space-y-6 max-w-3xl text-black bg-white p-6 rounded shadow">
         <input type="hidden" asp-for="EventId" />
 
-        <div>
-            <label class="block text-sm font-medium">Name des Teilnehmers</label>
-            <input asp-for="TeilnehmerName" class="w-full p-2 rounded border" required />
+        @if (!string.IsNullOrEmpty(Model.LogoVeranstalter) ||
+       !string.IsNullOrEmpty(Model.LogoHauptsponsor) ||
+       !string.IsNullOrEmpty(Model.LogoNebensponsor))
+        {
+            <div class="flex justify-between items-center gap-4 mb-6">
+                @if (!string.IsNullOrEmpty(Model.LogoVeranstalter))
+                {
+                    <img src="@Model.LogoVeranstalter" alt="Veranstalter" class="h-20 object-contain" />
+                }
+                @if (!string.IsNullOrEmpty(Model.LogoHauptsponsor))
+                {
+                    <img src="@Model.LogoHauptsponsor" alt="Hauptsponsor" class="h-20 object-contain" />
+                }
+                @if (!string.IsNullOrEmpty(Model.LogoNebensponsor))
+                {
+                    <img src="@Model.LogoNebensponsor" alt="Nebensponsor" class="h-20 object-contain" />
+                }
+            </div>
+        }
+
+        <div class="bg-white p-4 rounded shadow mb-6">
+            <p><strong>Vorausscheidung:</strong> @Model.EventStandort</p>
+            <p><strong>Datum:</strong> @Model.EventDatum.ToString("dd.MM.yyyy")</p>
+            <p><strong>Menü:</strong> @Model.EventMenue</p>
+            <p><strong>Juriert durch:</strong> Swiss Barbecue Association</p>
         </div>
 
+        <!-- Laufnummer -->
         <div>
-            <label class="block text-sm font-medium">Straße</label>
-            <input asp-for="Street" class="w-full p-2 rounded border" required />
+            <label class="block text-sm font-semibold mb-1">Laufnummer <span class="text-red-500">*</span></label>
+            <select asp-for="SelectedDurchgangId" asp-items="Model.Durchgaenge" class="w-full p-2 rounded border" id="SelectedDurchgangId" required>
+                <option value="">Bitte Lauf auswählen</option>
+            </select>
         </div>
 
-        <div>
-            <label class="block text-sm font-medium">PLZ</label>
-            <input asp-for="ZipCode" class="w-full p-2 rounded border" required />
+        <!-- Name -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label class="block text-sm font-semibold mb-1">Vorname <span class="text-red-500">*</span></label>
+                <input asp-for="Vorname" class="w-full p-2 rounded border" id="Vorname" required />
+            </div>
+            <div>
+                <label class="block text-sm font-semibold mb-1">Nachname <span class="text-red-500">*</span></label>
+                <input asp-for="Nachname" class="w-full p-2 rounded border" id="Nachname" required />
+            </div>
         </div>
 
+        <!-- Adresse -->
         <div>
-            <label class="block text-sm font-medium">Ort</label>
-            <input asp-for="City" class="w-full p-2 rounded border" required />
+            <label class="block text-sm font-semibold mb-1">Adresse</label>
+            <input asp-for="Street" class="w-full p-2 rounded border" id="Street" required />
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+                <label class="block text-sm font-semibold mb-1">Stadt</label>
+                <input asp-for="City" class="w-full p-2 rounded border" id="City" required />
+            </div>
+            <div>
+                <label class="block text-sm font-semibold mb-1">PLZ</label>
+                <input asp-for="ZipCode" class="w-full p-2 rounded border" id="ZipCode" required />
+            </div>
+        </div>
+        <div>
+            <label class="block text-sm font-semibold mb-1">Land</label>
+            <select asp-for="Country" class="w-full p-2 rounded border" id="Country">
+                <option value="Schweiz">Schweiz</option>
+                <option value="Österreich">Österreich</option>
+                <option value="Deutschland">Deutschland</option>
+                <option disabled>────────────</option>
+                <option value="Liechtenstein">Liechtenstein</option>
+                <option value="Italien">Italien</option>
+                <option value="Frankreich">Frankreich</option>
+            </select>
         </div>
 
-        <div>
-            <label class="block text-sm font-medium">Land</label>
-            <input asp-for="Country" class="w-full p-2 rounded border" value="CH" required />
+        <!-- Kontakt -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+                <label class="block text-sm font-semibold mb-1">E-Mail <span class="text-red-500">*</span></label>
+                <input asp-for="Email" type="email" class="w-full p-2 rounded border" id="Email" required />
+            </div>
+            <div>
+                <label class="block text-sm font-semibold mb-1">Telefon <span class="text-red-500">*</span></label>
+                <input asp-for="Telefonnummer" type="tel" class="w-full p-2 rounded border" id="Telefonnummer" required />
+            </div>
         </div>
 
-        <div>
-            <label class="block text-sm font-medium">E-Mail</label>
-            <input asp-for="Email" class="w-full p-2 rounded border" type="email" required />
+        <!-- Datenschutzbestätigung (aus vorheriger Seite) -->
+        @if (string.IsNullOrWhiteSpace(Model.DatenschutzUnterschrift))
+        {
+            <div class="bg-yellow-100 text-yellow-800 p-4 rounded flex items-center justify-between">
+                <span>Bitte lese und unterschreibe zuerst die Datenschutzerklärung.</span>
+                <button type="button" onclick="saveAndRedirect()" class="ml-4 bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded">
+                    📄 Datenschutzerklärung öffnen
+                </button>
+            </div>
+        }
+        else
+        {
+            <div class="bg-white p-4 rounded shadow mt-6">
+                <p class="text-sm">
+                    ✅ Datenschutzerklärung wurde bestätigt am <strong>@Model.DatenschutzDatum.ToString("dd.MM.yyyy")</strong>
+                </p>
+                @if (!string.IsNullOrEmpty(Model.DatenschutzUnterschrift))
+                {
+                    <div class="mt-2">
+                        <img src="@Model.DatenschutzUnterschrift" alt="Unterschrift" class="border rounded max-w-xs" />
+                    </div>
+                }
+            </div>
+        }
+
+        <!-- Einverständniserklärung -->
+        <fieldset class="border border-gray-300 p-4 rounded">
+            <legend class="text-sm font-semibold mb-2">Einverständniserklärung <span class="text-red-500">*</span></legend>
+            <div class="space-y-2 text-sm">
+                <div><input type="checkbox" required /> Veröffentlichung der Ranglisten ist erlaubt.</div>
+                <div><input type="checkbox" required /> Datenschutzerklärung wurde gelesen.</div>
+                <div><input type="checkbox" required /> Einwilligung zu Foto- und Filmaufnahmen.</div>
+                <div><input type="checkbox" /> Volljährigkeit oder Begleitung durch Erwachsene.</div>
+            </div>
+        </fieldset>
+
+        <!-- Unterschrift -->
+        <div class="grid grid-cols-1 gap-2">
+            <label class="block text-sm font-semibold mb-1">Unterschrift (Teilnahme) <span class="text-red-500">*</span></label>
+            <canvas id="signature-pad" class="border rounded w-full h-40 bg-white"></canvas>
+            <input type="hidden" name="UnterschriftBild" id="UnterschriftBild" />
+            <button type="button" onclick="clearSignature()" class="text-xs text-orange-500 hover:underline">🧹 Löschen</button>
         </div>
 
-        <div>
-            <label class="block text-sm font-medium">Telefonnummer</label>
-            <input asp-for="Telefonnummer" class="w-full p-2 rounded border" required />
-        </div>
-
-        <div>
-            <label class="block text-sm font-medium">Durchgang wählen</label>
-            <select asp-for="SelectedDurchgangId" asp-items="Model.Durchgaenge" class="w-full p-2 rounded border" required></select>
-        </div>
-
-        <button type="submit" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
-            ➕ Jetzt registrieren
+        <!-- Submit -->
+        <button type="submit" class="bg-orange-600 text-white px-6 py-2 rounded hover:bg-orange-700">
+            ➕ Teilnahme abschließen
         </button>
     </form>
 }
 else
 {
     <p class="text-gray-300">Für dieses Event sind aktuell keine Durchgänge verfügbar.</p>
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+    <script>
+
+        function saveAndRedirect() {
+            const fields = [
+                "Vorname", "Nachname", "Street", "ZipCode", "City", "Country",
+                "Email", "Telefonnummer", "SelectedDurchgangId"
+            ];
+
+            fields.forEach(id => {
+                const input = document.getElementById(id);
+                if (input) {
+                    localStorage.setItem("reg_" + id, input.value);
+                }
+            });
+
+            const eventId = "@Model.EventId";
+            localStorage.setItem("eventId", eventId);
+
+            window.location.href = "/Teilnahme/Datenschutz/" + eventId;
+        }
+
+        const canvas = document.getElementById('signature-pad');
+        const signaturePad = new SignaturePad(canvas);
+
+        function clearSignature() {
+            signaturePad.clear();
+            document.getElementById('UnterschriftBild').value = "";
+        }
+
+        document.querySelector('form').addEventListener('submit', function () {
+            if (!signaturePad.isEmpty()) {
+                document.getElementById('UnterschriftBild').value = signaturePad.toDataURL();
+            }
+        });
+
+        window.addEventListener("load", () => {
+            const fields = [
+                "Vorname", "Nachname", "Street", "ZipCode", "City", "Country",
+                "Email", "Telefonnummer", "SelectedDurchgangId"
+            ];
+
+            fields.forEach(id => {
+                const savedValue = localStorage.getItem("reg_" + id);
+                if (savedValue && document.getElementById(id)) {
+                    document.getElementById(id).value = savedValue;
+                }
+            });
+
+            // ✅ AUTOMATISCHES LÖSCHEN nach erfolgreicher Registrierung
+            if (window.location.pathname.includes("/Teilnahme/Bestätigung")) {
+                fields.forEach(id => localStorage.removeItem("reg_" + id));
+                localStorage.removeItem("eventId");
+            }
+        });
+
+        localStorage.setItem("eventId", "@Model.EventId");
+
+        if (window.location.href.includes("Teilnahmeformular.pdf")) {
+            localStorage.clear();
+        }
+    </script>
 }

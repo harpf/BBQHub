@@ -64,10 +64,11 @@ namespace BBQHub.Pages.Ranglisten
                     .Select(t => new Team
                     {
                         Id = t.Id,
-                        Name = t.Name
+                        Name = $"{t.Vorname} {t.Nachname}"
                     }).ToList();
 
-                TeilnehmerNamen = Teilnehmer.ToDictionary(t => t.Id, t => t.Name);
+                TeilnehmerNamen = Teilnehmer.ToDictionary(t => t.Id, t => $"{t.Vorname} {t.Nachname}");
+
 
                 foreach (var teilnehmer in Teilnehmer)
                 {
@@ -186,16 +187,16 @@ namespace BBQHub.Pages.Ranglisten
             return Page();
         }
 
-        public async Task<IActionResult> OnPostExportGesamtAsync()
+        public async Task<IActionResult> OnPostExportGesamtAsync(int id)
         {
-            var pdfBytes = await _exportService.ExportRanglisteAsync(Id, null, "gesamt");
-            return File(pdfBytes, "application/pdf", $"Rangliste_Gesamt_{DateTime.Now:yyyyMMdd_HHmm}.pdf");
+            var pdfBytes = await _exportService.ExportRanglisteAsync(id, null, "gesamt");
+            return File(pdfBytes, "application/pdf", $"Rangliste_{id}_Gesamt.pdf");
         }
 
-        public async Task<IActionResult> OnPostExportDurchgangAsync(int durchgangId)
+        public async Task<IActionResult> OnPostExportDurchgangAsync(int id, int durchgangId)
         {
-            var pdfBytes = await _exportService.ExportRanglisteAsync(Id, durchgangId, "durchgang");
-            return File(pdfBytes, "application/pdf", $"Rangliste_DG{durchgangId}_{DateTime.Now:yyyyMMdd_HHmm}.pdf");
+            var pdfBytes = await _exportService.ExportRanglisteAsync(id, durchgangId, "durchgang");
+            return File(pdfBytes, "application/pdf", $"Rangliste_{id}_Durchgang_{durchgangId}.pdf");
         }
     }
 }

@@ -54,7 +54,9 @@ namespace BBQHub.Pages.Admin.Events
 
             if (IstSpontanBewertung)
             {
-                TeamName = (await _context.spontanTeilnahmen.FindAsync(TeilnehmerId))?.Name ?? "Unbekannt";
+                var teilnehmer = await _context.spontanTeilnahmen.FindAsync(TeilnehmerId);
+                TeamName = teilnehmer != null ? $"{teilnehmer.Vorname} {teilnehmer.Nachname}" : "Unbekannt";
+
             }
             else
             {

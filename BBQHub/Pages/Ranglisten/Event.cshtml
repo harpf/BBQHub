@@ -12,12 +12,10 @@
 
 <!-- Export Gesamt -->
 <div class="mb-4">
-    <form asp-page-handler="ExportGesamt" method="post">
-        <input type="hidden" name="id" value="@Model.Id" />
-        <button class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
-            📄 Gesamt-Rangliste als PDF exportieren
-        </button>
-    </form>
+    <a class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700"
+       href="/Ranglisten/Export?EventId=@Model.Id&Type=gesamt">
+        📄 Gesamt-Rangliste als PDF exportieren
+    </a>
 </div>
 
 <!-- Gesamt-Rangliste -->
@@ -87,13 +85,10 @@
     <div class="mb-6">
         <div class="flex justify-between items-center mb-2">
             <h2 class="text-xl font-semibold text-orange-400">Durchgang @dg.Durchgangsnummer: @dg.Name</h2>
-            <form asp-page-handler="ExportDurchgang" method="post">
-                <input type="hidden" name="id" value="@Model.Id" />
-                <input type="hidden" name="durchgangId" value="@dg.Id" />
-                <button class="text-sm text-white bg-orange-600 px-3 py-1 rounded hover:bg-orange-700">
-                    📄 Exportieren
-                </button>
-            </form>
+            <a class="text-sm text-white bg-orange-600 px-3 py-1 rounded hover:bg-orange-700"
+               href="/Ranglisten/Export?EventId=@Model.Id&DurchgangId=@dg.Id&Type=durchgang">
+                📄 Exportieren
+            </a>
         </div>
 
         <table class="w-full text-sm text-left border-collapse bg-zinc-800 text-white">

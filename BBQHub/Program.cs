@@ -6,6 +6,7 @@ using BBQHub.Application.Common.Interfaces;
 using BBQHub.Application.Juroren.Services;
 using BBQHub.Hubs;
 using QuestPDF.Infrastructure;
+using BBQHub.Infrastructure.PDF;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,6 +37,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddAuthorization();
 builder.Services.AddRazorPages();
+
+builder.Services.AddTransient<PDFRegistrationFormular>();
 
 builder.Services.AddScoped<IApplicationDbContext>(provider =>
     provider.GetRequiredService<ApplicationDbContext>());

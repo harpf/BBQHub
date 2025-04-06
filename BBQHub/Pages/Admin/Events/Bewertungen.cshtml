@@ -30,7 +30,7 @@
                     foreach (var teilnehmer in Model.SpontanTeilnahmen)
                     {
                         <tr class="border-b border-zinc-700 hover:bg-zinc-900 transition">
-                            <td class="p-3 font-semibold whitespace-nowrap">@teilnehmer.Name</td>
+                            <td class="p-3 font-semibold whitespace-nowrap">@teilnehmer.Vorname @teilnehmer.Nachname</td>
                             @foreach (var kriterium in durchgang.Kriterien)
                             {
                                 var key = (teilnehmer.Id, durchgang.Id, kriterium.Id);

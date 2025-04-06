@@ -40,7 +40,7 @@ else
                 <option value="">-- Teilnehmer wählen --</option>
                 @foreach (var t in Model.VerfügbareTeilnahmen)
                 {
-                    <option value="@t.Id">@t.Name (@t.Token)</option>
+                    <option value="@t.Id">@t.Vorname @t.Nachname (@t.Token)</option>
                 }
             </select>
         </div>

@@ -23,7 +23,7 @@ public class IndexModel : PageModel
     public async Task OnGetAsync()
     {
         NaechstesEvent = await _context.Events
-            .Where(e => e.Status == EventStatus.Inaktiv && e.StartDate > DateTime.Now)
+            .Where(e => e.StartDate > DateTime.Now)
             .OrderBy(e => e.StartDate)
             .FirstOrDefaultAsync();
 
