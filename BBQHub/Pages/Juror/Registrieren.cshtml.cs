@@ -30,7 +30,7 @@ namespace BBQHub.Pages.Juror
             "Schweiz", "Deutschland", "Österreich", "Italien", "Frankreich"
         };
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostSubmitAsync()
         {
             try
             {

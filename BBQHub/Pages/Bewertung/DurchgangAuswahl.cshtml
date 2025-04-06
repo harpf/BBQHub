@@ -4,32 +4,39 @@
     ViewData["Title"] = "Durchgang wählen";
 }
 
-<h1 class="text-2xl font-bold text-orange-500 mb-6">Wähle einen Durchgang</h1>
+<h1 class="text-3xl font-bold text-orange-500 mb-6">🔎 Durchgang wählen</h1>
 
-<p class="text-gray-300 mb-2">Juror-ID: <strong>@Model.JuryId</strong></p>
-<p class="text-gray-300 mb-6">Event: <strong>@Model.EventName</strong></p>
+<div class="mb-4 text-zinc-300">
+    <p hidden><span class="font-semibold">👤 Juror-ID:</span> @Model.JuryId</p>
+    <p><span class="font-semibold">🎉 Event:</span> @Model.EventName</p>
+</div>
 
 @if (!Model.Durchgaenge.Any())
 {
-    <div class="text-red-400">Für dieses Event wurden noch keine Durchgänge hinterlegt.</div>
+    <div class="text-red-400 bg-zinc-800 p-4 rounded shadow-md">
+        Für dieses Event wurden noch keine Durchgänge hinterlegt.
+    </div>
 }
 else
 {
-    <form method="post" class="space-y-4">
+    <form method="post" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         <input type="hidden" name="JuryId" value="@Model.JuryId" />
         <input type="hidden" name="EventId" value="@Model.EventId" />
 
         @foreach (var d in Model.Durchgaenge)
         {
-            <div class="bg-zinc-800 p-4 rounded shadow text-white flex justify-between items-center">
-                <div>
-                    <h2 class="text-lg font-semibold">Durchgang @d.Durchgangsnummer: @d.Name</h2>
+            <div class="bg-zinc-800 rounded-xl shadow-lg p-6 flex flex-col justify-between text-white hover:shadow-xl transition-all duration-200">
+                <div class="mb-4">
+                    <h2 class="text-lg font-semibold text-orange-300 mb-1">
+                        Durchgang @d.Durchgangsnummer
+                    </h2>
+                    <p class="text-sm text-zinc-400">@d.Name</p>
                 </div>
                 <button name="SelectedDurchgangId"
                         value="@d.Id"
                         type="submit"
-                        class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
-                    Bewerten
+                        class="mt-4 bg-orange-600 hover:bg-orange-700 text-white font-semibold px-4 py-2 rounded transition-all duration-200">
+                    ➡️ Jetzt bewerten
                 </button>
             </div>
         }

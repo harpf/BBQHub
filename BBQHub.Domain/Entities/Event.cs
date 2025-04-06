@@ -43,6 +43,5 @@ namespace BBQHub.Domain.Entities
         public List<EventLogo> Logos { get; set; } = new();
 
         public string? Menue { get; set; }
-
     }
 }

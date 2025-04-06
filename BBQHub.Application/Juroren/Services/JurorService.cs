@@ -37,7 +37,8 @@ namespace BBQHub.Application.Juroren.Services
                 FirstName = dto.FirstName,
                 LastName = dto.LastName,
                 Email = dto.Email,
-                Vereinslocation = dto.Vereinslocation
+                Vereinslocation = dto.Vereinslocation,
+                Telefonnummer = dto.Telefonnummer
             };
 
             _context.Juroren.Add(juror);

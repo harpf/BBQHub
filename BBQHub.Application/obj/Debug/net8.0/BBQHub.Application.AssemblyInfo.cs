@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BBQHub.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c0ac1ed0e4bbf6c4d167bfa71200035718c8a7f3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+79cb1559892591eacf71c7fac4c87d71d667b4df")]
 [assembly: System.Reflection.AssemblyProductAttribute("BBQHub.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BBQHub.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

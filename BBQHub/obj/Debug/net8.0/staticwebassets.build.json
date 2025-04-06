@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Z2VOZvpE5cwnYVsXNPxYdRcn09OO4LrdZVSzWbunz9I=",
+  "Hash": "g4FK9aW7IVgE9FAUhwQ+ODKxTD6GsljW/IebDUDVQIM=",
   "Source": "BBQHub",
   "BasePath": "_content/BBQHub",
   "Mode": "Default",
@@ -1333,8 +1333,8 @@
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
-      "Fingerprint": "93pds0wzbk",
-      "Integrity": "RRyXUaZ4MVtG9xtKENK2ZOanYHzR4dEWXl2U+AYCom4=",
+      "Fingerprint": "onw88afhhv",
+      "Integrity": "rAiBkNqELleCqUmeTfHe09OWR9RS8cpowNezbBjIOok=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\site.css"
@@ -2997,51 +2997,6 @@
       ]
     },
     {
-      "Route": "css/site.93pds0wzbk.css",
-      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\css\\site.css",
-      "Selectors": [],
-      "ResponseHeaders": [
-        {
-          "Name": "Accept-Ranges",
-          "Value": "bytes"
-        },
-        {
-          "Name": "Content-Length",
-          "Value": "953"
-        },
-        {
-          "Name": "Content-Type",
-          "Value": "text/css"
-        },
-        {
-          "Name": "ETag",
-          "Value": "\"RRyXUaZ4MVtG9xtKENK2ZOanYHzR4dEWXl2U+AYCom4=\""
-        },
-        {
-          "Name": "Last-Modified",
-          "Value": "Sat, 05 Apr 2025 09:36:34 GMT"
-        },
-        {
-          "Name": "Cache-Control",
-          "Value": "max-age=31536000, immutable"
-        }
-      ],
-      "EndpointProperties": [
-        {
-          "Name": "fingerprint",
-          "Value": "93pds0wzbk"
-        },
-        {
-          "Name": "label",
-          "Value": "css/site.css"
-        },
-        {
-          "Name": "integrity",
-          "Value": "sha256-RRyXUaZ4MVtG9xtKENK2ZOanYHzR4dEWXl2U+AYCom4="
-        }
-      ]
-    },
-    {
       "Route": "css/site.css",
       "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\css\\site.css",
       "Selectors": [],
@@ -3052,7 +3007,7 @@
         },
         {
           "Name": "Content-Length",
-          "Value": "953"
+          "Value": "957"
         },
         {
           "Name": "Content-Type",
@@ -3060,11 +3015,11 @@
         },
         {
           "Name": "ETag",
-          "Value": "\"RRyXUaZ4MVtG9xtKENK2ZOanYHzR4dEWXl2U+AYCom4=\""
+          "Value": "\"rAiBkNqELleCqUmeTfHe09OWR9RS8cpowNezbBjIOok=\""
         },
         {
           "Name": "Last-Modified",
-          "Value": "Sat, 05 Apr 2025 09:36:34 GMT"
+          "Value": "Sun, 06 Apr 2025 08:07:25 GMT"
         },
         {
           "Name": "Cache-Control",
@@ -3074,7 +3029,52 @@
       "EndpointProperties": [
         {
           "Name": "integrity",
-          "Value": "sha256-RRyXUaZ4MVtG9xtKENK2ZOanYHzR4dEWXl2U+AYCom4="
+          "Value": "sha256-rAiBkNqELleCqUmeTfHe09OWR9RS8cpowNezbBjIOok="
+        }
+      ]
+    },
+    {
+      "Route": "css/site.onw88afhhv.css",
+      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\css\\site.css",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "957"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/css"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"rAiBkNqELleCqUmeTfHe09OWR9RS8cpowNezbBjIOok=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Sun, 06 Apr 2025 08:07:25 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "onw88afhhv"
+        },
+        {
+          "Name": "label",
+          "Value": "css/site.css"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-rAiBkNqELleCqUmeTfHe09OWR9RS8cpowNezbBjIOok="
         }
       ]
     },

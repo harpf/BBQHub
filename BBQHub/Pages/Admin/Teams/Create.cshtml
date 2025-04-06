@@ -6,21 +6,33 @@
 
 <h1 class="text-2xl font-bold mb-4 text-orange-500">Neues Team erstellen</h1>
 
-<form method="post" class="grid gap-4 max-w-xl text-black">
-    <div>
-        <label class="block text-sm font-medium">Teamname</label>
-        <input asp-for="Input.Name" class="w-full p-2 rounded border" />
-    </div>
-    <div>
-        <label class="block text-sm font-medium">Ansprechpartner</label>
-        <input asp-for="Input.Ansprechpartner" class="w-full p-2 rounded border" />
-    </div>
-    <div>
-        <label class="block text-sm font-medium">Kontakt</label>
-        <input asp-for="Input.KontaktEmail" class="w-full p-2 rounded border" />
-    </div>
-    <div>
-        <button type="submit" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">Speichern</button>
-    </div>
-</form>
+<div class="bg-zinc-800 p-6 rounded-xl shadow-lg text-white max-w-2xl">
+    <h2 class="text-xl font-semibold mb-6 text-orange-400">➕ Neues Team anlegen</h2>
 
+    <form method="post" class="space-y-6" novalidate>
+        <div>
+            <label class="block text-sm font-medium mb-1">Teamname</label>
+            <input asp-for="Input.Name"
+                   class="w-full p-3 rounded-lg bg-zinc-700 border border-zinc-600 focus:ring-2 focus:ring-orange-500" />
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium mb-1">Ansprechpartner</label>
+            <input asp-for="Input.Ansprechpartner"
+                   class="w-full p-3 rounded-lg bg-zinc-700 border border-zinc-600" />
+        </div>
+
+        <div>
+            <label class="block text-sm font-medium mb-1">Kontakt-E-Mail</label>
+            <input asp-for="Input.KontaktEmail" type="email"
+                   class="w-full p-3 rounded-lg bg-zinc-700 border border-zinc-600" />
+        </div>
+
+        <div class="flex justify-end">
+            <button type="submit"
+                    class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-3 rounded-lg font-semibold shadow transition">
+                💾 Speichern
+            </button>
+        </div>
+    </form>
+</div>

@@ -25,10 +25,10 @@ body {
 }
 
 /* 🌓 Dark Theme Bereich !important */
-body.bg-zinc-900 label,
+/*body.bg-zinc-900 label,
 body.dark label {
     color: black;
-}
+}*/
 
 
 /* Inputs überall einheitlich hell & lesbar */

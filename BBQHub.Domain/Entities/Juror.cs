@@ -14,5 +14,6 @@ namespace BBQHub.Domain.Entities
         public string LastName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string Vereinslocation { get; set; } = string.Empty;
+        public string Telefonnummer { get; set; } = string.Empty;
     }
 }

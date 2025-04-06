@@ -1,4 +1,4 @@
-using BBQHub.Application.Common.Interfaces;
+﻿using BBQHub.Application.Common.Interfaces;
 using BBQHub.Domain.Entities;
 using BBQHub.Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
@@ -37,6 +37,9 @@ namespace BBQHub.Pages.Ranglisten
         public Dictionary<int, Dictionary<int, double>> PunkteMitStreichresultat = new();
         public Dictionary<int, double> GesamtMitStreichresultat = new();
         public Dictionary<int, string> TeilnehmerNamen { get; set; } = new();
+        // Dictionary: (TeamId, DurchgangId) → Liste aller Kriterienauswertungen
+        public Dictionary<(int teamId, int durchgangId), List<KriteriumAuswertung>> KriteriumAuswertungen { get; set; } = new();
+
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -121,6 +124,36 @@ namespace BBQHub.Pages.Ranglisten
                         GesamtMitStreichresultat[teilnehmer.Id] = gesamtMitStreich;
                     }
                 }
+                foreach (var teilnehmer in Teilnehmer)
+                {
+                    foreach (var dg in Durchgaenge)
+                    {
+                        var kriterien = dg.Kriterien;
+                        var key = (teilnehmer.Id, dg.Id);
+                        var auswertungen = new List<KriteriumAuswertung>();
+
+                        foreach (var kriterium in kriterien)
+                        {
+                            var punkte = bewertungen
+                                .Where(b => b.DurchgangId == dg.Id && b.SpontanTeilnahmeId == teilnehmer.Id && b.KriteriumId == kriterium.Id)
+                                .Select(b => b.Punkte)
+                                .ToList();
+
+                            if (punkte.Any())
+                            {
+                                auswertungen.Add(new KriteriumAuswertung
+                                {
+                                    KriteriumName = kriterium.Name,
+                                    VergebenePunkte = (int)punkte.Average(),
+                                    GewichteteNote = Math.Round(punkte.Average() * kriterium.Gewichtung, 2)
+                                });
+                            }
+                        }
+
+                        KriteriumAuswertungen[key] = auswertungen;
+                    }
+                }
+
             }
             else
             {
@@ -182,6 +215,36 @@ namespace BBQHub.Pages.Ranglisten
                         GesamtMitStreichresultat[team.Id] = gesamtMitStreich;
                     }
                 }
+                foreach (var team in Teams)
+                {
+                    foreach (var dg in Durchgaenge)
+                    {
+                        var kriterien = dg.Kriterien;
+                        var key = (team.Id, dg.Id);
+                        var auswertungen = new List<KriteriumAuswertung>();
+
+                        foreach (var kriterium in kriterien)
+                        {
+                            var punkte = bewertungen
+                                .Where(b => b.DurchgangId == dg.Id && b.TeamId == team.Id && b.KriteriumId == kriterium.Id)
+                                .Select(b => b.Punkte)
+                                .ToList();
+
+                            if (punkte.Any())
+                            {
+                                auswertungen.Add(new KriteriumAuswertung
+                                {
+                                    KriteriumName = kriterium.Name,
+                                    VergebenePunkte = (int)punkte.Average(),
+                                    GewichteteNote = Math.Round(punkte.Average() * kriterium.Gewichtung, 2)
+                                });
+                            }
+                        }
+
+                        KriteriumAuswertungen[key] = auswertungen;
+                    }
+                }
+
             }
 
             return Page();

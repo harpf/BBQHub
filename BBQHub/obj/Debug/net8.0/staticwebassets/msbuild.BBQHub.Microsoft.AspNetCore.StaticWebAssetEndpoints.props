@@ -12,17 +12,17 @@
       <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"v3fomq3m1a"},{"Name":"integrity","Value":"sha256-e5D5brSVfrtxmeFDVsChng1x9sRwY7X1qdTPwMs00cA="},{"Name":"label","Value":"_content/BBQHub/BBQHub.bundle.scp.css"}]]]></EndpointProperties>
       <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"1124"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022e5D5brSVfrtxmeFDVsChng1x9sRwY7X1qdTPwMs00cA=\u0022"},{"Name":"Last-Modified","Value":"Fri, 28 Mar 2025 14:16:42 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
-    <StaticWebAssetEndpoint Include="_content/BBQHub/css/site.93pds0wzbk.css">
-      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
-      <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"93pds0wzbk"},{"Name":"integrity","Value":"sha256-RRyXUaZ4MVtG9xtKENK2ZOanYHzR4dEWXl2U\u002BAYCom4="},{"Name":"label","Value":"_content/BBQHub/css/site.css"}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"953"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022RRyXUaZ4MVtG9xtKENK2ZOanYHzR4dEWXl2U\u002BAYCom4=\u0022"},{"Name":"Last-Modified","Value":"Sat, 05 Apr 2025 09:36:34 GMT"}]]]></ResponseHeaders>
-    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/BBQHub/css/site.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>
-      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-RRyXUaZ4MVtG9xtKENK2ZOanYHzR4dEWXl2U\u002BAYCom4="}]]]></EndpointProperties>
-      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"953"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022RRyXUaZ4MVtG9xtKENK2ZOanYHzR4dEWXl2U\u002BAYCom4=\u0022"},{"Name":"Last-Modified","Value":"Sat, 05 Apr 2025 09:36:34 GMT"}]]]></ResponseHeaders>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-rAiBkNqELleCqUmeTfHe09OWR9RS8cpowNezbBjIOok="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"957"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022rAiBkNqELleCqUmeTfHe09OWR9RS8cpowNezbBjIOok=\u0022"},{"Name":"Last-Modified","Value":"Sun, 06 Apr 2025 08:07:25 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/BBQHub/css/site.onw88afhhv.css">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"onw88afhhv"},{"Name":"integrity","Value":"sha256-rAiBkNqELleCqUmeTfHe09OWR9RS8cpowNezbBjIOok="},{"Name":"label","Value":"_content/BBQHub/css/site.css"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"957"},{"Name":"Content-Type","Value":"text/css"},{"Name":"ETag","Value":"\u0022rAiBkNqELleCqUmeTfHe09OWR9RS8cpowNezbBjIOok=\u0022"},{"Name":"Last-Modified","Value":"Sun, 06 Apr 2025 08:07:25 GMT"}]]]></ResponseHeaders>
     </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/BBQHub/favicon.61n19gt1b8.ico">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico'))</AssetFile>

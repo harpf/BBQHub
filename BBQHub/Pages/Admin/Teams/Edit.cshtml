@@ -6,33 +6,47 @@
 
 <h1 class="text-2xl font-bold text-orange-500 mb-4">Team bearbeiten</h1>
 
-<form method="post" class="space-y-4 text-black max-w-xl">
-    <input type="hidden" asp-for="Input.Id" />
+<div class="bg-zinc-800 p-6 rounded-xl shadow-lg text-white max-w-2xl">
+    <h2 class="text-xl font-semibold mb-6 text-orange-400">🛠️ Team bearbeiten</h2>
 
-    <div>
-        <label class="block text-sm font-medium">Teamname</label>
-        <input asp-for="Input.Name" class="w-full p-2 rounded border" />
-    </div>
+    <form method="post" class="space-y-6" novalidate>
+        <input type="hidden" asp-for="Input.Id" />
 
-    <div>
-        <label class="block text-sm font-medium">Ansprechpartner</label>
-        <input asp-for="Input.Ansprechpartner" class="w-full p-2 rounded border" />
-    </div>
+        <div>
+            <label class="block text-sm font-medium mb-1">Teamname</label>
+            <input asp-for="Input.Name"
+                   class="w-full p-3 rounded-lg bg-zinc-700 border border-zinc-600 focus:ring-2 focus:ring-orange-500" />
+        </div>
 
-    <div>
-        <label class="block text-sm font-medium">Kontakt</label>
-        <input asp-for="Input.KontaktEmail" class="w-full p-2 rounded border" />
-    </div>
+        <div>
+            <label class="block text-sm font-medium mb-1">Ansprechpartner</label>
+            <input asp-for="Input.Ansprechpartner"
+                   class="w-full p-3 rounded-lg bg-zinc-700 border border-zinc-600" />
+        </div>
 
-    <div class="flex justify-between">
-        <button type="submit" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
-            Speichern
-        </button>
-        <!--<form method="post" asp-page-handler="Delete" onsubmit="return confirm('Möchtest du dieses Team wirklich löschen?');">
-            <input type="hidden" asp-for="Input.Id" />
-            <button type="submit" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700">
-                Löschen
+        <div>
+            <label class="block text-sm font-medium mb-1">Kontakt-E-Mail</label>
+            <input asp-for="Input.KontaktEmail" type="email"
+                   class="w-full p-3 rounded-lg bg-zinc-700 border border-zinc-600" />
+        </div>
+
+        <div class="flex justify-end gap-4 pt-2">
+            <button type="submit"
+                    class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded-lg font-semibold shadow transition">
+                💾 Speichern
             </button>
-        </form>-->
-    </div>
-</form>
+
+            @* Optional: Wieder aktivierbarer Lösch-Button *@
+            @*
+            <form method="post" asp-page-handler="Delete"
+                  onsubmit="return confirm('Möchtest du dieses Team wirklich löschen?');">
+                <input type="hidden" asp-for="Input.Id" />
+                <button type="submit"
+                        class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg font-semibold shadow transition">
+                    🗑️ Löschen
+                </button>
+            </form>
+            *@
+        </div>
+    </form>
+</div>

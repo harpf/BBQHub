@@ -7,41 +7,40 @@
 <h1 class="text-2xl font-bold mb-6 text-orange-500">Teamverwaltung</h1>
 
 <a asp-page="/Admin/Teams/Create"
-   class="mb-4 inline-block bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
+   class="inline-block bg-orange-600 text-white px-5 py-3 rounded-lg hover:bg-orange-700 font-semibold shadow mb-6">
     ➕ Neues Team erstellen
 </a>
 
-<table class="w-full border-collapse text-left">
-    <thead class="bg-zinc-800 text-white">
-        <tr>
-            <th class="p-2">Teamname</th>
-            <th class="p-2">Ansprechpartner</th>
-            <th class="p-2">Kontakt</th>
-            <th class="p-2">Event</th>
-            <th class="p-2">Aktionen</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var team in Model.Teams)
-        {
-            <tr class="border-b border-zinc-700">
-                <td class="p-2">@team.Name</td>
-                <td class="p-2">@team.Ansprechpartner</td>
-                <td class="p-2">@team.KontaktEmail</td>
-                <td class="p-2">@team.Event?.Name</td>
-                <td class="p-2 space-x-2">
-                    <a asp-page="/Admin/Teams/Edit" asp-route-id="@team.Id"
-                       class="text-blue-400 hover:underline">Bearbeiten</a>
-                    <a asp-page="/Admin/Teams/Details" asp-route-id="@team.Id"
-                       class="text-green-400 hover:underline">Details</a>
-                    <form method="post" asp-page-handler="Delete" asp-route-id="@team.Id" class="inline"
-                          onsubmit="return confirm('Möchtest du dieses Team wirklich löschen?');">
-                        <button type="submit" class="text-red-400 hover:underline bg-transparent border-none p-0">
-                            Löschen
-                        </button>
-                    </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-4">
+    @foreach (var team in Model.Teams)
+    {
+        <div class="bg-zinc-800 text-white rounded-xl shadow-lg p-4 flex flex-col justify-between">
+            <div>
+                <h2 class="text-xl font-semibold text-orange-400 mb-2">@team.Name</h2>
+                <p class="text-sm text-zinc-300 mb-1"><strong>Ansprechpartner:</strong> @team.Ansprechpartner</p>
+                <p class="text-sm text-zinc-300 mb-1"><strong>Kontakt:</strong> @team.KontaktEmail</p>
+                <p class="text-sm text-zinc-300"><strong>Event:</strong> @team.Event?.Name ?? "–"</p>
+            </div>
+
+            <div class="mt-4 flex flex-wrap gap-2">
+                <a asp-page="/Admin/Teams/Edit" asp-route-id="@team.Id"
+                   class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm font-medium transition">
+                    ✏️ Bearbeiten
+                </a>
+
+                <a asp-page="/Admin/Teams/Details" asp-route-id="@team.Id"
+                   class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded text-sm font-medium transition">
+                    🔍 Details
+                </a>
+
+                <form method="post" asp-page-handler="Delete" asp-route-id="@team.Id"
+                      onsubmit="return confirm('Möchtest du dieses Team wirklich löschen?');">
+                    <button type="submit"
+                            class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm font-medium transition">
+                        🗑️ Löschen
+                    </button>
+                </form>
+            </div>
+        </div>
+    }
+</div>

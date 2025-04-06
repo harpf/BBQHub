@@ -4,32 +4,44 @@
     ViewData["Title"] = "Bewertungen bearbeiten";
 }
 
-<h1 class="text-2xl font-bold text-orange-500 mb-4">Bewertungen bearbeiten</h1>
+<div class="bg-zinc-800 p-6 rounded-xl shadow-lg text-white max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold text-orange-400 mb-6">✏️ Bewertung bearbeiten</h1>
 
-<p class="text-white mb-2">@((Model.IstSpontanBewertung ? "Teilnehmer" : "Team")): <strong>@Model.TeamName</strong></p>
-<p class="text-white mb-2">Durchgang: <strong>@Model.DurchgangName</strong></p>
-<p class="text-white mb-6">Kriterium: <strong>@Model.KriteriumName</strong></p>
+    <div class="mb-4 space-y-1 text-sm">
+        <p><span class="font-semibold">@(Model.IstSpontanBewertung ? "Teilnehmer" : "Team"):</span> @Model.TeamName</p>
+        <p><span class="font-semibold">Durchgang:</span> @Model.DurchgangName</p>
+        <p><span class="font-semibold">Kriterium:</span> @Model.KriteriumName</p>
+    </div>
 
-<form method="post" class="space-y-4 max-w-2xl text-black">
-    <input type="hidden" asp-for="TeamId" />
-    <input type="hidden" asp-for="TeilnehmerId" />
-    <input type="hidden" asp-for="DurchgangId" />
-    <input type="hidden" asp-for="KriteriumId" />
+    <form method="post" class="space-y-6">
+        <input type="hidden" asp-for="TeamId" />
+        <input type="hidden" asp-for="TeilnehmerId" />
+        <input type="hidden" asp-for="DurchgangId" />
+        <input type="hidden" asp-for="KriteriumId" />
 
-    @for (int i = 0; i < Model.Bewertungen.Count; i++)
-    {
-        var b = Model.Bewertungen[i];
-        <div class="p-4 bg-zinc-100 rounded shadow">
-            <input type="hidden" name="bewertungen[@i].Id" value="@b.Id" />
-            <input type="hidden" name="bewertungen[@i].KriteriumId" value="@b.KriteriumId" />
+        @for (int i = 0; i < Model.Bewertungen.Count; i++)
+        {
+            var b = Model.Bewertungen[i];
+            <div class="bg-zinc-700 p-4 rounded-lg shadow flex flex-col gap-2">
+                <input type="hidden" name="bewertungen[@i].Id" value="@b.Id" />
+                <input type="hidden" name="bewertungen[@i].KriteriumId" value="@b.KriteriumId" />
 
-            <label class="block font-semibold mb-1">Juror: @b.Juror.FirstName</label>
-            <input type="number" name="bewertungen[@i].Punkte" value="@b.Punkte"
-                   class="w-full p-2 border rounded" min="0" />
+                <label class="text-sm text-orange-300 font-semibold">
+                    👤 Juror: @b.Juror.FirstName @b.Juror.LastName
+                </label>
+                <input type="number"
+                       name="bewertungen[@i].Punkte"
+                       value="@b.Punkte"
+                       min="0"
+                       class="p-2 rounded border border-zinc-600 bg-zinc-800 text-white focus:ring-2 focus:ring-orange-400 w-full shadow-sm" />
+            </div>
+        }
+
+        <div class="text-right">
+            <button type="submit"
+                    class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded-lg font-semibold shadow-md transition">
+                💾 Änderungen speichern
+            </button>
         </div>
-    }
-
-    <button type="submit" class="mt-6 bg-orange-600 text-white px-6 py-2 rounded hover:bg-orange-700">
-        Änderungen speichern
-    </button>
-</form>
+    </form>
+</div>
