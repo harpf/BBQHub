@@ -4,27 +4,73 @@
     ViewData["Title"] = "Kriterium erstellen";
 }
 
-<h1 class="text-2xl font-bold mb-4 text-orange-500">Neues Bewertungskriterium</h1>
+<h1 class="text-3xl font-bold text-orange-500 mb-8">➕ Neues Bewertungskriterium</h1>
 
-<form method="post" class="grid gap-4 w-full max-w-xl text-black">
+<form method="post" class="space-y-6 max-w-2xl bg-white text-black p-6 rounded-lg shadow-md border border-zinc-300">
     <input type="hidden" asp-for="Input.DurchgangId" />
 
+    <!-- 📝 Kriteriumsname -->
     <div>
-        <label class="block text-sm font-medium">Name des Kriteriums</label>
-        <input asp-for="Input.Name" class="w-full p-2 rounded border" />
+        <label asp-for="Input.Name" class="block text-sm font-medium text-zinc-800 mb-1">
+            📝 Name des Kriteriums
+        </label>
+        <input asp-for="Input.Name" class="w-full p-2 rounded border border-zinc-300" placeholder="z. B. Geschmack, Kreativität" />
+        <span asp-validation-for="Input.Name" class="text-red-500 text-sm"></span>
     </div>
 
+    <!-- 🎯 Bewertungstyp -->
     <div>
-        <label class="block text-sm font-medium">Maximale Punktzahl</label>
-        <input asp-for="Input.MaxWert" type="number" class="w-full p-2 rounded border" />
+        <label asp-for="Input.BewertungsTyp" class="block text-sm font-medium text-zinc-800 mb-1">
+            🎯 Bewertungstyp
+        </label>
+        <select asp-for="Input.BewertungsTyp" class="w-full p-2 rounded border border-zinc-300" id="bewertungsTyp">
+            <option value="0">🔢 Ganze Zahl</option>
+            <option value="1">🔣 Kommazahl</option>
+            <option value="2">📝 Text</option>
+        </select>
+        <span asp-validation-for="Input.BewertungsTyp" class="text-red-500 text-sm"></span>
     </div>
 
-    <div>
-        <label class="block text-sm font-medium">Gewichtung (z. B. 0.7)</label>
-        <input asp-for="Input.Gewichtung" type="number" step="0.01" class="w-full p-2 rounded border" />
+    <!-- 🔢 MaxWert -->
+    <div id="maxwertContainer">
+        <label asp-for="Input.MaxWert" class="block text-sm font-medium text-zinc-800 mb-1">
+            🔢 Maximale Punktzahl
+        </label>
+        <input asp-for="Input.MaxWert" type="number" step="1" class="w-full p-2 rounded border border-zinc-300" placeholder="z. B. 10" />
+        <p class="text-xs text-zinc-500 mt-1">Nur erforderlich bei Zahleneingabe</p>
+        <span asp-validation-for="Input.MaxWert" class="text-red-500 text-sm"></span>
     </div>
 
-    <div>
-        <button type="submit" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">Speichern</button>
+    <!-- ⚖️ Gewichtung -->
+    <div id="gewichtungContainer">
+        <label asp-for="Input.Gewichtung" class="block text-sm font-medium text-zinc-800 mb-1">
+            ⚖️ Gewichtung
+        </label>
+        <input asp-for="Input.Gewichtung" type="number" step="0.01" class="w-full p-2 rounded border border-zinc-300" placeholder="z. B. 0.7" />
+        <span asp-validation-for="Input.Gewichtung" class="text-red-500 text-sm"></span>
+    </div>
+
+    <!-- 💾 Speichern -->
+    <div class="flex justify-end mt-8">
+        <button type="submit" class="bg-orange-600 text-white px-6 py-2 rounded hover:bg-orange-700 shadow">
+            💾 Speichern
+        </button>
     </div>
 </form>
+
+@section Scripts {
+    <script>
+        const typSelect = document.getElementById('bewertungsTyp');
+        const maxwertContainer = document.getElementById('maxwertContainer');
+        const gewichtungContainer = document.getElementById('gewichtungContainer');
+
+        function toggleKriteriumFelder() {
+            const isText = typSelect.value === "2";
+            maxwertContainer.classList.toggle("hidden", isText);
+            gewichtungContainer.classList.toggle("hidden", isText);
+        }
+
+        typSelect.addEventListener('change', toggleKriteriumFelder);
+        document.addEventListener('DOMContentLoaded', toggleKriteriumFelder);
+    </script>
+}
