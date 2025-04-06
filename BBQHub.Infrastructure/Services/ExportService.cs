@@ -265,9 +265,9 @@ public class ExportService : IExportService
                             .Select(t => new { Name = $"{t.Vorname} {t.Nachname}", TeilnahmeId = t.Id })
                             .ToList();
 
-                        var maxSauce = 0;
+                        var maxSauce = 0.0;
                         var maxGewichtet = 0.0;
-                        var resultRows = new List<(string Name, Dictionary<int, int> Punkte, int Total, double Gewichtet)>();
+                        var resultRows = new List<(string Name, Dictionary<double, double> Punkte, double Total, double Gewichtet)>();
 
                         foreach (var teilnehmer in teilnehmernamen)
                         {
@@ -275,8 +275,8 @@ public class ExportService : IExportService
                                 .Where(b => b.SpontanTeilnahmeId == teilnehmer.TeilnahmeId)
                                 .ToList();
 
-                            var punkteProKriterium = new Dictionary<int, int>();
-                            int total = 0;
+                            var punkteProKriterium = new Dictionary<double, double>();
+                            double total = 0;
                             double gewichtet = 0;
 
                             foreach (var kriterium in kriterien)

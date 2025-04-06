@@ -42,14 +42,40 @@
         {
             <div class="space-y-1">
                 <label for="Punkte[@k.Id]" class="block font-medium">
-                    @k.Name <span class="text-sm text-zinc-400">(max. @k.MaxWert Punkte)</span>
+                    @k.Name
+                    @if (k.BewertungsTyp == Domain.Entities.BewertungsTyp.Integer || k.BewertungsTyp == Domain.Entities.BewertungsTyp.Decimal)
+                    {
+                        <span class="text-sm text-zinc-400">(max. @k.MaxWert Punkte)</span>
+                    }
                 </label>
-                <input name="Punkte[@k.Id]"
-                       type="number"
-                       min="0"
-                       max="@k.MaxWert"
-                       required
-                       class="w-full p-3 border rounded text-black focus:outline-none focus:ring-2 focus:ring-orange-500" />
+
+                @if (k.BewertungsTyp == Domain.Entities.BewertungsTyp.Text)
+                {
+                    <textarea name="Punkte[@k.Id]"
+                              rows="3"
+                              class="w-full p-3 border rounded text-black focus:outline-none focus:ring-2 focus:ring-orange-500"
+                              placeholder="Deine Bewertung als Freitext …"></textarea>
+                }
+                else if (k.BewertungsTyp == Domain.Entities.BewertungsTyp.Decimal)
+                {
+                    <input name="Punkte[@k.Id]"
+                           type="number"
+                           step="0.1"
+                           min="0"
+                           max="@k.MaxWert"
+                           required
+                           class="w-full p-3 border rounded text-black focus:outline-none focus:ring-2 focus:ring-orange-500" />
+                }
+                else
+                {
+                    <input name="Punkte[@k.Id]"
+                           type="number"
+                           step="1"
+                           min="0"
+                           max="@k.MaxWert"
+                           required
+                           class="w-full p-3 border rounded text-black focus:outline-none focus:ring-2 focus:ring-orange-500" />
+                }
             </div>
         }
 

@@ -43,55 +43,64 @@
                     <td class="p-3 font-semibold text-orange-300 whitespace-nowrap">@name</td>
 
                     @foreach (var kriterium in durchgang.Kriterien)
-                    {
-                        var key = istSpontan
-                            ? (id, durchgang.Id, kriterium.Id)
-                            : (id, durchgang.Id, kriterium.Id);
+{
+    var key = istSpontan
+        ? (id, durchgang.Id, kriterium.Id)
+        : (id, durchgang.Id, kriterium.Id);
 
-                        if (Model.BewertungenMap.TryGetValue(key, out var bewertungen))
+    if (Model.BewertungenMap.TryGetValue(key, out var bewertungen))
+    {
+        var punkte = bewertungen.Select(b => b.Punkte).ToList();
+        var stddev = Model.BerechneStandardabweichung(punkte);
+        var highlight = stddev >= 2 ? "bg-red-600 text-white font-bold ring-2 ring-red-400" : "";
+
+        <td class="p-3 align-top whitespace-normal break-words max-w-md @highlight">
+            <div class="space-y-3 text-sm leading-snug">
+                @foreach (var b in bewertungen)
+                {
+                    <div class="bg-zinc-700/50 p-2 rounded-md">
+                        <div class="text-xs text-orange-300 mb-1">
+                            👤 Juror @b.JurorId:
+                        </div>
+
+                        @if (kriterium.BewertungsTyp == BBQHub.Domain.Entities.BewertungsTyp.Text)
                         {
-                            var punkte = bewertungen.Select(b => b.Punkte).ToList();
-                            var stddev = Model.BerechneStandardabweichung(punkte);
-                            var highlight = stddev >= 2 ? "bg-red-600 text-white font-bold ring-2 ring-red-400" : "";
-
-                            <td class="p-3 align-top whitespace-nowrap @highlight">
-                                <div class="space-y-1 text-sm leading-tight">
-                                    @foreach (var b in bewertungen)
-                                    {
-                                        <div class="flex items-center gap-1">
-                                            <span class="text-orange-300 text-xs">👤 Juror @b.JurorId:</span>
-                                            <strong class="text-white">@b.Punkte</strong>
-                                        </div>
-                                    }
-                                </div>
-                                    @if (istSpontan)
-                                    {
-                                        <a asp-page="/Admin/Events/EditBewertung"
-                                           asp-route-teilnehmerId="@id"
-                                           asp-route-durchgangId="@durchgang.Id"
-                                           asp-route-kriteriumId="@kriterium.Id"
-                                           class="text-xs text-blue-400 hover:underline block mt-2">
-                                            ✏️ Bearbeiten
-                                        </a>
-                                    }
-                                    else
-                                    {
-                                        <a asp-page="/Admin/Events/EditBewertung"
-                                           asp-route-teamId="@id"
-                                           asp-route-durchgangId="@durchgang.Id"
-                                           asp-route-kriteriumId="@kriterium.Id"
-                                           class="text-xs text-blue-400 hover:underline block mt-2">
-                                            ✏️ Bearbeiten
-                                        </a>
-                                    }
-                            </td>
+                            <div class="text-white whitespace-pre-line break-words">
+                                📝 @b.TextBewertung
+                            </div>
+                        }
+                        else if (kriterium.BewertungsTyp == BBQHub.Domain.Entities.BewertungsTyp.Decimal)
+                        {
+                            <div class="text-white">
+                                <strong>@b.Punkte.ToString("0.0")</strong>
+                            </div>
                         }
                         else
                         {
-                            <td class="p-3 text-zinc-400 italic text-sm">Keine Daten</td>
+                            <div class="text-white font-semibold">
+                                @b.Punkte Punkte
+                            </div>
                         }
-                    }
-                </tr>
+                    </div>
+                }
+            </div>
+
+            <a asp-page="/Admin/Events/EditBewertung"
+               asp-route-teamId="@id"
+               asp-route-durchgangId="@durchgang.Id"
+               asp-route-kriteriumId="@kriterium.Id"
+               class="text-xs text-blue-400 hover:underline block mt-2">
+                ✏️ Bearbeiten
+            </a>
+            </td>
+            }
+            else
+            {
+                <td class="p-3 text-zinc-400 italic text-sm">Keine Daten</td>
+            }
+            }
+
+            </tr>
             }
         </tbody>
     </table>

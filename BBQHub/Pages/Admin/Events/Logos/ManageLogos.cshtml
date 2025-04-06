@@ -4,54 +4,73 @@
     ViewData["Title"] = "Event-Logos verwalten";
 }
 
-<h1 class="text-2xl font-bold text-orange-500 mb-6">Logos verwalten – @Model.EventName</h1>
+<h1 class="text-3xl font-bold text-orange-500 mb-8">🎨 Logos verwalten – <span class="text-white">@Model.EventName</span></h1>
 
-<form method="post" enctype="multipart/form-data" class="space-y-4 max-w-lg text-black">
-    <input type="hidden" asp-for="EventId" />
+<!-- 🔼 Upload-Bereich -->
+<div class="bg-zinc-800 p-6 rounded-lg shadow max-w-xl mb-10">
+    <form method="post" enctype="multipart/form-data" class="space-y-6 text-black">
+        <input type="hidden" asp-for="EventId" />
 
-    <div>
-        <label class="block font-medium">Logo-Datei</label>
-        <input asp-for="Upload" type="file" accept="image/*" class="w-full p-2 border rounded bg-white" />
-    </div>
+        <div>
+            <label asp-for="Upload" class="block font-medium text-white mb-1">🖼️ Logo-Datei hochladen</label>
+            <input asp-for="Upload" type="file" accept="image/*" class="w-full p-2 border rounded bg-white" />
+        </div>
 
-    <div>
-        <label class="block font-medium">Logo-Typ</label>
-        <select asp-for="SelectedType" class="w-full p-2 border rounded">
-            <option value="Veranstalter">Veranstalter</option>
-            <option value="Hauptsponsor">Hauptsponsor</option>
-            <option value="Nebensponsor">Nebensponsor</option>
-        </select>
-    </div>
+        <div>
+            <label asp-for="SelectedType" class="block font-medium text-white mb-1">🏷️ Logo-Typ</label>
+            <select asp-for="SelectedType" class="w-full p-2 border rounded">
+                <option value="Veranstalter">Veranstalter</option>
+                <option value="Hauptsponsor">Hauptsponsor</option>
+                <option value="Nebensponsor">Nebensponsor</option>
+            </select>
+        </div>
 
-    <button type="submit" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">
-        Logo hochladen
-    </button>
-</form>
+        <button type="submit"
+                class="bg-orange-600 hover:bg-orange-700 text-white font-medium px-6 py-2 rounded shadow transition">
+            ⬆️ Logo hochladen
+        </button>
+    </form>
+</div>
 
+<!-- ✅ Bestehende Logos -->
 @if (Model.ExistingLogos.Any())
 {
-    <h2 class="text-xl font-semibold text-orange-400 mt-8 mb-2">Vorhandene Logos</h2>
+    <h2 class="text-2xl font-semibold text-orange-400 mb-4">🗂️ Vorhandene Logos</h2>
 
     <form method="post" asp-page-handler="SetActive">
         <input type="hidden" asp-for="EventId" />
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             @for (int i = 0; i < Model.ExistingLogos.Count; i++)
             {
-                <div class="bg-zinc-800 p-2 rounded text-center">
-                    <img src="@Model.ExistingLogos[i].FilePath" class="w-full h-32 object-contain mb-2" />
-                    <div class="text-sm text-white">@Model.ExistingLogos[i].Type</div>
-                    <input type="hidden" name="LogoSelection[@i].Id" value="@Model.ExistingLogos[i].Id" />
-                    <label class="text-white text-xs">
-                        <input type="checkbox" name="LogoSelection[@i].IsActive" value="true"
-                        @(Model.ExistingLogos[i].IsActive ? "checked" : "") />
-                        Aktiv
+                var logo = Model.ExistingLogos[i];
+
+                <div class="bg-zinc-700 rounded-lg p-4 text-white flex flex-col items-center shadow-md">
+                    <img src="@logo.FilePath"
+                         alt="Logo"
+                         class="w-full h-32 object-contain bg-white rounded mb-3 border" />
+
+                    <div class="text-sm font-medium mb-2">@logo.Type</div>
+
+                    <input type="hidden" name="LogoSelection[@i].Id" value="@logo.Id" />
+
+                    <label class="inline-flex items-center gap-2 text-xs">
+                        <input type="checkbox"
+                               name="LogoSelection[@i].IsActive"
+                               value="true"
+                               class="accent-orange-500 w-4 h-4"
+                        @(logo.IsActive ? "checked" : "") />
+                        Aktiv anzeigen
                     </label>
                 </div>
             }
         </div>
 
-        <button type="submit" class="mt-4 bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">
-            ✔️ Auswahl speichern
-        </button>
+        <div class="mt-6 flex justify-end">
+            <button type="submit"
+                    class="bg-green-600 hover:bg-green-700 text-white font-medium px-6 py-2 rounded shadow transition">
+                💾 Auswahl speichern
+            </button>
+        </div>
     </form>
 }

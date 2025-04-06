@@ -83,7 +83,7 @@ namespace BBQHub.Pages.Admin.Events
             return Page();
         }
 
-        public double BerechneStandardabweichung(List<int> werte)
+        public double BerechneStandardabweichung(List<double> werte)
         {
             if (werte.Count == 0) return 0;
             double avg = werte.Average();
