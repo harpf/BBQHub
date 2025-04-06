@@ -37,6 +37,7 @@ namespace BBQHub.Pages.Admin.Events.Kriterien
             existing.Name = Input.Name;
             existing.MaxWert = Input.MaxWert;
             existing.Gewichtung = Input.Gewichtung;
+            existing.ZaehltZurGesamtwertung = Input.ZaehltZurGesamtwertung;
 
             await _context.SaveChangesAsync();
 

@@ -31,6 +31,14 @@
         <span asp-validation-for="Input.Gewichtung" class="text-red-500 text-sm"></span>
     </div>
 
+    <!-- ✅ Zur Gesamtwertung zählen -->
+    <div class="flex items-center gap-2">
+        <input asp-for="Input.ZaehltZurGesamtwertung" type="checkbox" class="w-5 h-5 text-orange-600 border-zinc-300 rounded" />
+        <label asp-for="Input.ZaehltZurGesamtwertung" class="text-sm text-zinc-800">
+            Dieses Kriterium in die Gesamtwertung einbeziehen
+        </label>
+    </div>
+
     <!-- 💾 Aktionen -->
     <div class="flex justify-between pt-4">
         <button type="submit" class="bg-orange-600 text-white px-6 py-2 rounded hover:bg-orange-700 shadow">

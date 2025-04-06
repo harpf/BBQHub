@@ -77,10 +77,68 @@
     </table>
 </div>
 
+@if (Model.IstSpontanEvent)
+{
+    <h2 class="text-2xl font-bold text-orange-500 mb-6 mt-10">📋 Tages-Gesamtrangliste (Spontan)</h2>
+
+    <div class="overflow-x-auto">
+        <table class="min-w-full text-sm text-white bg-zinc-800 border-collapse shadow-lg rounded">
+            <thead class="bg-zinc-700 text-xs uppercase tracking-wide">
+                <tr>
+                    <th class="p-2">Platz</th>
+                    <th class="p-2 text-left">Name</th>
+                    @foreach (var kriterium in Model.AlleKriterien)
+                    {
+                        <th class="p-2">@kriterium.Name</th>
+                    }
+                    <th class="p-2">Total</th>
+                    <th class="p-2">Gesamt Gewicht</th>
+                    <th class="p-2">Sauce</th>
+                    <th class="p-2">Run</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var maxSauce = Model.TagesRangliste.Max(r => r.Sauce);
+                }
+
+                @foreach (var entry in Model.TagesRangliste
+               .OrderByDescending(e => e.GesamtGewichtung)
+               .Select((e, i) => new { Platz = i + 1, Data = e }))
+                {
+                    var e = entry.Data;
+                    var isTopSauce = e.Sauce == maxSauce;
+                    var highlight = "bg-yellow-400 text-black";
+                    var sauceHighlight = isTopSauce ? "bg-green-400 text-black font-bold" : "";
+
+                    <tr class="border-b border-zinc-700 hover:bg-zinc-900 transition">
+                        <td class="p-2 font-bold">@entry.Platz</td>
+                        <td class="p-2 font-semibold text-left">@e.Name</td>
+
+                        @foreach (var k in Model.AlleKriterien)
+                        {
+                            var punkt = e.KriterienWerte.TryGetValue(k.Id, out var val) ? val : 0;
+                            <td class="p-2">@punkt.ToString("0.0")</td>
+                        }
+
+                        <td class="p-2 font-semibold">@e.Total.ToString("0.0")</td>
+                        <td class="p-2 font-semibold text-orange-300">@e.GesamtGewichtung.ToString("0.0")</td>
+                        <td class="p-2 @sauceHighlight">@e.Sauce.ToString("0.0")</td>
+                        <td class="p-2">@e.RunNumber</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+
 <!-- 📊 Einzelne Durchgänge -->
 @foreach (var dg in durchgaenge)
 {
     var kriterien = dg.Kriterien;
+    var kriterienWertung = kriterien.Where(k => k.ZaehltZurGesamtwertung).ToList();
+    var kriterienOptional = kriterien.Where(k => !k.ZaehltZurGesamtwertung).ToList();
 
     <div class="mb-10">
         <div class="flex justify-between items-center mb-3">
@@ -95,16 +153,41 @@
 
         <div class="overflow-x-auto">
             <table class="min-w-full text-sm text-center border-collapse bg-zinc-800 text-white shadow-md rounded">
-                <thead class="bg-zinc-700">
-                    <tr>
-                        <th class="p-2" align="left">Platz</th>
-                        <th class="p-2" align="left">@((istSpontan ? "Teilnehmer" : "Team"))</th>
-                        @foreach (var kriterium in kriterien)
+                <thead>
+                    <tr class="bg-zinc-700 text-xs uppercase tracking-wide">
+                        <th class="p-2 text-left">Platz</th>
+                        <th class="p-2 text-left">@((istSpontan ? "Teilnehmer" : "Team"))</th>
+
+                        @foreach (var kriterium in kriterienWertung)
                         {
                             <th class="p-2">@kriterium.Name</th>
                         }
+
+                        @if (kriterienOptional.Any())
+                        {
+                            <th class="p-2 text-yellow-300 bg-zinc-600" colspan="@kriterienOptional.Count">
+                                🟠 Optionale Kriterien
+                            </th>
+                        }
+
                         <th class="p-2">Gesamt</th>
                     </tr>
+
+                    @if (kriterienOptional.Any())
+                    {
+                        <tr class="bg-zinc-600 text-xs text-yellow-300">
+                            <th colspan="2"></th>
+                            @foreach (var kriterium in kriterienWertung)
+                            {
+                                <th></th>
+                            }
+                            @foreach (var kriterium in kriterienOptional)
+                            {
+                                <th>@kriterium.Name</th>
+                            }
+                            <th></th>
+                        </tr>
+                    }
                 </thead>
                 <tbody>
                     @foreach (var item in Model.Teams
@@ -117,28 +200,43 @@
                         var auswertungen = Model.KriteriumAuswertungen.GetValueOrDefault((teamId, dg.Id));
 
                         <tr class="border-b border-zinc-700 hover:bg-zinc-900 transition">
-                            <td class="p-2 font-bold" align="left">@item.Platz</td>
-                            <td class="p-2 font-semibold" align="left">
+                            <td class="p-2 font-bold text-left">@item.Platz</td>
+                            <td class="p-2 font-semibold text-left">
                                 @(istSpontan
                                     ? Model.TeilnehmerNamen.GetValueOrDefault(teamId, "Unbekannt")
                                     : item.Team.Name)
                             </td>
-                            @foreach (var kriterium in kriterien)
+
+                            @foreach (var kriterium in kriterienWertung)
                             {
                                 var auswertung = auswertungen?.FirstOrDefault(k => k.KriteriumName == kriterium.Name);
                                 <td class="p-2">
                                     @if (auswertung != null)
                                     {
-                                        <div>
-                                            <div class="text-white font-medium">@auswertung.VergebenePunkte</div>
-                                        </div>
+                                        <span class="text-white font-medium">@auswertung.VergebenePunkte</span>
                                     }
                                     else
                                     {
-                                        <span class="text-zinc-500 italic text-sm">–</span>
+                                        <span class="text-zinc-500 italic">–</span>
                                     }
                                 </td>
                             }
+
+                            @foreach (var kriterium in kriterienOptional)
+                            {
+                                var auswertung = auswertungen?.FirstOrDefault(k => k.KriteriumName == kriterium.Name);
+                                <td class="p-2 bg-zinc-700 text-yellow-200">
+                                    @if (auswertung != null)
+                                    {
+                                        <span>@auswertung.VergebenePunkte</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-zinc-400 italic">–</span>
+                                    }
+                                </td>
+                            }
+
                             <td class="p-2 font-semibold text-orange-300">
                                 @Model.PunkteProDurchgang[teamId].GetValueOrDefault(dg.Id).ToString("0.0")
                             </td>

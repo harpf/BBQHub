@@ -1,4 +1,5 @@
 ﻿using BBQHub.Application.Common.Interfaces;
+using BBQHub.Application.Common.Models;
 using BBQHub.Domain.Entities;
 using BBQHub.Infrastructure.Data;
 using Microsoft.AspNetCore.Authorization;
@@ -39,7 +40,8 @@ namespace BBQHub.Pages.Ranglisten
         public Dictionary<int, string> TeilnehmerNamen { get; set; } = new();
         // Dictionary: (TeamId, DurchgangId) → Liste aller Kriterienauswertungen
         public Dictionary<(int teamId, int durchgangId), List<KriteriumAuswertung>> KriteriumAuswertungen { get; set; } = new();
-
+        public List<SpontanTagesRangEintrag> TagesRangliste { get; set; } = new();
+        public List<Kriterium> AlleKriterien { get; set; } = new();
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -53,16 +55,27 @@ namespace BBQHub.Pages.Ranglisten
             Durchgaenge = Event.Durchgaenge.OrderBy(d => d.Durchgangsnummer).ToList();
             var durchgangIds = Durchgaenge.Select(d => d.Id).ToList();
 
+            var teilnehmerIds = Teilnehmer.Select(t => t.Id).ToList();
+
             var bewertungen = await _context.Bewertungen
-                .Where(b => durchgangIds.Contains(b.DurchgangId))
+                .Where(b => b.SpontanTeilnahmeId != null && teilnehmerIds.Contains(b.SpontanTeilnahmeId.Value))
                 .ToListAsync();
+
 
             if (IstSpontanEvent)
             {
-                Teilnehmer = await _context.spontanTeilnahmen
-                    .Where(t => durchgangIds.Contains(t.DurchgangId))
+                // ✅ Alle Kriterien des Events laden (wichtig für spätere Verarbeitung)
+                AlleKriterien = await _context.Kriterien
+                    .Where(k => k.Durchgang.EventId == Event.Id)
                     .ToListAsync();
 
+                // ✅ Alle Teilnehmer (SpontanTeilnahmen) laden
+                Teilnehmer = await _context.spontanTeilnahmen
+                    .Where(t => durchgangIds.Contains(t.DurchgangId))
+                    .Include(t => t.Durchgang)
+                    .ToListAsync();
+
+                // ✅ Teilnehmer-Namen und Team-Kompatibilität setzen
                 Teams = Teilnehmer
                     .Select(t => new Team
                     {
@@ -72,7 +85,7 @@ namespace BBQHub.Pages.Ranglisten
 
                 TeilnehmerNamen = Teilnehmer.ToDictionary(t => t.Id, t => $"{t.Vorname} {t.Nachname}");
 
-
+                // ✅ Punktesummen pro Durchgang und Gesamtpunkte berechnen
                 foreach (var teilnehmer in Teilnehmer)
                 {
                     PunkteProDurchgang[teilnehmer.Id] = new Dictionary<int, double>();
@@ -91,6 +104,7 @@ namespace BBQHub.Pages.Ranglisten
                     Gesamtpunkte[teilnehmer.Id] = gesamt;
                 }
 
+                // ✅ Streichresultate berechnen, wenn aktiviert
                 if (Event.EnableStreichresultate)
                 {
                     foreach (var teilnehmer in Teilnehmer)
@@ -124,6 +138,8 @@ namespace BBQHub.Pages.Ranglisten
                         GesamtMitStreichresultat[teilnehmer.Id] = gesamtMitStreich;
                     }
                 }
+
+                // ✅ Kriterien-Auswertung für Detailanzeige
                 foreach (var teilnehmer in Teilnehmer)
                 {
                     foreach (var dg in Durchgaenge)
@@ -154,7 +170,40 @@ namespace BBQHub.Pages.Ranglisten
                     }
                 }
 
+                // ✅ Tages-Rangliste für spontane Teilnehmer erstellen
+                TagesRangliste = Teilnehmer.Select(t =>
+                {
+                    var entry = new SpontanTagesRangEintrag
+                    {
+                        Name = $"{t.Vorname} {t.Nachname}",
+                        RunNumber = t.Durchgang?.Durchgangsnummer ?? 0,
+                        KriterienWerte = new Dictionary<int, double>()
+
+                    };
+
+                    var eigene = bewertungen.Where(b => b.SpontanTeilnahmeId == t.Id);
+                    foreach (var b in eigene)
+                    {
+                        var kriterium = AlleKriterien.FirstOrDefault(k => k.Id == b.KriteriumId);
+                        if (kriterium == null) continue;
+
+                        entry.KriterienWerte[b.KriteriumId] = b.Punkte;
+
+                        if (kriterium.ZaehltZurGesamtwertung)
+                        {
+                            entry.Total += b.Punkte;
+                            entry.GesamtGewichtung += b.GewichteteNote;
+                        }
+                        else
+                        {
+                            entry.Sauce += b.Punkte;
+                        }
+                    }
+
+                    return entry;
+                }).ToList();
             }
+
             else
             {
                 var zuweisungen = await _context.EventTeamAssignments
