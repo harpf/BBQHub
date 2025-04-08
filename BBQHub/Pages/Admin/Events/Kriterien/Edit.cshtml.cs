@@ -1,4 +1,4 @@
-using BBQHub.Domain.Entities;
+Ôªøusing BBQHub.Domain.Entities;
 using BBQHub.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -30,19 +30,19 @@ namespace BBQHub.Pages.Admin.Events.Kriterien
         public async Task<IActionResult> OnPostDeleteAsync()
         {
             var existing = await _context.Kriterien
-                .Include(k => k.Durchgang) // f¸r Redirect
+                .Include(k => k.Durchgang) // f√ºr Redirect
                 .FirstOrDefaultAsync(k => k.Id == Input.Id);
 
             if (existing == null)
                 return NotFound();
 
             // Alle Bewertungen zu diesem Kriterium laden
-            var abh‰ngigeBewertungen = await _context.Bewertungen
+            var abh√§ngigeBewertungen = await _context.Bewertungen
                 .Where(b => b.KriteriumId == existing.Id)
                 .ToListAsync();
 
             // Bewertungen entfernen
-            _context.Bewertungen.RemoveRange(abh‰ngigeBewertungen);
+            _context.Bewertungen.RemoveRange(abh√§ngigeBewertungen);
 
             // Dann das Kriterium entfernen
             _context.Kriterien.Remove(existing);
