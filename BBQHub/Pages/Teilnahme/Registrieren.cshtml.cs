@@ -120,6 +120,12 @@ namespace BBQHub.Pages.Teilnahme
                 return await OnGetAsync();
             }
 
+            //if (string.IsNullOrWhiteSpace(DatenschutzUnterschrift))
+            //{
+            //    ModelState.AddModelError("", "Du musst zuerst die Datenschutzerklärung bestätigen.");
+            //    return await OnGetAsync();
+            //}
+
             // Kombinierter Teilnehmername
             var teilnehmerName = $"{Vorname} {Nachname}";
 
@@ -201,11 +207,11 @@ namespace BBQHub.Pages.Teilnahme
                 LogoNebensponsor = ev.Logos.FirstOrDefault(l => l.Type == LogoType.Nebensponsor && l.IsActive)?.FilePath
             };
 
-
             if (!exists)
             {
-                var pdfBytes = _pdfGenerator.Generate(pdfModel);
-                return File(pdfBytes, "application/pdf", "Teilnahmeformular.pdf");
+                //var pdfBytes = _pdfGenerator.Generate(pdfModel);
+                return RedirectToPage("/Teilnahme/Bestätigung");
+                // return File(pdfBytes, "application/pdf", "Teilnahmeformular.pdf");
             }
             else
             {

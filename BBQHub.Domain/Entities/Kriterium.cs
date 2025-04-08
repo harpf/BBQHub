@@ -27,5 +27,7 @@ namespace BBQHub.Domain.Entities
         public double Gewichtung { get; set; } = 1.0;
 
         public BewertungsTyp BewertungsTyp { get; set; } = BewertungsTyp.Integer;
+        public bool ZaehltZurGesamtwertung { get; set; } = true;
+        public Durchgang Durchgang { get; set; } = null!;
     }
 }

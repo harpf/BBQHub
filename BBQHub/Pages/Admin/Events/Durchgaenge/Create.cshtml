@@ -4,22 +4,38 @@
     ViewData["Title"] = "Durchgang erstellen";
 }
 
-<h1 class="text-2xl font-bold mb-4 text-orange-500">Neuer Durchgang</h1>
+<h1 class="text-3xl font-bold text-orange-500 mb-6">➕ Neuer Durchgang</h1>
 
-<form method="post" class="grid gap-4 w-full max-w-xl text-black">
+<form method="post" class="space-y-6 max-w-2xl bg-zinc-100 p-6 rounded-lg shadow text-black border border-zinc-300">
     <input type="hidden" asp-for="Input.EventId" />
 
+    <!-- 🔢 Durchgangsnummer -->
     <div>
-        <label class="block text-sm font-medium">Durchgangsnummer (wird automatisch gesetzt)</label>
-        <input asp-for="Input.Durchgangsnummer" class="w-full p-2 rounded border bg-gray-100" readonly />
+        <label asp-for="Input.Durchgangsnummer" class="block text-sm font-medium text-zinc-800 mb-1">
+            🔢 Durchgangsnummer (automatisch)
+        </label>
+        <input asp-for="Input.Durchgangsnummer"
+               class="w-full p-2 rounded border bg-zinc-200 text-zinc-500"
+               readonly />
+        <span asp-validation-for="Input.Durchgangsnummer" class="text-red-500 text-sm"></span>
     </div>
 
+    <!-- 📝 Name -->
     <div>
-        <label class="block text-sm font-medium">Name des Durchgangs</label>
-        <input asp-for="Input.Name" class="w-full p-2 rounded border" />
+        <label asp-for="Input.Name" class="block text-sm font-medium text-zinc-800 mb-1">
+            📝 Name des Durchgangs
+        </label>
+        <input asp-for="Input.Name"
+               placeholder="z. B. Runde 1, Finale, Pulled Pork"
+               class="w-full p-2 rounded border border-zinc-300" />
+        <span asp-validation-for="Input.Name" class="text-red-500 text-sm"></span>
     </div>
 
-    <div>
-        <button type="submit" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">Speichern</button>
+    <!-- 💾 Speichern -->
+    <div class="flex justify-end pt-4">
+        <button type="submit"
+                class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded shadow transition">
+            💾 Speichern
+        </button>
     </div>
 </form>
