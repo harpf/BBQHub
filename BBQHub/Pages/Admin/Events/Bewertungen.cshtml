@@ -82,8 +82,7 @@
                                                 else if (kriterium.BewertungsTyp == BBQHub.Domain.Entities.BewertungsTyp.Decimal)
                                                 {
                                                     <div class="text-white">
-                                                        <strong>@b.Punkte.ToString("0.0")</strong>
-                                                        <span class="text-zinc-400 text-xs">(gewichtet: @b.GewichteteNote.ToString("0.0"))</span>
+                                                        <strong>@b.GewichteteNote.ToString("0.0")</strong>
                                                     </div>
                                                 }
                                                 else

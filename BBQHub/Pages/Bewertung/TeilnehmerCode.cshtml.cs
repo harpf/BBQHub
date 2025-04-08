@@ -16,7 +16,7 @@ namespace BBQHub.Pages.Bewertung
         }
 
         [BindProperty(SupportsGet = true)]
-        public string JuryId { get; set; } = string.Empty;
+        public int JuryId { get; set; }
 
         [BindProperty(SupportsGet = true)]
         public int EventId { get; set; }
@@ -35,7 +35,6 @@ namespace BBQHub.Pages.Bewertung
 
         public async Task<IActionResult> OnGetAsync()
         {
-            // Lade den Durchgang und hole den zugehörigen Event separat
             var durchgang = await _context.Durchgaenge
                 .FirstOrDefaultAsync(d => d.Id == DurchgangId);
 
@@ -49,13 +48,29 @@ namespace BBQHub.Pages.Bewertung
             EventName = ev.Name;
             DurchgangName = durchgang.Name;
 
-            // Lade alle Teilnehmer für diesen Durchgang
-            VerfügbareTeilnahmen = await _context.spontanTeilnahmen
+            // 1. Lade alle Teilnehmer für den Durchgang
+            var alleTeilnahmen = await _context.spontanTeilnahmen
                 .Where(t => t.DurchgangId == DurchgangId)
                 .ToListAsync();
 
+            // 2. Lade alle bewerteten Kombinationen für diesen Juror in diesem Durchgang
+            var bewerteteTeilnehmerIds = await _context.Bewertungen
+                .Where(b =>
+                    b.DurchgangId == DurchgangId &&
+                    b.Juror.JuryId == JuryId &&
+                    b.SpontanTeilnahmeId != null)
+                .Select(b => b.SpontanTeilnahmeId.Value)
+                .Distinct()
+                .ToListAsync();
+
+            // 3. Filtere auf der Anwendungsebene
+            VerfügbareTeilnahmen = alleTeilnahmen
+                .Where(t => !bewerteteTeilnehmerIds.Contains(t.Id))
+                .ToList();
+
             return Page();
         }
+
 
         public async Task<IActionResult> OnPostAsync()
         {

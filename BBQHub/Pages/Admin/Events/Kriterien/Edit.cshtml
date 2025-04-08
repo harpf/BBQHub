@@ -4,52 +4,61 @@
     ViewData["Title"] = "Kriterium bearbeiten";
 }
 
-<h1 class="text-3xl font-bold text-orange-500 mb-6">✏️ Kriterium bearbeiten</h1>
+<div class="flex justify-center items-center min-h-screen bg-zinc-900 px-4">
+    <div class="bg-zinc-800 p-8 rounded-2xl shadow-lg w-full max-w-xl border border-zinc-700 text-white">
+        <h1 class="text-3xl font-bold text-orange-400 mb-6 text-center drop-shadow">✏️ Kriterium bearbeiten</h1>
 
-<form method="post" class="space-y-6 max-w-2xl text-black bg-zinc-100 p-6 rounded-lg shadow-md border border-zinc-300">
-    <input type="hidden" asp-for="Input.Id" />
-    <input type="hidden" asp-for="Input.DurchgangId" />
+        <form method="post" class="space-y-6">
+            <!-- 🆔 Hidden Fields -->
+            <input type="hidden" asp-for="Input.Id" />
+            <input type="hidden" asp-for="Input.DurchgangId" />
 
-    <!-- 📝 Name -->
-    <div>
-        <label asp-for="Input.Name" class="block text-sm font-medium text-zinc-800 mb-1">📝 Name des Kriteriums</label>
-        <input asp-for="Input.Name" class="w-full p-2 rounded border border-zinc-300" />
-        <span asp-validation-for="Input.Name" class="text-red-500 text-sm"></span>
+            <!-- 📝 Name -->
+            <div>
+                <label asp-for="Input.Name" class="block text-sm font-semibold mb-2">📝 Name des Kriteriums</label>
+                <input asp-for="Input.Name"
+                       class="w-full p-3 rounded-lg bg-zinc-700 border border-zinc-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 shadow-sm" />
+                <span asp-validation-for="Input.Name" class="text-red-400 text-sm"></span>
+            </div>
+
+            <!-- 🔢 Maximalwert -->
+            <div>
+                <label asp-for="Input.MaxWert" class="block text-sm font-semibold mb-2">🔢 Maximale Punktzahl</label>
+                <input asp-for="Input.MaxWert" type="number"
+                       class="w-full p-3 rounded-lg bg-zinc-700 border border-zinc-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 shadow-sm" />
+                <span asp-validation-for="Input.MaxWert" class="text-red-400 text-sm"></span>
+            </div>
+
+            <!-- ⚖️ Gewichtung -->
+            <div>
+                <label asp-for="Input.Gewichtung" class="block text-sm font-semibold mb-2">⚖️ Gewichtung (z. B. 0.7)</label>
+                <input asp-for="Input.Gewichtung" type="number" step="0.01"
+                       class="w-full p-3 rounded-lg bg-zinc-700 border border-zinc-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 shadow-sm" />
+                <span asp-validation-for="Input.Gewichtung" class="text-red-400 text-sm"></span>
+            </div>
+
+            <!-- ✅ Gesamtwertung -->
+            <div class="flex items-center gap-3">
+                <input asp-for="Input.ZaehltZurGesamtwertung" type="checkbox"
+                       class="w-5 h-5 text-orange-600 border-zinc-500 bg-zinc-700 rounded focus:ring-orange-500" />
+                <label asp-for="Input.ZaehltZurGesamtwertung" class="text-sm">
+                    Dieses Kriterium in die Gesamtwertung einbeziehen
+                </label>
+            </div>
+
+            <!-- 💾 Aktionen -->
+            <div class="flex justify-between pt-4">
+                <button type="submit" asp-page-handler="Save"
+                        class="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 transition duration-200 shadow-md font-semibold">
+                    💾 Speichern
+                </button>
+
+                <button type="submit" asp-page-handler="Delete"
+                        class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition duration-200 shadow-md font-semibold"
+                        onclick="return confirm('Möchtest du dieses Kriterium wirklich löschen?');">
+                    🗑️ Löschen
+                </button>
+            </div>
+        </form>
     </div>
-
-    <!-- 🔢 Max. Punkte -->
-    <div>
-        <label asp-for="Input.MaxWert" class="block text-sm font-medium text-zinc-800 mb-1">🔢 Maximale Punktzahl</label>
-        <input asp-for="Input.MaxWert" type="number" class="w-full p-2 rounded border border-zinc-300" />
-        <span asp-validation-for="Input.MaxWert" class="text-red-500 text-sm"></span>
-    </div>
-
-    <!-- ⚖️ Gewichtung -->
-    <div>
-        <label asp-for="Input.Gewichtung" class="block text-sm font-medium text-zinc-800 mb-1">⚖️ Gewichtung (z. B. 0.7)</label>
-        <input asp-for="Input.Gewichtung" type="number" step="0.01" class="w-full p-2 rounded border border-zinc-300" />
-        <span asp-validation-for="Input.Gewichtung" class="text-red-500 text-sm"></span>
-    </div>
-
-    <!-- ✅ Zur Gesamtwertung zählen -->
-    <div class="flex items-center gap-2">
-        <input asp-for="Input.ZaehltZurGesamtwertung" type="checkbox" class="w-5 h-5 text-orange-600 border-zinc-300 rounded" />
-        <label asp-for="Input.ZaehltZurGesamtwertung" class="text-sm text-zinc-800">
-            Dieses Kriterium in die Gesamtwertung einbeziehen
-        </label>
-    </div>
-
-    <!-- 💾 Aktionen -->
-    <div class="flex justify-between pt-4">
-        <button type="submit" class="bg-orange-600 text-white px-6 py-2 rounded hover:bg-orange-700 shadow">
-            💾 Speichern
-        </button>
-
-        <button type="submit"
-                formaction="?handler=Delete"
-                class="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 shadow"
-                onclick="return confirm('Möchtest du dieses Kriterium wirklich löschen?');">
-            🗑️ Löschen
-        </button>
-    </div>
-</form>
+</div>
