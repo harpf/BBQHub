@@ -129,7 +129,7 @@ public class ExportService : IExportService
         {
             container.Page(page =>
             {
-                page.Size(PageSizes.A4); //.Landscape());
+                page.Size(PageSizes.A4.Landscape()); //.Landscape());
                 page.Margin(30);
                 page.DefaultTextStyle(x => x.FontSize(14));
 
@@ -314,7 +314,7 @@ public class ExportService : IExportService
                                 header.Cell().Text("#").Bold();
                                 header.Cell().Text("Teilnehmer").Bold();
                                 foreach (var kriterium in kriterien)
-                                    header.Cell().Text(kriterium.Name).Bold();
+                                    header.Cell().Text(kriterium.Name).Bold().FontSize(10).LineHeight(1).WrapAnywhere(false);
                                 header.Cell().Text("Total").Bold();
                                 header.Cell().Text(eventData.EnableStreichresultate ? "Strichbenotung" : "Gewichtet").Bold();
                             });
@@ -324,7 +324,7 @@ public class ExportService : IExportService
                             foreach (var row in resultRows.OrderByDescending(r => r.Gewichtet))
                             {
                                 table.Cell().Text($"{platz++}");
-                                table.Cell().Text(row.Name);
+                                table.Cell().Text(row.Name).LineHeight(1);
 
                                 foreach (var kriterium in kriterien)
                                 {

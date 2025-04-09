@@ -7,6 +7,7 @@ using BBQHub.Application.Juroren.Services;
 using BBQHub.Hubs;
 using QuestPDF.Infrastructure;
 using BBQHub.Infrastructure.PDF;
+using BBQHub.Domain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +38,12 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddAuthorization();
 builder.Services.AddRazorPages();
+builder.Services.AddAntiforgery(options =>
+{
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+});
+
+builder.Services.Configure<SeoOptions>(builder.Configuration.GetSection("SEO"));
 
 builder.Services.AddTransient<PDFRegistrationFormular>();
 
@@ -48,6 +55,12 @@ builder.Services.AddScoped<IJurorService, JurorService>();
 builder.Services.AddScoped<IExportService, ExportService>();
 
 builder.Services.AddSignalR();
+
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+    serverOptions.AddServerHeader = false;
+});
+
 
 var app = builder.Build();
 
@@ -77,6 +90,13 @@ else
     app.UseHsts();
 }
 
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+    await next();
+});
+
+
 app.MapGet("/api/validate/juryid/{id:int}", async (int id, ApplicationDbContext db) =>
 {
     var exists = await db.Juroren.AnyAsync(j => j.JuryId == id);
@@ -88,9 +108,31 @@ app.MapGet("/api/validate/email/{email}", async (string email, ApplicationDbCont
     var exists = await db.Juroren.AnyAsync(j => j.Email == email);
     return Results.Json(new { exists });
 });
-
+app.UseStaticFiles();
 
 app.UseHttpsRedirection();
+
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Add("Content-Security-Policy",
+        "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;");
+    await next();
+});
+
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Remove("X-Powered-By");
+    await next();
+});
+
+
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Add("Referrer-Policy", "no-referrer");
+    await next();
+});
+
+
 app.UseStaticFiles();
 
 app.UseRouting();
