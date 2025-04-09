@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\BBQHub.v3fomq3m1a.bundle.scp.css"
     },
     {
+      "Id": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\.well-known\\security.txt",
+      "PackagePath": "staticwebassets\\.well-known\\security.txt"
+    },
+    {
       "Id": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

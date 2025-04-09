@@ -1,5 +1,17 @@
 ﻿<Project>
   <ItemGroup>
+    <StaticWebAssetEndpoint Include="_content/BBQHub/.well-known/security.kc28c2khje.txt">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\.well-known\security.txt'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"fingerprint","Value":"kc28c2khje"},{"Name":"integrity","Value":"sha256-HO5WMIzCoJmeAoSs/4JIaC2VUF3vFEsRCdICD8WYsmM="},{"Name":"label","Value":"_content/BBQHub/.well-known/security.txt"}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"max-age=31536000, immutable"},{"Name":"Content-Length","Value":"79"},{"Name":"Content-Type","Value":"text/plain"},{"Name":"ETag","Value":"\u0022HO5WMIzCoJmeAoSs/4JIaC2VUF3vFEsRCdICD8WYsmM=\u0022"},{"Name":"Last-Modified","Value":"Wed, 09 Apr 2025 20:22:49 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
+    <StaticWebAssetEndpoint Include="_content/BBQHub/.well-known/security.txt">
+      <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\.well-known\security.txt'))</AssetFile>
+      <Selectors><![CDATA[[]]]></Selectors>
+      <EndpointProperties><![CDATA[[{"Name":"integrity","Value":"sha256-HO5WMIzCoJmeAoSs/4JIaC2VUF3vFEsRCdICD8WYsmM="}]]]></EndpointProperties>
+      <ResponseHeaders><![CDATA[[{"Name":"Accept-Ranges","Value":"bytes"},{"Name":"Cache-Control","Value":"no-cache"},{"Name":"Content-Length","Value":"79"},{"Name":"Content-Type","Value":"text/plain"},{"Name":"ETag","Value":"\u0022HO5WMIzCoJmeAoSs/4JIaC2VUF3vFEsRCdICD8WYsmM=\u0022"},{"Name":"Last-Modified","Value":"Wed, 09 Apr 2025 20:22:49 GMT"}]]]></ResponseHeaders>
+    </StaticWebAssetEndpoint>
     <StaticWebAssetEndpoint Include="_content/BBQHub/BBQHub.bundle.scp.css">
       <AssetFile>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\BBQHub.v3fomq3m1a.bundle.scp.css'))</AssetFile>
       <Selectors><![CDATA[[]]]></Selectors>

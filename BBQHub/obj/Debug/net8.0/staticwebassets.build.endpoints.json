@@ -3,6 +3,88 @@
   "ManifestType": "Build",
   "Endpoints": [
     {
+      "Route": ".well-known/security.kc28c2khje.txt",
+      "AssetFile": ".well-known/security.txt",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "79"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/plain"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"HO5WMIzCoJmeAoSs/4JIaC2VUF3vFEsRCdICD8WYsmM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 09 Apr 2025 20:22:49 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "kc28c2khje"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-HO5WMIzCoJmeAoSs/4JIaC2VUF3vFEsRCdICD8WYsmM="
+        },
+        {
+          "Name": "label",
+          "Value": ".well-known/security.txt"
+        }
+      ]
+    },
+    {
+      "Route": ".well-known/security.txt",
+      "AssetFile": ".well-known/security.txt",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "79"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/plain"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"HO5WMIzCoJmeAoSs/4JIaC2VUF3vFEsRCdICD8WYsmM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 09 Apr 2025 20:22:49 GMT"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-HO5WMIzCoJmeAoSs/4JIaC2VUF3vFEsRCdICD8WYsmM="
+        }
+      ]
+    },
+    {
       "Route": "BBQHub.styles.css",
       "AssetFile": "BBQHub.styles.css",
       "Selectors": [],

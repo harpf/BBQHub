@@ -61,6 +61,13 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
     serverOptions.AddServerHeader = false;
 });
 
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    options.CheckConsentNeeded = context => true; // Zeigt den Banner
+    options.MinimumSameSitePolicy = SameSiteMode.Lax;
+});
+
+
 
 var app = builder.Build();
 
@@ -90,6 +97,8 @@ else
     app.UseHsts();
 }
 
+app.UseCookiePolicy();
+
 app.Use(async (context, next) =>
 {
     context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
@@ -112,12 +121,12 @@ app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 
-app.Use(async (context, next) =>
-{
-    context.Response.Headers.Add("Content-Security-Policy",
-        "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;");
-    await next();
-});
+//app.Use(async (context, next) =>
+//{
+//    context.Response.Headers.Add("Content-Security-Policy",
+//        "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;");
+//    await next();
+//});
 
 app.Use(async (context, next) =>
 {
