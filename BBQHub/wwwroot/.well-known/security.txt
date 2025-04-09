@@ -1,0 +1,2 @@
+﻿Contact: mailto:security@swissbarbecue.ch
+Expires: 2025-12-31T23:59:00.000Z

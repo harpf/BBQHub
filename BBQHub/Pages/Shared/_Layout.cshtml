@@ -1,7 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.Identity
+@using BBQHub.Domain.Entities
+@using Microsoft.Extensions.Options
+@using BBQHub.Application.Common.Models;
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+@inject IOptions<SeoOptions> SeoOptions
 
 @{
     var user = User;
@@ -14,6 +18,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="keywords" content="@SeoOptions.Value.DefaultKeywords" />
     <title>@ViewData["Title"] - BBQHub</title>
 
     <script src="https://cdn.tailwindcss.com"></script>

@@ -33,7 +33,9 @@
             </thead>
             <tbody>
                 @{
-                    var datensätze = istSpontan ? Model.SpontanTeilnahmen.Cast<object>() : Model.Teams.Cast<object>();
+                    var datensätze = istSpontan
+                        ? Model.SpontanTeilnahmen.Where(t => t.DurchgangId == durchgang.Id).Cast<object>()
+                        : Model.Teams.Cast<object>();
                 }
 
                 @foreach (var eintrag in datensätze)
