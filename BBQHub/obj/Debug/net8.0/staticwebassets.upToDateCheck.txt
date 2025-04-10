@@ -1,3 +1,4 @@
+wwwroot\.well-known\security.txt
 wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\icons\android-icon-192x192.png

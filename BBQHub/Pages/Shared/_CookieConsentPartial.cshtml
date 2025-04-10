@@ -1,0 +1,25 @@
+﻿@{
+    var showBanner = !Context.Request.Cookies.ContainsKey("CookieConsent");
+}
+
+@if (showBanner)
+{
+    <div id="cookieConsent" class="fixed bottom-0 left-0 w-full bg-zinc-900 text-white z-50 shadow-lg">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="text-sm sm:text-base leading-relaxed">
+                🔥 Diese Website verwendet Cookies, um dir das beste Grillerlebnis zu bieten.
+                <a href="/Datenschutz" class="text-orange-400 underline hover:text-orange-300 transition">Mehr erfahren</a>
+            </div>
+            <button onclick="acceptCookies()" class="bg-orange-600 hover:bg-orange-700 text-white font-semibold px-5 py-2 rounded shadow transition">
+                🍪 Akzeptieren
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function acceptCookies() {
+            document.cookie = "CookieConsent=true; path=/; max-age=" + 60 * 60 * 24 * 365;
+            document.getElementById("cookieConsent").style.display = "none";
+        }
+    </script>
+}

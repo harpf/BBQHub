@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "FLTYCeSqg9tecQvP8Vl1+BpFllA5mmjnH9pZxUK6mWw=",
+  "Hash": "wREPZLDyrw47m6IOAK1kwmhwrX+xynbEQ+2LzTeaPlY=",
   "Source": "BBQHub",
   "BasePath": "_content/BBQHub",
   "Mode": "Default",
@@ -1317,6 +1317,27 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BBQHub.bundle.scp.css"
+    },
+    {
+      "Identity": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\.well-known\\security.txt",
+      "SourceId": "BBQHub",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\",
+      "BasePath": "_content/BBQHub",
+      "RelativePath": ".well-known/security#[.{fingerprint}]?.txt",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "Fingerprint": "kc28c2khje",
+      "Integrity": "HO5WMIzCoJmeAoSs/4JIaC2VUF3vFEsRCdICD8WYsmM=",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\.well-known\\security.txt"
     },
     {
       "Identity": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\css\\site.css",
@@ -2895,6 +2916,88 @@
     }
   ],
   "Endpoints": [
+    {
+      "Route": ".well-known/security.kc28c2khje.txt",
+      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\.well-known\\security.txt",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "79"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/plain"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"HO5WMIzCoJmeAoSs/4JIaC2VUF3vFEsRCdICD8WYsmM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 09 Apr 2025 20:22:49 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "kc28c2khje"
+        },
+        {
+          "Name": "label",
+          "Value": ".well-known/security.txt"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-HO5WMIzCoJmeAoSs/4JIaC2VUF3vFEsRCdICD8WYsmM="
+        }
+      ]
+    },
+    {
+      "Route": ".well-known/security.txt",
+      "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\wwwroot\\.well-known\\security.txt",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "79"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "text/plain"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"HO5WMIzCoJmeAoSs/4JIaC2VUF3vFEsRCdICD8WYsmM=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 09 Apr 2025 20:22:49 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "no-cache"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-HO5WMIzCoJmeAoSs/4JIaC2VUF3vFEsRCdICD8WYsmM="
+        }
+      ]
+    },
     {
       "Route": "BBQHub.bundle.scp.css",
       "AssetFile": "D:\\05_Programmingstuff\\03_DotNet\\BBQHub\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BBQHub.bundle.scp.css",
