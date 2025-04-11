@@ -8,6 +8,8 @@ using BBQHub.Hubs;
 using QuestPDF.Infrastructure;
 using BBQHub.Infrastructure.PDF;
 using BBQHub.Domain.Entities;
+using Serilog;
+using Serilog.Events;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +28,22 @@ QuestPDF.Settings.License = LicenseType.Community;
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Information()
+    .WriteTo.Console()
+    .WriteTo.MSSqlServer(
+        connectionString: builder.Configuration.GetConnectionString("DefaultConnection"),
+        sinkOptions: new Serilog.Sinks.MSSqlServer.MSSqlServerSinkOptions
+        {
+            TableName = "Logs",
+            AutoCreateSqlTable = true
+        })
+    .Enrich.FromLogContext()
+    .CreateLogger();
+
+builder.Host.UseSerilog();
+builder.Services.AddTransient<IEmailSender, EmailSender>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
@@ -55,6 +73,7 @@ builder.Services.AddScoped<IJurorService, JurorService>();
 builder.Services.AddScoped<IExportService, ExportService>();
 
 builder.Services.AddSignalR();
+builder.Services.AddScoped<IEmailSender, EmailSender>();
 
 builder.WebHost.ConfigureKestrel(serverOptions =>
 {
@@ -101,10 +120,9 @@ app.UseCookiePolicy();
 
 app.Use(async (context, next) =>
 {
-    context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+    context.Response.Headers["X-Content-Type-Options"] = "nosniff";
     await next();
 });
-
 
 app.MapGet("/api/validate/juryid/{id:int}", async (int id, ApplicationDbContext db) =>
 {
@@ -134,10 +152,12 @@ app.Use(async (context, next) =>
     await next();
 });
 
-
 app.Use(async (context, next) =>
 {
-    context.Response.Headers.Add("Referrer-Policy", "no-referrer");
+    context.Response.Headers["X-Content-Type-Options"] = "nosniff";
+    context.Response.Headers["Referrer-Policy"] = "no-referrer";
+    context.Response.Headers["X-Frame-Options"] = "DENY";
+    context.Response.Headers["X-XSS-Protection"] = "1; mode=block";
     await next();
 });
 

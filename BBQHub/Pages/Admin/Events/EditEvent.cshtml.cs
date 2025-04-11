@@ -181,10 +181,19 @@ namespace BBQHub.Pages.Admin.Events
         }
         public async Task<IActionResult> OnPostLoeschenTeilnehmerAsync(int TeilnehmerId)
         {
-            var t = await _context.spontanTeilnahmen.FindAsync(TeilnehmerId);
+            var t = await _context.spontanTeilnahmen
+                .Include(x => x.Durchgang)
+                .FirstOrDefaultAsync(x => x.Id == TeilnehmerId);
+
             if (t == null) return NotFound();
 
+            var bewertungen = await _context.Bewertungen
+                .Where(b => b.SpontanTeilnahmeId == TeilnehmerId)
+                .ToListAsync();
+
+            _context.Bewertungen.RemoveRange(bewertungen);
             _context.spontanTeilnahmen.Remove(t);
+
             await _context.SaveChangesAsync();
 
             return RedirectToPage(new { id = Input.Id });

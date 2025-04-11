@@ -27,7 +27,7 @@ namespace BBQHub.Pages.Juror
 
         public List<string> AvailableCountries { get; set; } = new()
         {
-            "Schweiz", "Deutschland", "Österreich", "Italien", "Frankreich"
+            "Schweiz", "Deutschland", "Oesterreich", "Italien", "Frankreich"
         };
 
         public async Task<IActionResult> OnPostSubmitAsync()

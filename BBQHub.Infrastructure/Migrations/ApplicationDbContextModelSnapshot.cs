@@ -284,6 +284,64 @@ namespace BBQHub.Infrastructure.Migrations
                     b.ToTable("Kriterien");
                 });
 
+            modelBuilder.Entity("BBQHub.Domain.Entities.LogEntry", b =>
+                {
+                    b.Property<string>("Exception")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Level")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Properties")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("TimeStamp")
+                        .HasColumnType("datetime2");
+
+                    b.ToTable("Logs", null, t =>
+                        {
+                            t.ExcludeFromMigrations();
+                        });
+                });
+
+            modelBuilder.Entity("BBQHub.Domain.Entities.SmtpSettings", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ClientId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ClientSecret")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SenderEmail")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TenantId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TestEmpfaengerEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SmtpSettings");
+                });
+
             modelBuilder.Entity("BBQHub.Domain.Entities.SpontanTeilnahme", b =>
                 {
                     b.Property<int>("Id")
@@ -673,11 +731,13 @@ namespace BBQHub.Infrastructure.Migrations
 
             modelBuilder.Entity("BBQHub.Domain.Entities.Kriterium", b =>
                 {
-                    b.HasOne("BBQHub.Domain.Entities.Durchgang", null)
+                    b.HasOne("BBQHub.Domain.Entities.Durchgang", "Durchgang")
                         .WithMany("Kriterien")
                         .HasForeignKey("DurchgangId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Durchgang");
                 });
 
             modelBuilder.Entity("BBQHub.Domain.Entities.SpontanTeilnahme", b =>

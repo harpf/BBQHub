@@ -1,0 +1,48 @@
+﻿@page
+@model BBQHub.Pages.Admin.SmtpSettingsModel
+@{
+    ViewData["Title"] = "SMTP-Einstellungen";
+}
+
+<h1 class="text-2xl font-bold text-orange-500 mb-6">📨 SMTP / OAuth2 Einstellungen</h1>
+
+<!-- Erfolg oder Fehlermeldung -->
+@if (TempData["Message"] != null)
+{
+    <div class="alert bg-orange-500 text-white p-4 rounded">
+        @TempData["Message"]
+    </div>
+}
+
+<!-- Formular für die SMTP-Einstellungen -->
+<form method="post" class="space-y-4 max-w-xl bg-white p-6 rounded shadow text-black">
+    <div>
+        <label class="block font-semibold mb-1">Client ID</label>
+        <input asp-for="Input.ClientId" class="w-full p-2 border rounded" />
+    </div>
+    <div>
+        <label class="block font-semibold mb-1">Tenant ID</label>
+        <input asp-for="Input.TenantId" class="w-full p-2 border rounded" />
+    </div>
+    <div>
+        <label class="block font-semibold mb-1">Client Secret</label>
+        <input asp-for="Input.ClientSecret" type="password" class="w-full p-2 border rounded" />
+    </div>
+    <div>
+        <label class="block font-semibold mb-1">Absenderadresse</label>
+        <input asp-for="Input.SenderEmail" type="email" class="w-full p-2 border rounded" />
+    </div>
+
+    <!-- Eingabefeld für Test-Empfängeradresse -->
+    <div>
+        <label class="block font-semibold mb-1">Test-Empfängeradresse</label>
+        <input asp-for="TestEmpfaengerEmail" type="email" class="w-full p-2 border rounded" />
+        <small class="text-gray-500">Geben Sie die E-Mail-Adresse ein, an die die Testmail gesendet werden soll.</small>
+    </div>
+
+    <!-- Speichern Button mit asp-page-handler -->
+    <button type="submit" asp-page-handler="Save" class="bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700">💾 Speichern</button>
+
+    <!-- Testmail Button mit asp-page-handler -->
+    <button type="submit" asp-page-handler="SendTest" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">🔑 Test-E-Mail senden</button>
+</form>

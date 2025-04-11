@@ -8,7 +8,7 @@ namespace BBQHub.Domain.Entities
 {
     public class SeoOptions
     {
-        public string DefaultKeywords { get; set; }
+        public string DefaultKeywords { get; set; } = string.Empty;
     }
 
 }

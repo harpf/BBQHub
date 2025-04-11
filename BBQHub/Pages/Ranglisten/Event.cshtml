@@ -108,7 +108,6 @@
                 {
                     var e = entry.Data;
                     var isTopSauce = e.Sauce == maxSauce;
-                    var highlight = "bg-yellow-400 text-black";
                     var sauceHighlight = isTopSauce ? "bg-green-400 text-black font-bold" : "";
 
                     <tr class="border-b border-zinc-700 hover:bg-zinc-900 transition">
@@ -190,57 +189,110 @@
                     }
                 </thead>
                 <tbody>
-                    @foreach (var item in Model.Teams
-                   .OrderByDescending(t => streichAktiv
-                   ? Model.PunkteMitStreichresultat[t.Id].GetValueOrDefault(dg.Id)
-                   : Model.PunkteProDurchgang[t.Id].GetValueOrDefault(dg.Id))
-                   .Select((t, index) => new { Team = t, Platz = index + 1 }))
+                    @if (istSpontan)
                     {
-                        var teamId = item.Team.Id;
-                        var auswertungen = Model.KriteriumAuswertungen.GetValueOrDefault((teamId, dg.Id));
+                        var teilnehmerInDurchgang = Model.Teilnehmer
+                        .Where(t => t.DurchgangId == dg.Id)
+                        .OrderByDescending(t => Model.PunkteProDurchgang[t.Id].GetValueOrDefault(dg.Id))
+                        .Select((t, index) => new { Team = t, Platz = index + 1 });
 
-                        <tr class="border-b border-zinc-700 hover:bg-zinc-900 transition">
-                            <td class="p-2 font-bold text-left">@item.Platz</td>
-                            <td class="p-2 font-semibold text-left">
-                                @(istSpontan
-                                    ? Model.TeilnehmerNamen.GetValueOrDefault(teamId, "Unbekannt")
-                                    : item.Team.Name)
-                            </td>
+                        foreach (var item in teilnehmerInDurchgang)
+                        {
+                            var teamId = item.Team.Id;
+                            var auswertungen = Model.KriteriumAuswertungen.GetValueOrDefault((teamId, dg.Id));
 
-                            @foreach (var kriterium in kriterienWertung)
-                            {
-                                var auswertung = auswertungen?.FirstOrDefault(k => k.KriteriumName == kriterium.Name);
-                                <td class="p-2">
-                                    @if (auswertung != null)
-                                    {
-                                        <span class="text-white font-medium">@auswertung.VergebenePunkte</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="text-zinc-500 italic">–</span>
-                                    }
+                            <tr class="border-b border-zinc-700 hover:bg-zinc-900 transition">
+                                <td class="p-2 font-bold text-left">@item.Platz</td>
+                                <td class="p-2 font-semibold text-left">
+                                    @Model.TeilnehmerNamen.GetValueOrDefault(teamId, "Unbekannt")
                                 </td>
-                            }
 
-                            @foreach (var kriterium in kriterienOptional)
-                            {
-                                var auswertung = auswertungen?.FirstOrDefault(k => k.KriteriumName == kriterium.Name);
-                                <td class="p-2 bg-zinc-700 text-yellow-200">
-                                    @if (auswertung != null)
-                                    {
-                                        <span>@auswertung.VergebenePunkte</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="text-zinc-400 italic">–</span>
-                                    }
+                                @foreach (var kriterium in kriterienWertung)
+                                {
+                                    var auswertung = auswertungen?.FirstOrDefault(k => k.KriteriumName == kriterium.Name);
+                                    <td class="p-2">
+                                        @if (auswertung != null)
+                                        {
+                                            <span class="text-white font-medium">@auswertung.VergebenePunkte</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-zinc-500 italic">–</span>
+                                        }
+                                    </td>
+                                }
+
+                                @foreach (var kriterium in kriterienOptional)
+                                {
+                                    var auswertung = auswertungen?.FirstOrDefault(k => k.KriteriumName == kriterium.Name);
+                                    <td class="p-2 bg-zinc-700 text-yellow-200">
+                                        @if (auswertung != null)
+                                        {
+                                            <span>@auswertung.VergebenePunkte</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-zinc-400 italic">–</span>
+                                        }
+                                    </td>
+                                }
+
+                                <td class="p-2 font-semibold text-orange-300">
+                                    @Model.PunkteProDurchgang[teamId].GetValueOrDefault(dg.Id).ToString("0.0")
                                 </td>
-                            }
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        foreach (var item in Model.Teams
+                        .OrderByDescending(t => streichAktiv
+                        ? Model.PunkteMitStreichresultat[t.Id].GetValueOrDefault(dg.Id)
+                        : Model.PunkteProDurchgang[t.Id].GetValueOrDefault(dg.Id))
+                        .Select((t, index) => new { Team = t, Platz = index + 1 }))
+                        {
+                            var teamId = item.Team.Id;
+                            var auswertungen = Model.KriteriumAuswertungen.GetValueOrDefault((teamId, dg.Id));
 
-                            <td class="p-2 font-semibold text-orange-300">
-                                @Model.PunkteProDurchgang[teamId].GetValueOrDefault(dg.Id).ToString("0.0")
-                            </td>
-                        </tr>
+                            <tr class="border-b border-zinc-700 hover:bg-zinc-900 transition">
+                                <td class="p-2 font-bold text-left">@item.Platz</td>
+                                <td class="p-2 font-semibold text-left">@item.Team.Name</td>
+
+                                @foreach (var kriterium in kriterienWertung)
+                                {
+                                    var auswertung = auswertungen?.FirstOrDefault(k => k.KriteriumName == kriterium.Name);
+                                    <td class="p-2">
+                                        @if (auswertung != null)
+                                        {
+                                            <span class="text-white font-medium">@auswertung.VergebenePunkte</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-zinc-500 italic">–</span>
+                                        }
+                                    </td>
+                                }
+
+                                @foreach (var kriterium in kriterienOptional)
+                                {
+                                    var auswertung = auswertungen?.FirstOrDefault(k => k.KriteriumName == kriterium.Name);
+                                    <td class="p-2 bg-zinc-700 text-yellow-200">
+                                        @if (auswertung != null)
+                                        {
+                                            <span>@auswertung.VergebenePunkte</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-zinc-400 italic">–</span>
+                                        }
+                                    </td>
+                                }
+
+                                <td class="p-2 font-semibold text-orange-300">
+                                    @Model.PunkteProDurchgang[teamId].GetValueOrDefault(dg.Id).ToString("0.0")
+                                </td>
+                            </tr>
+                        }
                     }
                 </tbody>
             </table>

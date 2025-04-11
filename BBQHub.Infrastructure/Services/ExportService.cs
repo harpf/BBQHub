@@ -314,7 +314,7 @@ public class ExportService : IExportService
                                 header.Cell().Text("#").Bold();
                                 header.Cell().Text("Teilnehmer").Bold();
                                 foreach (var kriterium in kriterien)
-                                    header.Cell().Text(kriterium.Name).Bold().FontSize(10).LineHeight(1).WrapAnywhere(false);
+                                    header.Cell().Text(kriterium.Name).Bold().FontSize(10).LineHeight(1);
                                 header.Cell().Text("Total").Bold();
                                 header.Cell().Text(eventData.EnableStreichresultate ? "Strichbenotung" : "Gewichtet").Bold();
                             });

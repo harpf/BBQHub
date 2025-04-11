@@ -56,8 +56,7 @@ namespace BBQHub.Pages.Ranglisten
             if (IstSpontanEvent)
             {
                 Teilnehmer = await _context.spontanTeilnahmen
-                    .Where(t => durchgangIds.Contains(t.DurchgangId))
-                    .Include(t => t.Durchgang)
+                    .Where(t => t.Durchgang.EventId == Id)
                     .ToListAsync();
 
                 var teilnehmerIds = Teilnehmer.Select(t => t.Id).ToList();

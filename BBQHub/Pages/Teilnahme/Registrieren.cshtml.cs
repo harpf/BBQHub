@@ -182,30 +182,30 @@ namespace BBQHub.Pages.Teilnahme
             if (durchgang == null || durchgang.Event == null)
                 return NotFound();
 
-            var ev = durchgang.Event;
+            //var ev = durchgang.Event;
 
-            var pdfModel = new TeilnahmePdfData
-            {
-                EventName = ev.Name,
-                EventStandort = $"{ev.Street}, {ev.ZipCode} {ev.City}",
-                EventDatum = ev.StartDate.ToString("dd.MM.yyyy"),
-                EventMenue = ev.Menue ?? "",
-                Vorname = Vorname,
-                Nachname = Nachname,
-                Adresse = Street,
-                PLZ = ZipCode,
-                Ort = City,
-                Land = Country,
-                Email = Email,
-                Telefonnummer = Telefonnummer,
-                DatenschutzerklaerungUnterschrift = DatenschutzUnterschrift,
-                DatenschutzerklaerungDatum = DatenschutzDatum,
-                TeilnahmeUnterschrift = UnterschriftBild,
-                TeilnahmeDatum = DateTime.Now,
-                LogoVeranstalter = ev.Logos.FirstOrDefault(l => l.Type == LogoType.Veranstalter && l.IsActive)?.FilePath,
-                LogoHauptsponsor = ev.Logos.FirstOrDefault(l => l.Type == LogoType.Hauptsponsor && l.IsActive)?.FilePath,
-                LogoNebensponsor = ev.Logos.FirstOrDefault(l => l.Type == LogoType.Nebensponsor && l.IsActive)?.FilePath
-            };
+            //var pdfModel = new TeilnahmePdfData
+            //{
+            //    EventName = ev.Name,
+            //    EventStandort = $"{ev.Street}, {ev.ZipCode} {ev.City}",
+            //    EventDatum = ev.StartDate.ToString("dd.MM.yyyy"),
+            //    EventMenue = ev.Menue ?? "",
+            //    Vorname = Vorname,
+            //    Nachname = Nachname,
+            //    Adresse = Street,
+            //    PLZ = ZipCode,
+            //    Ort = City,
+            //    Land = Country,
+            //    Email = Email,
+            //    Telefonnummer = Telefonnummer,
+            //    DatenschutzerklaerungUnterschrift = DatenschutzUnterschrift,
+            //    DatenschutzerklaerungDatum = DatenschutzDatum,
+            //    TeilnahmeUnterschrift = UnterschriftBild,
+            //    TeilnahmeDatum = DateTime.Now,
+            //    LogoVeranstalter = ev.Logos.FirstOrDefault(l => l.Type == LogoType.Veranstalter && l.IsActive)?.FilePath,
+            //    LogoHauptsponsor = ev.Logos.FirstOrDefault(l => l.Type == LogoType.Hauptsponsor && l.IsActive)?.FilePath,
+            //    LogoNebensponsor = ev.Logos.FirstOrDefault(l => l.Type == LogoType.Nebensponsor && l.IsActive)?.FilePath
+            //};
 
             if (!exists)
             {
