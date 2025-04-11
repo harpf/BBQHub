@@ -107,6 +107,41 @@ else
                             Durchgang @d.Durchgangsnummer: @d.Name
                         </h3>
 
+                        <!-- Teilnehmerlimitierung für Spontan-Events -->
+                        <div class="space-y-6">
+                            <form method="post" asp-page-handler="SpeichernMaxTeilnehmer" class="bg-zinc-900 p-5 rounded-lg shadow-md">
+                                <input type="hidden" name="durchgangId" value="@d.Id" />
+
+                                <!-- Eingabe + aktuelle Limitierung -->
+                                <div class="grid md:grid-cols-3 gap-4 items-start">
+                                    <div class="md:col-span-2">
+                                        <label class="block text-sm font-medium mb-2">Maximale Teilnehmeranzahl</label>
+                                        <input name="maxTeilnehmer" type="number" min="0"
+                                               value="@(d.MaxTeilnehmer?.ToString() ?? "")"
+                                               class="w-full p-3 rounded-lg bg-zinc-700 border border-zinc-600"
+                                               placeholder="Keine Begrenzung" />
+                                        <small class="text-gray-400 block mt-2">Lassen Sie das Feld leer, um keine Begrenzung zu setzen.</small>
+                                    </div>
+
+                                    <div class="text-sm text-orange-400 mt-1">
+                                        <span class="block font-medium">Aktuelle Limitierung:</span>
+                                        <span class="text-lg font-semibold">
+                                            @(d.MaxTeilnehmer.HasValue ? d.MaxTeilnehmer.ToString() : "Keine")
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Speichern Button -->
+                                <div class="mt-6 text-right">
+                                    <button type="submit"
+                                            class="bg-orange-600 hover:bg-orange-700 text-white px-6 py-2 rounded-lg font-semibold shadow transition">
+                                        🖊️ Änderungen speichern
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Teilnehmerübersicht -->
                         @if (teilnehmer.Any())
                         {
                             <div class="overflow-x-auto rounded-lg border border-zinc-700">
@@ -129,6 +164,7 @@ else
                                                 <td class="p-3">@t.Email</td>
                                                 <td class="p-3">@t.Telefonnummer</td>
                                                 <td class="p-3 space-x-2">
+                                                    <!-- Teilnehmer löschen -->
                                                     <form method="post" asp-page-handler="LoeschenTeilnehmer" class="inline-block"
                                                           onsubmit="return confirm('Teilnehmer wirklich löschen?');">
                                                         <input type="hidden" name="TeilnehmerId" value="@t.Id" />
@@ -137,6 +173,7 @@ else
                                                         </button>
                                                     </form>
 
+                                                    <!-- Teilnehmer verschieben -->
                                                     <form method="post" asp-page-handler="VerschiebenTeilnehmer" class="inline-block">
                                                         <input type="hidden" name="TeilnehmerId" value="@t.Id" />
                                                         <select name="NeuerDurchgangId"

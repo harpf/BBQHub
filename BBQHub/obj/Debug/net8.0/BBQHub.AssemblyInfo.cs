@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BBQHub")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e3f6524d7744a43167a1a146674062d86680ef94")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4edf72abcf0f7f835e4878a660c8df6b8517bab2")]
 [assembly: System.Reflection.AssemblyProductAttribute("BBQHub")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BBQHub")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

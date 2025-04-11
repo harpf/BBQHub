@@ -1,24 +1,38 @@
 ﻿@page
 @model PersonalDataModel
 @{
-    ViewData["Title"] = "Personal Data";
+    ViewData["Title"] = "Persönliche Daten";
     ViewData["ActivePage"] = ManageNavPages.PersonalData;
 }
 
-<h3>@ViewData["Title"]</h3>
+<h1 class="text-2xl font-bold mb-6 text-orange-500">📁 Persönliche Daten verwalten</h1>
 
-<div class="row">
-    <div class="col-md-6">
-        <p>Your account contains personal data that you have given us. This page allows you to download or delete that data.</p>
-        <p>
-            <strong>Deleting this data will permanently remove your account, and this cannot be recovered.</strong>
-        </p>
-        <form id="download-data" asp-page="DownloadPersonalData" method="post">
-            <button class="btn btn-primary" type="submit">Download</button>
-        </form>
-        <p>
-            <a id="delete" asp-page="DeletePersonalData" class="btn btn-danger">Delete</a>
-        </p>
+<div class="bg-zinc-800 p-6 rounded-xl shadow max-w-xl text-white space-y-6">
+    <p class="text-sm">
+        Dein Konto enthält persönliche Daten, die du uns zur Verfügung gestellt hast.
+        Auf dieser Seite kannst du diese Daten herunterladen oder dein Konto vollständig löschen.
+    </p>
+
+    <div class="bg-yellow-100 text-yellow-900 p-4 rounded shadow text-sm">
+        ⚠️ <strong>Achtung:</strong> Wenn du dein Konto löschst, werden <u>alle Daten unwiderruflich entfernt</u>.
+        Diese Aktion kann nicht rückgängig gemacht werden!
+    </div>
+
+    <!-- Download-Button -->
+    <form id="download-data" asp-page="DownloadPersonalData" method="post">
+        <button type="submit"
+                class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-semibold shadow">
+            ⬇️ Persönliche Daten herunterladen
+        </button>
+    </form>
+
+    <!-- Delete-Link -->
+    <div>
+        <a id="delete"
+           asp-page="DeletePersonalData"
+           class="block text-center w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded font-semibold shadow">
+            🗑️ Konto & Daten unwiderruflich löschen
+        </a>
     </div>
 </div>
 

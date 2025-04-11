@@ -4,22 +4,44 @@
 
 @if (showBanner)
 {
-    <div id="cookieConsent" class="fixed bottom-0 left-0 w-full bg-zinc-900 text-white z-50 shadow-lg">
-        <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
-            <div class="text-sm sm:text-base leading-relaxed">
-                🔥 Diese Website verwendet Cookies, um dir das beste Grillerlebnis zu bieten.
+    <div id="cookieConsent"
+         class="fixed bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 z-50 bg-zinc-900 text-white rounded-xl shadow-lg border border-zinc-700 animate-fadeIn">
+
+        <div class="max-w-6xl mx-auto px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+
+            <!-- 🍖 Text -->
+            <div class="text-sm sm:text-base leading-relaxed text-gray-200 flex-1">
+                🍖 <strong class="text-orange-400">Hinweis zu Cookies:</strong> BBQHub verwendet Cookies,
+                um dir das beste Grillerlebnis zu bieten.
                 <a href="/Datenschutz" class="text-orange-400 underline hover:text-orange-300 transition">Mehr erfahren</a>
             </div>
-            <button onclick="acceptCookies()" class="bg-orange-600 hover:bg-orange-700 text-white font-semibold px-5 py-2 rounded shadow transition">
-                🍪 Akzeptieren
-            </button>
+
+            <!-- 🍪 Buttons -->
+            <div class="flex gap-2 flex-wrap justify-end">
+                <button onclick="acceptEssentialCookies()"
+                        class="bg-zinc-700 hover:bg-zinc-600 text-white font-semibold px-5 py-2 rounded-lg shadow transition">
+                    ⚙️ Nur notwendige
+                </button>
+                <button onclick="acceptAllCookies()"
+                        class="bg-orange-600 hover:bg-orange-700 text-white font-semibold px-5 py-2 rounded-lg shadow transition">
+                    🍪 Alle akzeptieren
+                </button>
+            </div>
         </div>
     </div>
 
+    @* Inline CSS korrekt eingebettet *@
+    @Html.Raw("<style>@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } } .animate-fadeIn { animation: fadeIn 0.4s ease-out; }</style>")
+
     <script>
-        function acceptCookies() {
-            document.cookie = "CookieConsent=true; path=/; max-age=" + 60 * 60 * 24 * 365;
-            document.getElementById("cookieConsent").style.display = "none";
+        function acceptEssentialCookies() {
+            document.cookie = "CookieConsent=essential; path=/; max-age=" + 60 * 60 * 24 * 365;
+            document.getElementById("cookieConsent").remove();
+        }
+
+        function acceptAllCookies() {
+            document.cookie = "CookieConsent=all; path=/; max-age=" + 60 * 60 * 24 * 365;
+            document.getElementById("cookieConsent").remove();
         }
     </script>
 }

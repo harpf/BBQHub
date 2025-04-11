@@ -15,18 +15,27 @@
        !string.IsNullOrEmpty(Model.LogoHauptsponsor) ||
        !string.IsNullOrEmpty(Model.LogoNebensponsor))
         {
-            <div class="flex justify-between items-center gap-4 mb-6">
+            <div class="flex gap-6 mb-6 w-full items-stretch">
                 @if (!string.IsNullOrEmpty(Model.LogoVeranstalter))
                 {
-                    <img src="@Model.LogoVeranstalter" alt="Veranstalter" class="h-20 object-contain" />
+                    <div class="flex-1 flex items-center justify-center">
+                        <img src="@Model.LogoVeranstalter" alt="Veranstalter"
+                             class="w-full h-auto max-h-32 object-contain" />
+                    </div>
                 }
                 @if (!string.IsNullOrEmpty(Model.LogoHauptsponsor))
                 {
-                    <img src="@Model.LogoHauptsponsor" alt="Hauptsponsor" class="h-20 object-contain" />
+                    <div class="flex-1 flex items-center justify-center">
+                        <img src="@Model.LogoHauptsponsor" alt="Hauptsponsor"
+                             class="w-full h-auto max-h-32 object-contain" />
+                    </div>
                 }
                 @if (!string.IsNullOrEmpty(Model.LogoNebensponsor))
                 {
-                    <img src="@Model.LogoNebensponsor" alt="Nebensponsor" class="h-20 object-contain" />
+                    <div class="flex-1 flex items-center justify-center">
+                        <img src="@Model.LogoNebensponsor" alt="Nebensponsor"
+                             class="w-full h-auto max-h-32 object-contain" />
+                    </div>
                 }
             </div>
         }
@@ -34,7 +43,7 @@
         <div class="bg-white p-4 rounded shadow mb-6">
             <p><strong>Vorausscheidung:</strong> @Model.EventStandort</p>
             <p><strong>Datum:</strong> @Model.EventDatum.ToString("dd.MM.yyyy")</p>
-            <p><strong>Menü:</strong> @Model.EventMenue</p>
+            <p hidden><strong>Menü:</strong> @Model.EventMenue</p>
             <p><strong>Juriert durch:</strong> Swiss Barbecue Association</p>
         </div>
 
@@ -42,7 +51,7 @@
         <div>
             <label class="block text-sm font-semibold mb-1">Laufnummer <span class="text-red-500">*</span></label>
             <select asp-for="SelectedDurchgangId" asp-items="Model.Durchgaenge" class="w-full p-2 rounded border" id="SelectedDurchgangId" required>
-                <option value="">Bitte Lauf auswählen</option>
+                <!--<option value="">Bitte Lauf auswählen</option>-->
             </select>
         </div>
 

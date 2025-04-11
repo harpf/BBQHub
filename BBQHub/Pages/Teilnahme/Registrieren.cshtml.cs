@@ -1,4 +1,4 @@
-using BBQHub.Domain.Entities;
+Ôªøusing BBQHub.Domain.Entities;
 using BBQHub.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -92,15 +92,38 @@ namespace BBQHub.Pages.Teilnahme
             LogoHauptsponsor = ev.Logos.FirstOrDefault(l => l.Type == LogoType.Hauptsponsor && l.IsActive)?.FilePath;
             LogoNebensponsor = ev.Logos.FirstOrDefault(l => l.Type == LogoType.Nebensponsor && l.IsActive)?.FilePath;
 
+            var durchgangIds = ev.Durchgaenge.Select(d => d.Id).ToList();
+            var teilnehmerProDurchgang = await _context.spontanTeilnahmen
+                .Where(t => durchgangIds.Contains(t.DurchgangId))
+                .GroupBy(t => t.DurchgangId)
+                .Select(g => new { DurchgangId = g.Key, Count = g.Count() })
+                .ToDictionaryAsync(g => g.DurchgangId, g => g.Count);
+
+            // ‚ùó Dropdown zusammenbauen mit Limitpr√ºfung
             Durchgaenge = ev.Durchgaenge
                 .OrderBy(d => d.Durchgangsnummer)
-                .Select(d => new SelectListItem
+                .Select(d =>
                 {
-                    Value = d.Id.ToString(),
-                    Text = $"Durchgang {d.Durchgangsnummer}: {d.Name}"
-                }).ToList();
+                    var currentCount = teilnehmerProDurchgang.TryGetValue(d.Id, out var c) ? c : 0;
+                    var isVoll = d.MaxTeilnehmer.HasValue && currentCount >= d.MaxTeilnehmer.Value;
 
-            // Daten von Datenschutz-Seite ¸bernehmen
+                    return new SelectListItem
+                    {
+                        Value = d.Id.ToString(),
+                        Text = $"Durchgang {d.Durchgangsnummer}: {d.Name}" + (isVoll ? " (VOLL)" : ""),
+                        Disabled = isVoll
+                    };
+                })
+                .ToList();
+            Durchgaenge.Insert(0, new SelectListItem
+            {
+                Value = "",
+                Text = "Bitte Lauf ausw√§hlen",
+                Disabled = false,
+                Selected = true
+            });
+
+            // Daten von Datenschutz-Seite √ºbernehmen
             if (TempData.TryGetValue("Vorname", out var v)) Vorname = v?.ToString() ?? "";
             if (TempData.TryGetValue("Nachname", out var n)) Nachname = n?.ToString() ?? "";
             if (TempData.TryGetValue("DatenschutzUnterschrift", out var u)) DatenschutzUnterschrift = u?.ToString() ?? "";
@@ -116,13 +139,13 @@ namespace BBQHub.Pages.Teilnahme
         {
             if (SelectedDurchgangId <= 0 || string.IsNullOrWhiteSpace(Vorname) || string.IsNullOrWhiteSpace(Nachname))
             {
-                ModelState.AddModelError("", "Bitte alle Pflichtfelder ausf¸llen.");
+                ModelState.AddModelError("", "Bitte alle Pflichtfelder ausf√ºllen.");
                 return await OnGetAsync();
             }
 
             //if (string.IsNullOrWhiteSpace(DatenschutzUnterschrift))
             //{
-            //    ModelState.AddModelError("", "Du musst zuerst die Datenschutzerkl‰rung best‰tigen.");
+            //    ModelState.AddModelError("", "Du musst zuerst die Datenschutzerkl√§rung best√§tigen.");
             //    return await OnGetAsync();
             //}
 
@@ -175,12 +198,16 @@ namespace BBQHub.Pages.Teilnahme
             }
 
             var durchgang = await _context.Durchgaenge
-                    .Include(d => d.Event)
-                    .ThenInclude(e => e.Logos)
-                    .FirstOrDefaultAsync(d => d.Id == SelectedDurchgangId);
+                .Include(d => d.Event)
+                .ThenInclude(e => e.Logos)
+                .FirstOrDefaultAsync(d => d.Id == SelectedDurchgangId);
 
-            if (durchgang == null || durchgang.Event == null)
+            if (durchgang?.Event == null)
                 return NotFound();
+
+            var ev = durchgang.Event; // Non-null garantiert
+
+            var eventName = ev.Name;
 
             //var ev = durchgang.Event;
 
@@ -210,12 +237,12 @@ namespace BBQHub.Pages.Teilnahme
             if (!exists)
             {
                 //var pdfBytes = _pdfGenerator.Generate(pdfModel);
-                return RedirectToPage("/Teilnahme/Best‰tigung");
+                return RedirectToPage("/Teilnahme/Best√§tigung");
                 // return File(pdfBytes, "application/pdf", "Teilnahmeformular.pdf");
             }
             else
             {
-                return RedirectToPage("/Teilnahme/Best‰tigung");
+                return RedirectToPage("/Teilnahme/Best√§tigung");
             }
         }
     }

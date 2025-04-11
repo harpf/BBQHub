@@ -16,5 +16,6 @@ namespace BBQHub.Domain.Entities
         public List<Kriterium> Kriterien { get; set; } = new();
         public List<Bewertung> Bewertungen { get; set; } = new();
         public Event? Event { get; set; }
+        public int? MaxTeilnehmer { get; set; }
     }
 }

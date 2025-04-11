@@ -4,50 +4,81 @@
     ViewData["Title"] = "Datenschutz";
 }
 
-<section class="max-w-4xl mx-auto text-white">
-    <h1 class="text-3xl font-bold text-orange-500 mb-6">Datenschutzerklärung</h1>
+<section class="max-w-4xl mx-auto text-white p-6 bg-zinc-800 rounded-xl shadow space-y-6">
+    <h1 class="text-3xl font-bold text-orange-500">🔐 Datenschutzerklärung</h1>
 
-    <p class="mb-4">
-        Der Schutz deiner persönlichen Daten ist uns wichtig. In dieser Erklärung informieren wir dich darüber,
-        welche personenbezogenen Daten wir im Rahmen der Nutzung von BBQHub erheben, verarbeiten und speichern.
+    <p>
+        Der Schutz deiner persönlichen Daten ist uns ein wichtiges Anliegen. Auf dieser Seite erfährst du,
+        wie BBQHub mit deinen personenbezogenen Daten umgeht – transparent, sicher und gesetzeskonform.
     </p>
 
-    <h2 class="text-xl font-semibold mt-6 mb-2">1. Verantwortliche Stelle</h2>
-    <p class="mb-4">
-        Verantwortlich für die Datenverarbeitung in dieser Anwendung ist das BBQHub-Organisationsteam.
-        Bei Fragen zur Verarbeitung deiner Daten kannst du dich an die Administratoren wenden.
-    </p>
+    <div class="space-y-4">
+        <h2 class="text-xl font-semibold text-orange-400">1. Verantwortliche Stelle</h2>
+        <p>
+            Verantwortlich für die Datenverarbeitung im Rahmen von BBQHub ist das BBQHub-Organisationsteam.
+            Bei Fragen wende dich bitte an die Plattform-Administratoren.
+        </p>
+    </div>
 
-    <h2 class="text-xl font-semibold mt-6 mb-2">2. Erhebung und Verarbeitung von Daten</h2>
-    <p class="mb-4">
-        BBQHub speichert personenbezogene Daten ausschließlich zur Durchführung und Verwaltung von Events,
-        Bewertungen und Benutzerkonten. Dies betrifft unter anderem:
-    </p>
-    <ul class="list-disc ml-6 mb-4">
-        <li>Registrierungsdaten von Juroren</li>
-        <li>Bewertungen, die Juroren abgeben</li>
-        <li>Event- und Teamdaten</li>
-    </ul>
+    <div class="space-y-4">
+        <h2 class="text-xl font-semibold text-orange-400">2. Erhebung und Verarbeitung von Daten</h2>
+        <p>Wir erheben Daten ausschließlich für die Durchführung und Verwaltung unserer Events und Bewertungsverfahren:</p>
+        <ul class="list-disc list-inside text-gray-300">
+            <li>Registrierungsdaten von Juroren und Teams</li>
+            <li>Abgegebene Bewertungen</li>
+            <li>Teilnahmeinformationen bei spontanen Events</li>
+            <li>Technische Informationen (z. B. IP-Adresse, Zeitpunkt der Anmeldung)</li>
+        </ul>
+    </div>
 
-    <h2 class="text-xl font-semibold mt-6 mb-2">3. Weitergabe von Daten</h2>
-    <p class="mb-4">
-        Es erfolgt keine Weitergabe deiner personenbezogenen Daten an Dritte, es sei denn,
-        dies ist gesetzlich vorgeschrieben oder für die Durchführung des Events notwendig.
-    </p>
+    <div class="space-y-4">
+        <h2 class="text-xl font-semibold text-orange-400">3. Speicherung und Hosting</h2>
+        <p>
+            Die Plattform wird auf Servern innerhalb der EU gehostet. Alle Daten werden verschlüsselt übertragen
+            und unter Einhaltung gängiger Sicherheitsstandards gespeichert.
+        </p>
+    </div>
 
-    <h2 class="text-xl font-semibold mt-6 mb-2">4. Deine Rechte</h2>
-    <p class="mb-4">
-        Du hast das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung deiner Daten.
-        Wende dich dazu bitte an die Veranstalter oder Administratoren der Plattform.
-    </p>
+    <div class="space-y-4">
+        <h2 class="text-xl font-semibold text-orange-400">4. Verwendung von Cookies</h2>
+        <p>
+            BBQHub verwendet technisch notwendige Cookies, z. B. zur Authentifizierung während deiner Sitzung.
+            Es erfolgt keine Auswertung zu Werbezwecken oder Tracking durch Dritte.
+        </p>
+    </div>
 
-    <h2 class="text-xl font-semibold mt-6 mb-2">5. Änderungen dieser Erklärung</h2>
-    <p class="mb-4">
-        Wir behalten uns vor, diese Datenschutzerklärung anzupassen, um sie an neue rechtliche Anforderungen
-        oder Änderungen in der Anwendung anzupassen.
-    </p>
+    <div class="space-y-4">
+        <h2 class="text-xl font-semibold text-orange-400">5. Weitergabe von Daten</h2>
+        <p>
+            Eine Weitergabe deiner Daten an Dritte erfolgt nur:
+        </p>
+        <ul class="list-disc list-inside text-gray-300">
+            <li>wenn du ausdrücklich zustimmst</li>
+            <li>wenn dies für die Eventdurchführung notwendig ist</li>
+            <li>wenn wir gesetzlich dazu verpflichtet sind</li>
+        </ul>
+    </div>
 
-    <p class="mt-6 text-sm text-gray-400">
-        Letzte Aktualisierung: @DateTime.Now.ToString("dd.MM.yyyy")
+    <div class="space-y-4">
+        <h2 class="text-xl font-semibold text-orange-400">6. Deine Rechte</h2>
+        <p>Du hast jederzeit das Recht auf:</p>
+        <ul class="list-disc list-inside text-gray-300">
+            <li>Auskunft über deine gespeicherten Daten</li>
+            <li>Korrektur unrichtiger Daten</li>
+            <li>Löschung deiner Daten (z. B. über dein Benutzerkonto)</li>
+            <li>Einschränkung der Verarbeitung</li>
+        </ul>
+    </div>
+
+    <div class="space-y-4">
+        <h2 class="text-xl font-semibold text-orange-400">7. Änderungen dieser Erklärung</h2>
+        <p>
+            Diese Datenschutzerklärung kann bei Änderungen der Plattform oder rechtlicher Vorgaben angepasst werden.
+            Bitte informiere dich regelmäßig über den aktuellen Stand.
+        </p>
+    </div>
+
+    <p class="text-sm text-gray-400 mt-4">
+        📅 Letzte Aktualisierung: @DateTime.Now.ToString("dd.MM.yyyy")
     </p>
 </section>

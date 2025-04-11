@@ -26,6 +26,8 @@ namespace BBQHub.Pages.Admin.Events
         public Event Input { get; set; } = new();
         [BindProperty]
         public int SelectedTeamId { get; set; }
+        [BindProperty]
+        public int? MaxTeilnehmer { get; set; }
 
         public List<SelectListItem> Managers { get; set; } = new();
         public List<Durchgang> Durchgaenge { get; set; } = new();
@@ -209,6 +211,24 @@ namespace BBQHub.Pages.Admin.Events
 
             return RedirectToPage(new { id = Input.Id });
         }
+        public async Task<IActionResult> OnPostSpeichernMaxTeilnehmerAsync(int durchgangId, int? maxTeilnehmer)
+        {
+            var durchgang = await _context.Durchgaenge
+                .FirstOrDefaultAsync(d => d.Id == durchgangId);
 
+            if (durchgang == null)
+            {
+                TempData["Message"] = "⚠️ Durchgang nicht gefunden.";
+                return RedirectToPage();
+            }
+
+            // Speichern des MaxTeilnehmer-Werts
+            durchgang.MaxTeilnehmer = maxTeilnehmer;
+            _context.Update(durchgang);
+            await _context.SaveChangesAsync();
+
+            TempData["Message"] = "✅ Teilnehmerlimit gespeichert.";
+            return RedirectToPage();
+        }
     }
 }
